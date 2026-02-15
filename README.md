@@ -1,258 +1,164 @@
-# Triple T
+# Triple T Workspace
 
-Flutter application with **Riverpod** for state management and **GoRouter** for navigation, following **Clean Architecture** principles.
+Multi-package Flutter workspace managed with **Melos**, containing the Triple T application.
 
-## 🚀 Quick Start
+## 📦 Project Structure
+
+This project uses a **Melos workspace** architecture to manage multiple Flutter packages consistently.
+
+```
+triple_t/
+├── apps/
+│   └── triple_t/          # Main Flutter application
+└── pubspec.yaml           # Workspace configuration
+```
+
+## 🚀 Installation
+
+### Prerequisites
+
+- Flutter SDK 3.10.8
+- Dart SDK 3.10.8
+- Melos CLI installed globally
+
+### Install Melos
 
 ```bash
-# Install dependencies
+dart pub global activate melos
+```
+
+### Initialize the Workspace
+
+```bash
+# Bootstrap all workspace packages
+melos bootstrap
+
+# Or manually
 flutter pub get
+```
 
-# Run the application
+## 🔨 Available Melos Scripts
+
+### Code Generation
+
+```bash
+# Generate code for all packages
+melos run generate:all
+
+# Generate only models/providers
+melos run generate
+
+# Generate only localization files
+melos run generate:l10n
+```
+
+### Cleaning
+
+```bash
+# Deep clean all packages
+melos run clean:deep
+```
+
+This script performs:
+
+- `flutter clean` on all packages
+- Deletion of `.lock` files
+- Deletion of `pubspec_overrides.yaml`
+- Deletion of generated files (`*.freezed.dart`, `*.g.dart`, `*.mocks.dart`)
+
+## 🏗️ Architecture
+
+The project follows **Clean Architecture** principles with:
+
+- **Presentation Layer** - UI and state management with Riverpod
+- **Domain Layer** - Business logic and use cases
+- **Data Layer** - Data sources and repositories
+
+### Main Technologies
+
+- **Flutter** - UI Framework
+- **Riverpod** - State management and dependency injection
+- **GoRouter** - Navigation
+- **Melos** - Multi-package workspace management
+- **Sembast** - Local NoSQL database
+- **Freezed** - Immutable model generation
+- **Build Runner** - Code generation
+
+## 🛠️ Development
+
+### Launch the Application
+
+```bash
+# From the workspace root
+cd apps/triple_t
 flutter run
+
+# Or with Melos (if configured)
+melos exec --scope="triple_t" -- flutter run
 ```
 
-## 🔨 Code Generation
-
-This project uses **build_runner** for code generation (models, providers, serialization, etc.).
-
-### Generate Code
+### Code Generation in Development
 
 ```bash
-# Generate code files (recommended)
-dart run build_runner build --delete-conflicting-outputs
-```
-
-### Watch Mode (Development)
-
-```bash
-# Watch for changes and regenerate automatically
+# Watch mode for automatic generation
+cd apps/triple_t
 dart run build_runner watch --delete-conflicting-outputs
 ```
 
-### Clean Generated Files
+### List Packages
 
 ```bash
-# Remove all generated files
-dart run build_runner clean
+# Display all workspace packages
+melos list
+
+# Check for cyclic dependencies
+melos list --cycles
 ```
 
-### Flags Explanation
+## 📱 Triple T Application
 
-- `--delete-conflicting-outputs` - Automatically resolves conflicts by deleting old generated files
-- `watch` - Continuously monitors file changes and regenerates code
-- `build` - One-time code generation
+The main application is located in `apps/triple_t/`.
 
-> 💡 **Tip**: Run this command after pulling changes or modifying files that require code generation (models with `@freezed`, `json_serializable`, etc.)
+For more information about the application, see the [application README](apps/triple_t/README.md).
 
-## 📦 Technologies
+## 🔧 Melos Configuration
 
-- **Flutter** - UI Framework
-- **Riverpod** (v3.0.0) - Reactive state management with `hooks_riverpod`
-- **GoRouter** (v17.1.0) - Declarative navigation
-- **Flutter Hooks** (v0.21.3+1) - Hooks for Flutter
-- **Freezed** (v3.2.3) - Code generation for models
-- **JSON Serializable** (v6.0.0) - JSON serialization
-- **Sembast** (v3.8.6) - NoSQL database for local storage
-- **Confetti** (v0.7.0) - Confetti animation effects
+The workspace is configured with:
 
-## 🏗️ Clean Architecture
+- Sequential execution of `pub get` (`runPubGetInParallel: false`)
+- Root is not treated as a package (`useRootAsPackage: false`)
+- Post-bootstrap hook to check for cyclic dependencies
 
-This project follows **Clean Architecture** principles to ensure separation of concerns, testability, and maintainability.
+## 📝 Conventions
 
-### Architecture Layers
+### Adding a New Package
 
-```
-┌─────────────────────────────────────────┐
-│          PRESENTATION LAYER             │
-│  (UI, Widgets, Pages, Providers)        │
-│  - Depends on: Domain                   │
-└─────────────────────────────────────────┘
-                  ↓
-┌─────────────────────────────────────────┐
-│            DOMAIN LAYER                 │
-│  (Business Logic, Use Cases, Models)    │
-│  - Independent (No external deps)       │
-└─────────────────────────────────────────┘
-                  ↓
-┌─────────────────────────────────────────┐
-│             DATA LAYER                  │
-│  (Repositories, Data Sources, Entities) │
-│  - Depends on: Domain                   │
-└─────────────────────────────────────────┘
+1. Create the package in the appropriate folder (`apps/` or `packages/`)
+2. Add it to the `workspace` list in `pubspec.yaml`
+3. Run `melos bootstrap`
+
+### Dependencies Between Packages
+
+Use workspace dependencies in `pubspec.yaml`:
+
+```yaml
+dependencies:
+  other_package:
+    path: ../other_package
 ```
 
-### Layer Responsibilities
+## 🤝 Contributing
 
-#### 📱 Presentation Layer (`lib/presentation/`)
+1. Create a branch for your feature
+2. Generate code with `melos run generate:all`
+3. Test the changes
+4. Create a pull request
 
-- **Purpose**: UI components and user interactions
-- **Contains**:
-  - `pages/` - Screen widgets
-  - `router/` - Navigation configuration
-  - `providers/` - Riverpod state management
-- **Dependencies**: Domain layer only
-- **Rules**:
-  - Never imports from Data layer directly
-  - Uses providers to access use cases
-  - Handles UI state and user input
+## 📄 License
 
-#### 💼 Domain Layer (`lib/domain/`)
+This project is private and not published on pub.dev.
 
-- **Purpose**: Business logic and rules
-- **Contains**:
-  - `model/` - Business models (pure Dart classes)
-  - `use_case/` - Application business rules
-  - `mapper/` - Data transformation logic
-- **Dependencies**: None (pure Dart)
-- **Rules**:
-  - Framework independent
-  - No Flutter/external dependencies
-  - Contains abstract repository interfaces
-  - Defines contracts for data layer
+---
 
-#### 💾 Data Layer (`lib/data/`)
+**Note**: This workspace is designed to facilitate the development and maintenance of a modular and scalable Flutter application.
 
-- **Purpose**: Data access and external services
-- **Contains**:
-  - `repository/` - Repository implementations
-  - `entity/` - Data models (DTOs)
-  - `core/` - Data utilities and constants
-- **Dependencies**: Domain layer (implements interfaces)
-- **Rules**:
-  - Implements domain repository interfaces
-  - Handles API calls, database, cache
-  - Converts entities to domain models
-
-### Benefits
-
-✅ **Testability** - Easy to unit test each layer independently  
-✅ **Maintainability** - Clear separation of concerns  
-✅ **Scalability** - Easy to add new features without breaking existing code  
-✅ **Flexibility** - Easy to change data sources or UI framework  
-✅ **Reusability** - Domain logic can be shared across platforms
-
-## 📁 Project Structure
-
-```
-lib/
-├── main.dart                              # Entry point with initialization
-├── presentation/
-│   ├── pages/                             # Application screens
-│   └── router/
-│       └── router_provider.dart           # GoRouter configuration
-├── domain/
-│   ├── domain.dart                        # Domain initialization and exports
-│   ├── model/                             # Business models
-│   ├── use_case/                          # Use cases
-│   └── helper/                            # Domain helpers
-└── data/
-    ├── data.dart                          # Data initialization and exports
-    ├── entity/                            # Data entities (DTOs)
-    ├── repository/                        # Repository implementations
-    └── core/                              # Data utilities and constants
-```
-
-## 📚 Documentation
-
-- **[lib/presentation/router/README.md](lib/presentation/router/README.md)** - Router usage documentation (if available)
-
-## 🎯 Features
-
-- ✅ Declarative navigation with GoRouter
-- ✅ State management with Riverpod
-- ✅ Clean Architecture implementation
-- ✅ Clean and maintainable architecture
-- ✅ Provider examples (counter, authentication)
-- ✅ Pre-configured pages
-- ✅ Error handling (404)
-- ✅ Deep linking ready
-
-## 🔧 Configuration
-
-The project is pre-configured with:
-
-1. **ProviderScope** at the application root for Riverpod
-2. **MaterialApp.router** configured with GoRouter
-3. **Routes** defined in the router configuration
-4. **Native splash screen** with custom branding
-
-## 📖 Usage Examples
-
-### Navigation
-
-```dart
-// Push a route
-context.push
-('/profile
-'
-);
-
-// Go (replaces the route)
-context.go('/settings');
-
-// Go back
-context.pop
-(
-);
-```
-
-### State Management
-
-```dart
-class MyWidget extends HookConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Read state
-    final state = ref.watch(myProvider);
-
-    // Modify state
-    ref.read(myProvider.notifier).updateState(newValue);
-
-    return Text('$state');
-  }
-}
-```
-
-### Clean Architecture Flow Example
-
-```dart
-// 1. PRESENTATION: User taps button
-ElevatedButton
-(
-onPressed: () {
-// Call use case via provider
-ref.read(myUseCaseProvider).execute(parameters);
-},
-)
-
-// 2. DOMAIN: Use case executes business logic
-class MyUseCase {
-final MyRepository repository;
-
-Future<Result> execute(Parameters params) {
-// Business logic here
-return repository.doSomething(params);
-}
-}
-
-// 3. DATA: Repository fetches data
-class MyRepositoryImpl implements MyRepository {
-@override
-Future<Result> doSomething(Parameters params) {
-// API call, database query, etc.
-return dataSource.fetch(params);
-}
-}
-```
-
-## 🔗 Resources
-
-- [Flutter Documentation](https://docs.flutter.dev/)
-- [Riverpod Documentation](https://riverpod.dev)
-- [GoRouter Documentation](https://pub.dev/packages/go_router)
-- [Clean Architecture (Uncle Bob)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-
-## 📝 License
-
-This project is a Flutter starter template.
