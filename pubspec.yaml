@@ -31,7 +31,6 @@ melos:
     bootstrap:
       hooks:
         post: |
-
           flutter pub get
           melos list --cycles
 
@@ -59,7 +58,7 @@ melos:
     clean:deep:
       description: Clean all project
       run: |
-        melos exec --fail-fast -- "flutter clean" && find . -type f -name "*.lock" -delete && find . -type f -name "pubspec_overrides.yaml" -delete && find . -type f -name "*.freezed.dart" -delete && find . -type f -name "*.g.dart" -delete && find . -type f -name "*.mocks.dart" -delete
+        melos exec --fail-fast -- "flutter clean" && find . -type f -name "*.lock" -delete && find . -type f -name "*.freezed.dart" -delete && find . -type f -name "*.g.dart" -delete && find . -type f -name "*.mocks.dart" -delete
       concurrency: 1
 
     ############################################################################
