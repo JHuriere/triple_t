@@ -22,7 +22,7 @@ Settings _$SettingsFromJson(
 /// @nodoc
 mixin _$Settings {
 
-@JsonKey(name: 'id') String get id;@JsonKey(name: 'themeMode') String get themeMode;
+@JsonKey(name: 'id') String get id;@JsonKey(name: 'themeMode') String get themeMode;@JsonKey(name: 'locale') String get locale;
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -35,16 +35,16 @@ $SettingsCopyWith<Settings> get copyWith => _$SettingsCopyWithImpl<Settings>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Settings&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,themeMode);
+int get hashCode => Object.hash(runtimeType,id,themeMode,locale);
 
 @override
 String toString() {
-  return 'Settings(id: $id, themeMode: $themeMode)';
+  return 'Settings(id: $id, themeMode: $themeMode, locale: $locale)';
 }
 
 
@@ -55,7 +55,7 @@ abstract mixin class $SettingsCopyWith<$Res>  {
   factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) = _$SettingsCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: 'id') String id,@JsonKey(name: 'themeMode') String themeMode
+@JsonKey(name: 'id') String id,@JsonKey(name: 'themeMode') String themeMode,@JsonKey(name: 'locale') String locale
 });
 
 
@@ -72,10 +72,11 @@ class _$SettingsCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? themeMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? themeMode = null,Object? locale = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as String,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -161,10 +162,10 @@ return entity(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode)?  entity,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode, @JsonKey(name: 'locale')  String locale)?  entity,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SettingsEntity() when entity != null:
-return entity(_that.id,_that.themeMode);case _:
+return entity(_that.id,_that.themeMode,_that.locale);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return entity(_that.id,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode)  entity,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode, @JsonKey(name: 'locale')  String locale)  entity,}) {final _that = this;
 switch (_that) {
 case SettingsEntity():
-return entity(_that.id,_that.themeMode);case _:
+return entity(_that.id,_that.themeMode,_that.locale);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return entity(_that.id,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode)?  entity,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function(@JsonKey(name: 'id')  String id, @JsonKey(name: 'themeMode')  String themeMode, @JsonKey(name: 'locale')  String locale)?  entity,}) {final _that = this;
 switch (_that) {
 case SettingsEntity() when entity != null:
-return entity(_that.id,_that.themeMode);case _:
+return entity(_that.id,_that.themeMode,_that.locale);case _:
   return null;
 
 }
@@ -217,11 +218,12 @@ return entity(_that.id,_that.themeMode);case _:
 
 @JsonSerializable(explicitToJson: true)
 class SettingsEntity implements Settings {
-  const SettingsEntity({@JsonKey(name: 'id') this.id = '', @JsonKey(name: 'themeMode') this.themeMode = 'system'});
+  const SettingsEntity({@JsonKey(name: 'id') this.id = '', @JsonKey(name: 'themeMode') this.themeMode = 'system', @JsonKey(name: 'locale') this.locale = 'fr'});
   factory SettingsEntity.fromJson(Map<String, dynamic> json) => _$SettingsEntityFromJson(json);
 
 @override@JsonKey(name: 'id') final  String id;
 @override@JsonKey(name: 'themeMode') final  String themeMode;
+@override@JsonKey(name: 'locale') final  String locale;
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
@@ -236,16 +238,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsEntity&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,themeMode);
+int get hashCode => Object.hash(runtimeType,id,themeMode,locale);
 
 @override
 String toString() {
-  return 'Settings.entity(id: $id, themeMode: $themeMode)';
+  return 'Settings.entity(id: $id, themeMode: $themeMode, locale: $locale)';
 }
 
 
@@ -256,7 +258,7 @@ abstract mixin class $SettingsEntityCopyWith<$Res> implements $SettingsCopyWith<
   factory $SettingsEntityCopyWith(SettingsEntity value, $Res Function(SettingsEntity) _then) = _$SettingsEntityCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: 'id') String id,@JsonKey(name: 'themeMode') String themeMode
+@JsonKey(name: 'id') String id,@JsonKey(name: 'themeMode') String themeMode,@JsonKey(name: 'locale') String locale
 });
 
 
@@ -273,10 +275,11 @@ class _$SettingsEntityCopyWithImpl<$Res>
 
 /// Create a copy of Settings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? themeMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? themeMode = null,Object? locale = null,}) {
   return _then(SettingsEntity(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
+as String,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

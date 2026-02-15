@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triple_t/domain/model/statistics/statistics_model.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class OpponentStatistics extends StatelessWidget {
   final String opponentName;
@@ -31,7 +32,7 @@ class OpponentStatistics extends StatelessWidget {
             opponentName,
             style: const TextStyle(fontWeight: .bold),
           ),
-          subtitle: Text('$totalGames games • $winRate% win rate'),
+          subtitle: Text('$totalGames ${context.l10n.games} • $winRate${context.l10n.winRatePercent}'),
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -39,17 +40,17 @@ class OpponentStatistics extends StatelessWidget {
                 mainAxisAlignment: .spaceAround,
                 children: [
                   SmallStatCard(
-                    label: 'Wins',
+                    label: context.l10n.wins,
                     value: stats.wins.toString(),
                     color: Colors.green,
                   ),
                   SmallStatCard(
-                    label: 'Losses',
+                    label: context.l10n.losses,
                     value: stats.losses.toString(),
                     color: Colors.red,
                   ),
                   SmallStatCard(
-                    label: 'Draws',
+                    label: context.l10n.draws,
                     value: stats.draws.toString(),
                     color: Colors.orange,
                   ),

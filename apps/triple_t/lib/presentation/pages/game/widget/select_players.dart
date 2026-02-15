@@ -7,6 +7,7 @@ import 'package:triple_t/domain/use_case/current_game/get_current_game_use_case.
 import 'package:triple_t/domain/use_case/current_game/update_current_game_player_use_case.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/presentation/pages/game/widget/drowpdown_player.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class SelectPlayers extends HookConsumerWidget {
   const SelectPlayers({super.key});
@@ -22,7 +23,7 @@ class SelectPlayers extends HookConsumerWidget {
           children: [
             Expanded(
               child: DropdownPlayer(
-                label: 'Player 1',
+                label: context.l10n.player1,
                 users: users,
                 value: currentGame.playerOne.id == 0 ? null : currentGame.playerOne.id,
                 excludedUserIds: [1, currentGame.playerTwo.id],
@@ -33,7 +34,7 @@ class SelectPlayers extends HookConsumerWidget {
             const SizedBox(width: 20),
             Expanded(
               child: DropdownPlayer(
-                label: 'Player 2',
+                label: context.l10n.player2,
                 users: users,
                 value: currentGame.playerTwo.id == 0 ? null : currentGame.playerTwo.id,
                 excludedUserIds: [currentGame.playerOne.id],

@@ -1,6 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class WinnerOverlay extends HookWidget {
   final String winner;
@@ -45,14 +46,14 @@ class WinnerOverlay extends HookWidget {
               child: Column(
                 mainAxisSize: .min,
                 children: [
-                  const Text(
-                    '🎉 Victory! 🎉',
-                    style: TextStyle(fontSize: 36, fontWeight: .bold, color: Colors.green),
+                  Text(
+                    context.l10n.victory,
+                    style: const TextStyle(fontSize: 36, fontWeight: .bold, color: Colors.green),
                   ),
                   const SizedBox(height: 16),
 
                   Text(
-                    'Player $winner won!',
+                    context.l10n.playerWon(winner),
                     style: const TextStyle(fontSize: 28, fontWeight: .w600, color: Colors.black87),
                     textAlign: .center,
                   ),
@@ -64,9 +65,9 @@ class WinnerOverlay extends HookWidget {
                       backgroundColor: Colors.green,
                       padding: const .symmetric(horizontal: 40, vertical: 12),
                     ),
-                    child: const Text(
-                      'Play Again',
-                      style: TextStyle(fontSize: 16, fontWeight: .bold, color: Colors.white),
+                    child: Text(
+                      context.l10n.playAgain,
+                      style: const TextStyle(fontSize: 16, fontWeight: .bold, color: Colors.white),
                     ),
                   ),
                 ],

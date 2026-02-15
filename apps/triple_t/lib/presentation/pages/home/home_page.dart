@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -29,25 +30,25 @@ class HomePage extends HookConsumerWidget {
                 ElevatedButton.icon(
                   onPressed: () => context.pushNamed('game'),
                   icon: const Icon(Icons.games),
-                  label: const Text('Start game'),
+                  label: Text(context.l10n.startGame),
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
                   onPressed: () => context.pushNamed('user-list'),
                   icon: const Icon(Icons.person),
-                  label: const Text('User list'),
+                  label: Text(context.l10n.usersList),
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
                   onPressed: () => context.pushNamed('global-statistics'),
                   icon: const Icon(Icons.leaderboard),
-                  label: const Text('Statistics'),
+                  label: Text(context.l10n.statistics),
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
                   onPressed: () => context.pushNamed('settings'),
                   icon: const Icon(Icons.settings),
-                  label: const Text('Parameters'),
+                  label: Text(context.l10n.parameters),
                 ),
                 const SizedBox(height: 20),
               ],

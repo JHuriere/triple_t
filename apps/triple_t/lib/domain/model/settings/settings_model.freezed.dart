@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SettingsModel {
 
- String get id; ThemeMode get themeMode;
+ String get id; ThemeMode get themeMode; String get locale;
 /// Create a copy of SettingsModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SettingsModelCopyWith<SettingsModel> get copyWith => _$SettingsModelCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SettingsModel&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,themeMode);
+int get hashCode => Object.hash(runtimeType,id,themeMode,locale);
 
 @override
 String toString() {
-  return 'SettingsModel(id: $id, themeMode: $themeMode)';
+  return 'SettingsModel(id: $id, themeMode: $themeMode, locale: $locale)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SettingsModelCopyWith<$Res>  {
   factory $SettingsModelCopyWith(SettingsModel value, $Res Function(SettingsModel) _then) = _$SettingsModelCopyWithImpl;
 @useResult
 $Res call({
- String id, ThemeMode themeMode
+ String id, ThemeMode themeMode, String locale
 });
 
 
@@ -62,11 +62,12 @@ class _$SettingsModelCopyWithImpl<$Res>
 
 /// Create a copy of SettingsModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? themeMode = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? themeMode = null,Object? locale = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,
+as ThemeMode,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -151,10 +152,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  ThemeMode themeMode)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  ThemeMode themeMode,  String locale)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Data() when $default != null:
-return $default(_that.id,_that.themeMode);case _:
+return $default(_that.id,_that.themeMode,_that.locale);case _:
   return orElse();
 
 }
@@ -172,10 +173,10 @@ return $default(_that.id,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  ThemeMode themeMode)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  ThemeMode themeMode,  String locale)  $default,) {final _that = this;
 switch (_that) {
 case _Data():
-return $default(_that.id,_that.themeMode);case _:
+return $default(_that.id,_that.themeMode,_that.locale);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +193,10 @@ return $default(_that.id,_that.themeMode);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  ThemeMode themeMode)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  ThemeMode themeMode,  String locale)?  $default,) {final _that = this;
 switch (_that) {
 case _Data() when $default != null:
-return $default(_that.id,_that.themeMode);case _:
+return $default(_that.id,_that.themeMode,_that.locale);case _:
   return null;
 
 }
@@ -207,11 +208,12 @@ return $default(_that.id,_that.themeMode);case _:
 
 
 class _Data extends SettingsModel {
-  const _Data({this.id = '', this.themeMode = ThemeMode.system}): super._();
+  const _Data({this.id = '', this.themeMode = ThemeMode.system, this.locale = 'fr'}): super._();
   
 
 @override@JsonKey() final  String id;
 @override@JsonKey() final  ThemeMode themeMode;
+@override@JsonKey() final  String locale;
 
 /// Create a copy of SettingsModel
 /// with the given fields replaced by the non-null parameter values.
@@ -223,16 +225,16 @@ _$DataCopyWith<_Data> get copyWith => __$DataCopyWithImpl<_Data>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Data&&(identical(other.id, id) || other.id == id)&&(identical(other.themeMode, themeMode) || other.themeMode == themeMode)&&(identical(other.locale, locale) || other.locale == locale));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,themeMode);
+int get hashCode => Object.hash(runtimeType,id,themeMode,locale);
 
 @override
 String toString() {
-  return 'SettingsModel(id: $id, themeMode: $themeMode)';
+  return 'SettingsModel(id: $id, themeMode: $themeMode, locale: $locale)';
 }
 
 
@@ -243,7 +245,7 @@ abstract mixin class _$DataCopyWith<$Res> implements $SettingsModelCopyWith<$Res
   factory _$DataCopyWith(_Data value, $Res Function(_Data) _then) = __$DataCopyWithImpl;
 @override @useResult
 $Res call({
- String id, ThemeMode themeMode
+ String id, ThemeMode themeMode, String locale
 });
 
 
@@ -260,11 +262,12 @@ class __$DataCopyWithImpl<$Res>
 
 /// Create a copy of SettingsModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? themeMode = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? themeMode = null,Object? locale = null,}) {
   return _then(_Data(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,themeMode: null == themeMode ? _self.themeMode : themeMode // ignore: cast_nullable_to_non_nullable
-as ThemeMode,
+as ThemeMode,locale: null == locale ? _self.locale : locale // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

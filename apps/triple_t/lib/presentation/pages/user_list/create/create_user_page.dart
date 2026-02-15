@@ -7,6 +7,7 @@ import 'package:triple_t/domain/model/user/user_model.dart';
 import 'package:triple_t/domain/use_case/user/create_user_use_case.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/widget/select_emoticon.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class CreateUserPage extends HookConsumerWidget {
   const CreateUserPage({super.key});
@@ -14,13 +15,12 @@ class CreateUserPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
-
     final nameController = TextEditingController();
     final emoticonSelected = useState<String?>(null);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create user'),
+        title: Text(context.l10n.createUser),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.pop(),
@@ -38,11 +38,11 @@ class CreateUserPage extends HookConsumerWidget {
                 autofocus: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
+                    return context.l10n.pleaseEnterName;
                   }
                   return null;
                 },
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: InputDecoration(labelText: context.l10n.name),
               ),
               const SizedBox(height: 16),
 
@@ -53,7 +53,7 @@ class CreateUserPage extends HookConsumerWidget {
               const SizedBox(height: 20),
 
               ElevatedButton(
-                child: const Text('Create'),
+                child: Text(context.l10n.create),
                 onPressed: () async => (formKey.currentState?.validate() ?? false) && emoticonSelected.value != null ? await _onAddUser(nameController, ref, context) : null,
               ),
             ],
@@ -70,7 +70,7 @@ class CreateUserPage extends HookConsumerWidget {
     if (!isCreated) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Name already exists, please choose another one')),
+          SnackBar(content: Text(context.l10n.nameAlreadyExists)),
         );
       }
     } else {
@@ -78,7 +78,7 @@ class CreateUserPage extends HookConsumerWidget {
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User created successfully')),
+          SnackBar(content: Text(context.l10n.userCreatedSuccessfully)),
         );
         context.pop();
       }

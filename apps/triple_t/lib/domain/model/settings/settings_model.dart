@@ -11,6 +11,7 @@ abstract class SettingsModel with _$SettingsModel {
   const factory SettingsModel({
     @Default('') String id,
     @Default(ThemeMode.system) ThemeMode themeMode,
+    @Default('fr') String locale,
   }) = _Data;
 
   factory SettingsModel.fromEntity({
@@ -18,10 +19,12 @@ abstract class SettingsModel with _$SettingsModel {
   }) => SettingsModel(
     id: entity.id,
     themeMode: ThemeMode.values.firstWhere((element) => element.name == entity.themeMode, orElse: () => ThemeMode.system),
+    locale: entity.locale,
   );
 
   SettingsEntity toEntity() => SettingsEntity(
     id: id,
     themeMode: themeMode.name,
+    locale: locale,
   );
 }

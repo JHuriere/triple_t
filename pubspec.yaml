@@ -21,6 +21,7 @@ flutter:
 
 workspace:
   - apps/triple_t
+  - packages/triple_t_i18n
 
 melos:
   runPubGetInParallel: false
@@ -53,7 +54,7 @@ melos:
 
     generate:l10n:
       description: Generate localization files
-      run: melos exec --scope="internationalization" -- "flutter gen-l10n"
+      run: melos exec --scope="triple_t_i18n" -- "flutter gen-l10n"
 
     clean:deep:
       description: Clean all project

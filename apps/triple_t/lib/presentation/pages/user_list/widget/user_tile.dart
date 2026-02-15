@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:triple_t/domain/model/user/user_model.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile({
@@ -24,18 +25,18 @@ class UserTile extends StatelessWidget {
         ),
       ),
       title: Text(user.name),
-      subtitle: Text('ID: ${user.id}'),
+      subtitle: Text(context.l10n.userId(user.id)),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
             icon: const Icon(Icons.bar_chart),
-            tooltip: 'Statistics',
+            tooltip: context.l10n.statistics,
             onPressed: () => _goToStatistics(context),
           ),
           IconButton(
             icon: const Icon(Icons.edit),
-            tooltip: 'Edit user',
+            tooltip: context.l10n.editUser,
             onPressed: () => _goToUpdateUser(context),
           ),
         ],

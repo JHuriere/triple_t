@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:triple_t/domain/model/user/user_model.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class GlobalStatisticsPage extends HookConsumerWidget {
   const GlobalStatisticsPage({
@@ -47,23 +48,23 @@ class GlobalStatisticsPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Global Statistics'),
+        title: Text(context.l10n.globalStatistics),
       ),
       body: userStats.isEmpty || userStats.every((stat) => stat['totalGames'] == 0)
-          ? const Center(
+          ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.leaderboard, size: 64, color: Colors.grey),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
-                    'No statistics available yet',
-                    style: TextStyle(fontSize: 18, color: Colors.grey),
+                    context.l10n.noStatisticsAvailable,
+                    style: const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
-                    'Play some games to see the leaderboard!',
-                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                    context.l10n.playSomeGamesSeeLeaderboard,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
               ),
@@ -103,7 +104,7 @@ class GlobalStatisticsPage extends HookConsumerWidget {
             const Icon(Icons.emoji_events, size: 32),
             const SizedBox(width: 16),
             Text(
-              'Leaderboard',
+              context.l10n.leaderboard,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -198,7 +199,10 @@ class GlobalStatisticsPage extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '$totalGames games • ${winRate.toStringAsFixed(1)}% win rate',
+                      context.l10n.gamesWinRate(
+                        totalGames,
+                        double.parse(winRate.toStringAsFixed(1)),
+                      ),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Colors.grey,
                       ),

@@ -11,6 +11,7 @@ import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/domain/use_case/user/get_user_by_id_use_case.dart';
 import 'package:triple_t/domain/use_case/user/update_user_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/widget/select_emoticon.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class UpdateUserPage extends HookConsumerWidget {
   final int userId;
@@ -31,19 +32,19 @@ class UpdateUserPage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update user'),
+        title: Text(context.l10n.updateUser),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: user == null
-            ? Text('User not found')
+            ? Text(context.l10n.userNotFound)
             : Column(
                 crossAxisAlignment: .stretch,
                 children: [
                   TextField(
                     controller: nameController,
                     autofocus: true,
-                    decoration: const InputDecoration(labelText: 'Name'),
+                    decoration: InputDecoration(labelText: context.l10n.name),
                   ),
                   const SizedBox(height: 16),
 
@@ -55,14 +56,14 @@ class UpdateUserPage extends HookConsumerWidget {
 
                   ElevatedButton(
                     onPressed: () => _updateUser(context, ref, user, nameController.text, emoticonSelected.value),
-                    child: const Text('Update'),
+                    child: Text(context.l10n.update),
                   ),
                   if (UserHelper.canRemoveUser(user.id)) ...[
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () => _deleteUser(context, ref, user.id),
                       style: ButtonStyle(backgroundColor: .all(Colors.redAccent)),
-                      child: const Text('Delete', style: TextStyle(color: Colors.white)),
+                      child: Text(context.l10n.delete, style: const TextStyle(color: Colors.white)),
                     ),
                   ],
                   const SizedBox(height: 20),
@@ -80,10 +81,10 @@ class UpdateUserPage extends HookConsumerWidget {
     if (!context.mounted) return;
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('User updated successfully')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userUpdatedSuccessfully)));
       Navigator.pop(context);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Name already exists')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.nameAlreadyExists)));
     }
   }
 
@@ -91,11 +92,11 @@ class UpdateUserPage extends HookConsumerWidget {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Confirm deletion'),
-        content: const Text('Are you sure you want to delete this user?'),
+        title: Text(context.l10n.confirmDeletion),
+        content: Text(context.l10n.areYouSureDeleteUser),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
-          TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Ok')),
+          TextButton(onPressed: () => Navigator.pop(context, false), child: Text(context.l10n.cancel)),
+          TextButton(onPressed: () => Navigator.pop(context, true), child: Text(context.l10n.ok)),
         ],
       ),
     );
@@ -107,7 +108,7 @@ class UpdateUserPage extends HookConsumerWidget {
 
     if (!context.mounted) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('User deleted successfully')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userDeletedSuccessfully)));
     context.pop();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triple_t/domain/model/current_game/current_game_model.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class GameStatistics extends StatelessWidget {
   final CurrentGameModel currentGame;
@@ -28,7 +29,7 @@ class GameStatistics extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: _StatCard(
-            label: 'Draws',
+            label: context.l10n.draws,
             value: currentGame.draws,
             color: colorScheme.tertiary,
             emoticon: '🤝',

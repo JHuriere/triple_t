@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class NoStatistics extends StatelessWidget {
   const NoStatistics({
@@ -7,22 +8,22 @@ class NoStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: .center,
         children: [
-          Icon(Icons.bar_chart, size: 64, color: Colors.grey),
-          SizedBox(height: 16),
+          const Icon(Icons.bar_chart, size: 64, color: Colors.grey),
+          const SizedBox(height: 16),
 
           Text(
-            'No statistics available yet',
-            style: TextStyle(fontSize: 18, color: Colors.grey),
+            context.l10n.noStatisticsAvailable,
+            style: const TextStyle(fontSize: 18, color: Colors.grey),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
 
           Text(
-            'Play some games to see statistics!',
-            style: TextStyle(fontSize: 14, color: Colors.grey),
+            context.l10n.playSomeGamesSeeStatistics,
+            style: const TextStyle(fontSize: 14, color: Colors.grey),
           ),
         ],
       ),

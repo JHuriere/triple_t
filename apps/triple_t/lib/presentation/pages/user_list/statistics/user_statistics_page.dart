@@ -7,6 +7,7 @@ import 'package:triple_t/domain/use_case/user/get_user_by_id_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/no_statistics.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/opponent_statistics.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/overall_statistics.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class UserStatisticsPage extends HookConsumerWidget {
   final int userId;
@@ -23,17 +24,17 @@ class UserStatisticsPage extends HookConsumerWidget {
 
     if (user == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Statistics')),
-        body: const Center(child: Text('User not found')),
+        appBar: AppBar(title: Text(context.l10n.statistics)),
+        body: Center(child: Text(context.l10n.userNotFound)),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${user.emoticon} ${user.name} - Statistics'),
+        title: Text('${user.emoticon} ${user.name} - ${context.l10n.statistics}'),
       ),
       body: user.statistics == null || user.statistics!.isEmpty
-          ? NoStatistics()
+          ? const NoStatistics()
           : ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
@@ -44,7 +45,7 @@ class UserStatisticsPage extends HookConsumerWidget {
                 const SizedBox(height: 16),
 
                 Text(
-                  'Statistics by opponent',
+                  context.l10n.statisticsByOpponent,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),

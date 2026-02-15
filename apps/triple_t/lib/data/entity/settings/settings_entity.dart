@@ -9,6 +9,7 @@ abstract class Settings with _$Settings {
   const factory Settings.entity({
     @JsonKey(name: 'id') @Default('') String id,
     @JsonKey(name: 'themeMode') @Default('system') String themeMode,
+    @JsonKey(name: 'locale') @Default('fr') String locale,
   }) = SettingsEntity;
 
   factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);

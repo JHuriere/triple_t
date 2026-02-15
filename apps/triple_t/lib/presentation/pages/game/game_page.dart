@@ -15,6 +15,7 @@ import 'package:triple_t/presentation/pages/game/widget/game_grid.dart';
 import 'package:triple_t/presentation/pages/game/widget/game_statistics.dart';
 import 'package:triple_t/presentation/pages/game/widget/select_players.dart';
 import 'package:triple_t/presentation/pages/game/widget/winner_overlay.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 typedef ResultState = ({ResultType type, String? winner});
 
@@ -61,7 +62,7 @@ class GamePage extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tic Tac Toe'),
+        title: Text(context.l10n.ticTacToe),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -77,13 +78,13 @@ class GamePage extends HookConsumerWidget {
               children: [
                 const SizedBox(height: 10),
                 SelectPlayers(),
+
                 const SizedBox(height: 10),
-
                 GameStatistics(currentGame: currentGame),
-                const SizedBox(height: 20),
 
+                const SizedBox(height: 20),
                 Text(
-                  currentGame.oTurn ? '${currentGame.playerOne.name} \'s turn' : '${currentGame.playerTwo.name} \'s turn',
+                  context.l10n.turn(currentGame.oTurn ? currentGame.playerOne.name : currentGame.playerTwo.name),
                   textAlign: .center,
                 ),
                 const SizedBox(height: 20),

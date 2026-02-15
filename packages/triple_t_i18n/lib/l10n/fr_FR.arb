@@ -1,0 +1,275 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Triple T",
+  "@appTitle": {
+    "description": "Titre de l'application"
+  },
+  "usersList": "Liste des utilisateurs",
+  "@usersList": {
+    "description": "Titre de la page de liste des utilisateurs"
+  },
+  "noUserFound": "Aucun utilisateur trouvé",
+  "@noUserFound": {
+    "description": "Message quand aucun utilisateur n'est trouvé"
+  },
+  "createUser": "Créer un utilisateur",
+  "@createUser": {
+    "description": "Titre de la page de création d'utilisateur"
+  },
+  "pleaseEnterName": "Veuillez entrer un nom",
+  "@pleaseEnterName": {
+    "description": "Erreur de validation pour un nom vide"
+  },
+  "name": "Nom",
+  "@name": {
+    "description": "Étiquette du champ nom"
+  },
+  "create": "Créer",
+  "@create": {
+    "description": "Texte du bouton créer"
+  },
+  "nameAlreadyExists": "Ce nom existe déjà, veuillez en choisir un autre",
+  "@nameAlreadyExists": {
+    "description": "Message d'erreur quand le nom existe déjà"
+  },
+  "userCreatedSuccessfully": "Utilisateur créé avec succès",
+  "@userCreatedSuccessfully": {
+    "description": "Message de succès quand l'utilisateur est créé"
+  },
+  "updateUser": "Mettre à jour l'utilisateur",
+  "@updateUser": {
+    "description": "Titre de la page de mise à jour d'utilisateur"
+  },
+  "update": "Mettre à jour",
+  "@update": {
+    "description": "Texte du bouton mettre à jour"
+  },
+  "delete": "Supprimer",
+  "@delete": {
+    "description": "Texte du bouton supprimer"
+  },
+  "userUpdatedSuccessfully": "Utilisateur mis à jour avec succès",
+  "@userUpdatedSuccessfully": {
+    "description": "Message de succès quand l'utilisateur est mis à jour"
+  },
+  "userDeletedSuccessfully": "Utilisateur supprimé avec succès",
+  "@userDeletedSuccessfully": {
+    "description": "Message de succès quand l'utilisateur est supprimé"
+  },
+  "confirmDeletion": "Confirmer la suppression",
+  "@confirmDeletion": {
+    "description": "Titre de la boîte de dialogue de suppression"
+  },
+  "areYouSureDeleteUser": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
+  "@areYouSureDeleteUser": {
+    "description": "Message de la boîte de dialogue de suppression"
+  },
+  "cancel": "Annuler",
+  "@cancel": {
+    "description": "Texte du bouton annuler"
+  },
+  "ok": "Ok",
+  "@ok": {
+    "description": "Texte du bouton ok"
+  },
+  "statistics": "Statistiques",
+  "@statistics": {
+    "description": "Titre de la page statistiques"
+  },
+  "userNotFound": "Utilisateur non trouvé",
+  "@userNotFound": {
+    "description": "Message d'erreur quand l'utilisateur n'est pas trouvé"
+  },
+  "noStatisticsAvailable": "Pas de statistiques disponibles pour le moment",
+  "@noStatisticsAvailable": {
+    "description": "Message quand aucune statistique n'est disponible"
+  },
+  "playSomeGamesSeeStatistics": "Jouez des parties pour voir les statistiques !",
+  "@playSomeGamesSeeStatistics": {
+    "description": "Message pour encourager à jouer des parties"
+  },
+  "overallStatistics": "Statistiques globales",
+  "@overallStatistics": {
+    "description": "Titre de la section des statistiques globales"
+  },
+  "totalGames": "Total des parties",
+  "@totalGames": {
+    "description": "Étiquette de la statistique du nombre de parties"
+  },
+  "winRate": "Taux de victoire",
+  "@winRate": {
+    "description": "Étiquette de la statistique du taux de victoire"
+  },
+  "wins": "Victoires",
+  "@wins": {
+    "description": "Étiquette de la statistique des victoires"
+  },
+  "losses": "Défaites",
+  "@losses": {
+    "description": "Étiquette de la statistique des défaites"
+  },
+  "draws": "Égalités",
+  "@draws": {
+    "description": "Étiquette de la statistique des égalités"
+  },
+  "statisticsByOpponent": "Statistiques par adversaire",
+  "@statisticsByOpponent": {
+    "description": "Titre de la section statistiques par adversaire"
+  },
+  "games": "parties",
+  "@games": {
+    "description": "Unité de parties dans les statistiques"
+  },
+  "winRatePercent": "% de taux de victoire",
+  "@winRatePercent": {
+    "description": "Pourcentage de taux de victoire dans les statistiques"
+  },
+  "ticTacToe": "Morpion",
+  "@ticTacToe": {
+    "description": "Titre de la page morpion"
+  },
+  "turn": "au tour de {name}",
+  "@turn": {
+    "description": "Suffixe de l'indicateur de tour",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Jean"
+      }
+    }
+  },
+  "victory": "🎉 Victoire ! 🎉",
+  "@victory": {
+    "description": "Titre de l'écran de victoire"
+  },
+  "playerWon": "Le joueur {name} a gagné !",
+  "@playerWon": {
+    "description": "Message d'annonce du gagnant",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Jean"
+      }
+    }
+  },
+  "playAgain": "Rejouer",
+  "@playAgain": {
+    "description": "Texte du bouton rejouer"
+  },
+  "draw": "🤝 Égalité ! 🤝",
+  "@draw": {
+    "description": "Titre de l'écran d'égalité"
+  },
+  "gameEndedInDraw": "La partie s'est terminée par une égalité.",
+  "@gameEndedInDraw": {
+    "description": "Message d'égalité"
+  },
+  "player1": "Joueur 1",
+  "@player1": {
+    "description": "Étiquette du menu déroulant du joueur 1"
+  },
+  "player2": "Joueur 2",
+  "@player2": {
+    "description": "Étiquette du menu déroulant du joueur 2"
+  },
+  "error": "Erreur",
+  "@error": {
+    "description": "Titre de la page d'erreur"
+  },
+  "pageNotFound": "Page non trouvée",
+  "@pageNotFound": {
+    "description": "Message de la page d'erreur"
+  },
+  "homePage": "Page d'accueil",
+  "@homePage": {
+    "description": "Texte du bouton page d'accueil"
+  },
+  "editUser": "Modifier l'utilisateur",
+  "@editUser": {
+    "description": "Infobulle pour le bouton modifier l'utilisateur"
+  },
+  "settings": "Paramètres",
+  "@settings": {
+    "description": "Titre / menu des paramètres"
+  },
+  "language": "Langue",
+  "@language": {
+    "description": "Étiquette pour le paramètre de langue"
+  },
+  "theme": "Thème",
+  "@theme": {
+    "description": "Étiquette pour le paramètre de thème"
+  },
+  "selectATheme": "Choisir un thème",
+  "@selectATheme": {
+    "description": "Titre affiché lors de la sélection d'un thème"
+  },
+  "light": "Clair",
+  "@light": {
+    "description": "Libellé thème clair"
+  },
+  "dark": "Sombre",
+  "@dark": {
+    "description": "Libellé thème sombre"
+  },
+  "system": "Système",
+  "@system": {
+    "description": "Libellé thème système"
+  },
+  "english": "Anglais",
+  "@english": {
+    "description": "Libellé langue anglais"
+  },
+  "french": "Français",
+  "@french": {
+    "description": "Libellé langue français"
+  },
+  "chooseLanguage": "Choisir la langue",
+  "@chooseLanguage": {
+    "description": "Titre affiché lors du choix de la langue"
+  },
+  "startGame": "Démarrer la partie",
+  "@startGame": {
+    "description": "Bouton pour démarrer une partie depuis la page d'accueil"
+  },
+  "parameters": "Paramètres",
+  "@parameters": {
+    "description": "Libellé alternatif pour les paramètres depuis la page d'accueil"
+  },
+  "globalStatistics": "Statistiques globales",
+  "@globalStatistics": {
+    "description": "Titre de la page des statistiques globales"
+  },
+  "leaderboard": "Classement",
+  "@leaderboard": {
+    "description": "Titre de l'en-tête du classement"
+  },
+  "playSomeGamesSeeLeaderboard": "Jouez des parties pour voir le classement !",
+  "@playSomeGamesSeeLeaderboard": {
+    "description": "Encourager à jouer pour remplir le classement"
+  },
+  "userId": "ID : {id}",
+  "@userId": {
+    "description": "Étiquette d'identifiant dans la liste d'utilisateurs",
+    "placeholders": {
+      "id": {
+        "type": "int",
+        "example": "42"
+      }
+    }
+  },
+  "gamesWinRate": "{totalGames} parties • {winRate}% de taux de victoire",
+  "@gamesWinRate": {
+    "description": "Template affichant le nombre de parties et le taux de victoire",
+    "placeholders": {
+      "totalGames": {
+        "type": "int",
+        "example": "10"
+      },
+      "winRate": {
+        "type": "double",
+        "example": "42.5"
+      }
+    }
+  }
+}

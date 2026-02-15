@@ -10,7 +10,12 @@ SettingsEntity _$SettingsEntityFromJson(Map<String, dynamic> json) =>
     SettingsEntity(
       id: json['id'] as String? ?? '',
       themeMode: json['themeMode'] as String? ?? 'system',
+      locale: json['locale'] as String? ?? 'fr',
     );
 
 Map<String, dynamic> _$SettingsEntityToJson(SettingsEntity instance) =>
-    <String, dynamic>{'id': instance.id, 'themeMode': instance.themeMode};
+    <String, dynamic>{
+      'id': instance.id,
+      'themeMode': instance.themeMode,
+      'locale': instance.locale,
+    };

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triple_t/domain/model/statistics/statistics_model.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class OverallStatistics extends StatelessWidget {
   final Map<int, StatisticsModel> statistics;
@@ -32,7 +33,7 @@ class OverallStatistics extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Overall Statistics',
+              context.l10n.overallStatistics,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -43,13 +44,13 @@ class OverallStatistics extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _StatCard(
-                  label: 'Total Games',
+                  label: context.l10n.totalGames,
                   value: totalGames.toString(),
                   icon: Icons.sports_esports,
                   color: Colors.blue,
                 ),
                 _StatCard(
-                  label: 'Win Rate',
+                  label: context.l10n.winRate,
                   value: '$winRate%',
                   icon: Icons.emoji_events,
                   color: Colors.amber,
@@ -62,19 +63,19 @@ class OverallStatistics extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _StatCard(
-                  label: 'Wins',
+                  label: context.l10n.wins,
                   value: totalWins.toString(),
                   icon: Icons.check_circle,
                   color: Colors.green,
                 ),
                 _StatCard(
-                  label: 'Losses',
+                  label: context.l10n.losses,
                   value: totalLosses.toString(),
                   icon: Icons.cancel,
                   color: Colors.red,
                 ),
                 _StatCard(
-                  label: 'Draws',
+                  label: context.l10n.draws,
                   value: totalDraws.toString(),
                   icon: Icons.remove_circle,
                   color: Colors.orange,
@@ -103,23 +104,26 @@ class _StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       children: [
-        Icon(icon, color: color, size: 32),
+        Icon(icon, size: 32, color: color),
         const SizedBox(height: 8),
-
         Text(
           value,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            fontWeight: .bold,
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
             color: color,
           ),
         ),
+        const SizedBox(height: 4),
         Text(
           label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+          style: theme.textTheme.bodySmall?.copyWith(
             color: Colors.grey,
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );

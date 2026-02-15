@@ -61,7 +61,7 @@ final class UpdateUserStatisticsUseCaseProvider
 }
 
 String _$updateUserStatisticsUseCaseHash() =>
-    r'8176856cb55b705dedc78d1057a82e406135ec6b';
+    r'1261ccfefba83b340b78dae7d2b6f79fa0a5aa86';
 
 final class UpdateUserStatisticsUseCaseFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<void>, int> {

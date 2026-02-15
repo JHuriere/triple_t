@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:triple_t_i18n/i18n.dart';
 
 class DrawOverlay extends StatelessWidget {
   final VoidCallback onDismiss;
@@ -22,15 +23,15 @@ class DrawOverlay extends StatelessWidget {
           child: Column(
             mainAxisSize: .min,
             children: [
-              const Text(
-                '🤝 Draw! 🤝',
-                style: TextStyle(fontSize: 36, fontWeight: .bold, color: Colors.blue),
+              Text(
+                context.l10n.draw,
+                style: const TextStyle(fontSize: 36, fontWeight: .bold, color: Colors.blue),
               ),
               const SizedBox(height: 16),
 
-              const Text(
-                'The game ended in a draw.',
-                style: TextStyle(fontSize: 20, fontWeight: .w600, color: Colors.black87),
+              Text(
+                context.l10n.gameEndedInDraw,
+                style: const TextStyle(fontSize: 20, fontWeight: .w600, color: Colors.black87),
                 textAlign: .center,
               ),
               const SizedBox(height: 32),
@@ -41,9 +42,9 @@ class DrawOverlay extends StatelessWidget {
                   backgroundColor: Colors.blue,
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                 ),
-                child: const Text(
-                  'Play Again',
-                  style: TextStyle(fontSize: 16, fontWeight: .bold, color: Colors.white),
+                child: Text(
+                  context.l10n.playAgain,
+                  style: const TextStyle(fontSize: 16, fontWeight: .bold, color: Colors.white),
                 ),
               ),
             ],
