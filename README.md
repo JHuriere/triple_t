@@ -1,164 +1,91 @@
 # Triple T Workspace
 
-Multi-package Flutter workspace managed with **Melos**, containing the Triple T application.
+A multi-package Flutter workspace managed with Melos. This repository contains the Triple T application and multiple feature and package libraries following a modular Clean
+Architecture approach.
 
-## 📦 Project Structure
+Quick links
 
-This project uses a **Melos workspace** architecture to manage multiple Flutter packages consistently.
+- Application: `apps/triple_t`
+- Features: `features/`
+- Shared packages: `packages/`
 
-```
-triple_t/
-├── apps/
-│   └── triple_t/          # Main Flutter application
-└── pubspec.yaml           # Workspace configuration
-```
+## Quick start
 
-## 🚀 Installation
+Prerequisites
 
-### Prerequisites
+- Flutter (match the project SDK, e.g. 3.10.x)
+- Dart SDK compatible with the Flutter version
+- Melos (recommended for workspace management)
 
-- Flutter SDK 3.10.8
-- Dart SDK 3.10.8
-- Melos CLI installed globally
-
-### Install Melos
+Install Melos
 
 ```bash
 dart pub global activate melos
 ```
 
-### Initialize the Workspace
+Bootstrap the workspace
 
 ```bash
-# Bootstrap all workspace packages
+# From the repository root
 melos bootstrap
-
-# Or manually
-flutter pub get
+# Or run pub get in each package
+melos exec -- flutter pub get
 ```
 
-## 🔨 Available Melos Scripts
-
-### Code Generation
+Run the app
 
 ```bash
-# Generate code for all packages
-melos run generate:all
-
-# Generate only models/providers
-melos run generate
-
-# Generate only localization files
-melos run generate:l10n
-```
-
-### Cleaning
-
-```bash
-# Deep clean all packages
-melos run clean:deep
-```
-
-This script performs:
-
-- `flutter clean` on all packages
-- Deletion of `.lock` files
-- Deletion of `pubspec_overrides.yaml`
-- Deletion of generated files (`*.freezed.dart`, `*.g.dart`, `*.mocks.dart`)
-
-## 🏗️ Architecture
-
-The project follows **Clean Architecture** principles with:
-
-- **Presentation Layer** - UI and state management with Riverpod
-- **Domain Layer** - Business logic and use cases
-- **Data Layer** - Data sources and repositories
-
-### Main Technologies
-
-- **Flutter** - UI Framework
-- **Riverpod** - State management and dependency injection
-- **GoRouter** - Navigation
-- **Melos** - Multi-package workspace management
-- **Sembast** - Local NoSQL database
-- **Freezed** - Immutable model generation
-- **Build Runner** - Code generation
-
-## 🛠️ Development
-
-### Launch the Application
-
-```bash
-# From the workspace root
 cd apps/triple_t
 flutter run
-
-# Or with Melos (if configured)
+# Or using melos
 melos exec --scope="triple_t" -- flutter run
 ```
 
-### Code Generation in Development
+## Common Melos scripts
+
+- melos run generate:all — Run code generation across packages
+- melos run generate:l10n — Generate localization files
+- melos run clean:deep — Clean generated files and caches
+- melos list — List workspace packages
+
+## Architecture
+
+This workspace follows Clean Architecture principles with clear separation of responsibilities:
+
+- Presentation (UI, providers) — `features/*/*_presentation` or `apps/triple_t/lib/presentation`
+- Domain (entities, use cases, interfaces) — `features/*/*_domain`
+- Data (repositories, data sources) — `features/*/*_data`
+
+The root `pubspec.yaml` contains the workspace configuration used by Melos.
+
+## Development tips
+
+- Use `dart run build_runner build --delete-conflicting-outputs` for one-off code generation.
+- Use `dart run build_runner watch --delete-conflicting-outputs` during development for auto-regeneration.
+- Run `melos bootstrap` after adding or moving packages.
+
+## Testing
+
+Run tests per package or use melos to run them across the workspace:
 
 ```bash
-# Watch mode for automatic generation
-cd apps/triple_t
-dart run build_runner watch --delete-conflicting-outputs
+# single package
+cd features/settings/settings_presentation
+flutter test
+
+# all packages
+melos run test
 ```
 
-### List Packages
+## Contributing
 
-```bash
-# Display all workspace packages
-melos list
+1. Create a feature branch.
+2. Implement changes and update/add tests.
+3. Generate code if required: `melos run generate:all`.
+4. Submit a pull request.
 
-# Check for cyclic dependencies
-melos list --cycles
-```
+## License
 
-## 📱 Triple T Application
+This workspace is provided under the MIT License.
 
-The main application is located in `apps/triple_t/`.
-
-For more information about the application, see the [application README](apps/triple_t/README.md).
-
-## 🔧 Melos Configuration
-
-The workspace is configured with:
-
-- Sequential execution of `pub get` (`runPubGetInParallel: false`)
-- Root is not treated as a package (`useRootAsPackage: false`)
-- Post-bootstrap hook to check for cyclic dependencies
-
-## 📝 Conventions
-
-### Adding a New Package
-
-1. Create the package in the appropriate folder (`apps/` or `packages/`)
-2. Add it to the `workspace` list in `pubspec.yaml`
-3. Run `melos bootstrap`
-
-### Dependencies Between Packages
-
-Use workspace dependencies in `pubspec.yaml`:
-
-```yaml
-dependencies:
-  other_package:
-    path: ../other_package
-```
-
-## 🤝 Contributing
-
-1. Create a branch for your feature
-2. Generate code with `melos run generate:all`
-3. Test the changes
-4. Create a pull request
-
-## 📄 License
-
-This project is private and not published on pub.dev.
-
----
-
-**Note**: This workspace is designed to facilitate the development and maintenance of a modular and scalable Flutter application.
-
+Maintainers: Maintainers

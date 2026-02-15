@@ -15,7 +15,7 @@ import 'package:triple_t/presentation/pages/game/widget/game_grid.dart';
 import 'package:triple_t/presentation/pages/game/widget/game_statistics.dart';
 import 'package:triple_t/presentation/pages/game/widget/select_players.dart';
 import 'package:triple_t/presentation/pages/game/widget/winner_overlay.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 typedef ResultState = ({ResultType type, String? winner});
 

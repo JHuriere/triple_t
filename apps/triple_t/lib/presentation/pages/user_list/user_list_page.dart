@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/widget/user_tile.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class UserListPage extends HookConsumerWidget {
   const UserListPage({super.key});

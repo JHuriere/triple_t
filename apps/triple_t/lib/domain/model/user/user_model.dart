@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:triple_t/data/entity/entity.dart';
 import 'package:triple_t/data/entity/user/user_entity.dart';
 import 'package:triple_t/domain/model/statistics/statistics_model.dart';
+import 'package:tt_database/tt_database.dart';
 
 part 'user_model.freezed.dart';
 

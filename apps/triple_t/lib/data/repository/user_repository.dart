@@ -1,8 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sembast/sembast_io.dart';
-import 'package:triple_t/data/core/triple_t_database.dart';
-import 'package:triple_t/data/entity/entity.dart';
 import 'package:triple_t/data/entity/user/user_entity.dart';
+import 'package:tt_database/tt_database.dart';
 
 final userRepositoryProvider = Provider.autoDispose<_UserRepository>((ref) => _UserRepository(ref: ref));
 

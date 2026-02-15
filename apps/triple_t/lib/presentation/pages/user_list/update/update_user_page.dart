@@ -11,7 +11,7 @@ import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/domain/use_case/user/get_user_by_id_use_case.dart';
 import 'package:triple_t/domain/use_case/user/update_user_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/widget/select_emoticon.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class UpdateUserPage extends HookConsumerWidget {
   final int userId;

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:triple_t/domain/model/user/user_model.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class GlobalStatisticsPage extends HookConsumerWidget {
   const GlobalStatisticsPage({
@@ -59,11 +59,13 @@ class GlobalStatisticsPage extends HookConsumerWidget {
                   const SizedBox(height: 16),
                   Text(
                     context.l10n.noStatisticsAvailable,
+                    textAlign: .center,
                     style: const TextStyle(fontSize: 18, color: Colors.grey),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     context.l10n.playSomeGamesSeeLeaderboard,
+                    textAlign: .center,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:triple_t/domain/model/statistics/statistics_model.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class OpponentStatistics extends StatelessWidget {
   final String opponentName;

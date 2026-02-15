@@ -7,7 +7,7 @@ import 'package:triple_t/domain/use_case/user/get_user_by_id_use_case.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/no_statistics.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/opponent_statistics.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/widget/overall_statistics.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class UserStatisticsPage extends HookConsumerWidget {
   final int userId;

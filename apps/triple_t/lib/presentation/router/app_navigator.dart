@@ -20,16 +20,16 @@ class AppNavigator implements HomeNavigator {
 
   @override
   void goGlobalStatistics(BuildContext context) {
-    context.pushNamed('user-list');
-  }
-
-  @override
-  void goSettings(BuildContext context) {
     context.pushNamed('global-statistics');
   }
 
   @override
-  void goUserList(BuildContext context) {
+  void goSettings(BuildContext context) {
     context.pushNamed('settings');
+  }
+
+  @override
+  void goUserList(BuildContext context) {
+    context.pushNamed('user-list');
   }
 }

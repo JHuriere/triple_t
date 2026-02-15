@@ -1,0 +1,26 @@
+name: tt_database
+description: "A Flutter package for database management using Sembast."
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.8
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  sembast:
+  sembast_web:
+  path_provider:
+  path:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints:
+  build_runner:
+
+flutter:
+  generate: true

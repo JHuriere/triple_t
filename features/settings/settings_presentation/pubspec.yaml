@@ -1,0 +1,33 @@
+name: settings_presentation
+description: "A Flutter package for the presentation layer of the settings feature."
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.8
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local packages
+  tt_i18n:
+  settings_domain:
+
+  hooks_riverpod:
+  flutter_hooks:
+  riverpod_annotation:
+
+  go_router:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints:
+
+  build_runner:
+  riverpod_generator:
+
+flutter:
+  generate: true

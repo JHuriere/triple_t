@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class NoStatistics extends StatelessWidget {
   const NoStatistics({

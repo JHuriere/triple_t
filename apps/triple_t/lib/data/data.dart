@@ -1,11 +1,10 @@
-import 'package:sembast/sembast_io.dart';
+import 'package:tt_database/tt_database.dart';
 
-import 'core/triple_t_database.dart';
 import 'entity/user/user_entity.dart';
 
 class Data {
   static Future<void> init() async {
-    await TripleTDatabase.instance.openDatabase();
+    await initDatabase();
     await _initializeDefaultUsers();
   }
 

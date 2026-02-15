@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:sembast/sembast_io.dart';
-import 'package:triple_t/data/core/triple_t_database.dart';
 import 'package:triple_t/data/entity/game/current_game_entity.dart';
+import 'package:tt_database/tt_database.dart';
 
 final currentGameRepositoryProvider = Provider.autoDispose<_CurrentGameRepository>((ref) => _CurrentGameRepository(ref: ref));
 

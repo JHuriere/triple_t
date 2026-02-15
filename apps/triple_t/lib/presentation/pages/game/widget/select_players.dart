@@ -7,7 +7,7 @@ import 'package:triple_t/domain/use_case/current_game/get_current_game_use_case.
 import 'package:triple_t/domain/use_case/current_game/update_current_game_player_use_case.dart';
 import 'package:triple_t/domain/use_case/user/get_all_users_use_case.dart';
 import 'package:triple_t/presentation/pages/game/widget/drowpdown_player.dart';
-import 'package:triple_t_i18n/i18n.dart';
+import 'package:tt_i18n/i18n.dart';
 
 class SelectPlayers extends HookConsumerWidget {
   const SelectPlayers({super.key});

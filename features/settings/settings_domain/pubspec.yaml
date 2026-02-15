@@ -1,0 +1,38 @@
+name: settings_domain
+description: "A Flutter package for the domain layer of the settings feature."
+version: 1.0.0
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.8
+
+# Add regular dependencies here.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local packages
+  tt_i18n:
+  tt_database:
+  settings_data:
+
+  hooks_riverpod:
+  flutter_hooks:
+  riverpod_annotation:
+
+  freezed_annotation:
+  json_annotation:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints:
+
+  build_runner:
+  riverpod_generator:
+
+  freezed:
+
+flutter:
+  generate: true

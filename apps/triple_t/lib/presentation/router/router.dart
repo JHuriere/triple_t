@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_presentation/home_presentation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:settings_presentation/settings_presentation.dart';
 import 'package:triple_t/presentation/pages/error/error_page.dart';
 import 'package:triple_t/presentation/pages/game/game_page.dart';
-import 'package:triple_t/presentation/pages/settings/settings_page.dart';
 import 'package:triple_t/presentation/pages/statistics/global_statistics_page.dart';
 import 'package:triple_t/presentation/pages/user_list/create/create_user_page.dart';
 import 'package:triple_t/presentation/pages/user_list/statistics/user_statistics_page.dart';
@@ -54,7 +54,7 @@ GoRouter router(Ref ref) {
         ],
       ),
       GoRoute(path: '/statistics', name: 'global-statistics', builder: (context, state) => const GlobalStatisticsPage()),
-      GoRoute(path: '/settings', name: 'settings', builder: (context, state) => const SettingsPage()),
+      ref.watch(settingsPageProvider),
     ],
     redirect: (context, state) {
       // final isAuthenticated = ref.read(authProvider).isAuthenticated;

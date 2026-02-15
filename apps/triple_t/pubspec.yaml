@@ -16,8 +16,10 @@ dependencies:
     sdk: flutter
 
   # Local packages
-  triple_t_i18n:
+  tt_i18n:
+  tt_database:
   home_presentation:
+  settings_presentation:
 
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.7
@@ -27,14 +29,10 @@ dependencies:
   flutter_hooks:
   riverpod_annotation:
 
-  freezed_annotation: ^3.1.0
-  json_annotation: ^4.9.0
+  freezed_annotation:
+  json_annotation:
 
-  go_router: ^17.1.0
-  sembast: ^3.8.6
-  sembast_web: ^2.4.4+1
-  path_provider: ^2.1.5
-  path: ^1.9.1
+  go_router:
 
   confetti: ^0.7.0
 

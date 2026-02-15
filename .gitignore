@@ -30,7 +30,7 @@ migrate_working_dir/
 apps/triple_t/.flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+**/build/
 /coverage/
 
 # Symbolication related

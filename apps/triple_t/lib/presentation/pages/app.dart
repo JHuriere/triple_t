@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:triple_t/domain/use_case/settings/get_locale_use_case.dart';
-import 'package:triple_t/domain/use_case/settings/get_theme_mode_use_case.dart';
+import 'package:settings_presentation/settings_presentation.dart';
 import 'package:triple_t/presentation/router/router.dart';
-import 'package:triple_t_i18n/l10n/generated/app_localizations.g.dart';
+import 'package:tt_i18n/l10n/generated/app_localizations.g.dart';
 
 class TripleTApp extends ConsumerWidget {
   const TripleTApp({super.key});
