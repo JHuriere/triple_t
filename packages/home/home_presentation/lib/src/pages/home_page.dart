@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:home_presentation/home_presentation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:triple_t_i18n/i18n.dart';
 
@@ -27,28 +27,20 @@ class HomePage extends HookConsumerWidget {
                 const SizedBox(height: 20),
 
                 // Navigation
-                ElevatedButton.icon(
-                  onPressed: () => context.pushNamed('game'),
-                  icon: const Icon(Icons.games),
-                  label: Text(context.l10n.startGame),
-                ),
+                ElevatedButton.icon(icon: const Icon(Icons.games), label: Text(context.l10n.startGame), onPressed: () => ref.read(getHomeNavigatorProvider).goGame(context)),
+                const SizedBox(height: 10),
+                ElevatedButton.icon(icon: const Icon(Icons.person), label: Text(context.l10n.usersList), onPressed: () => ref.read(getHomeNavigatorProvider).goUserList(context)),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
-                  onPressed: () => context.pushNamed('user-list'),
-                  icon: const Icon(Icons.person),
-                  label: Text(context.l10n.usersList),
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton.icon(
-                  onPressed: () => context.pushNamed('global-statistics'),
                   icon: const Icon(Icons.leaderboard),
                   label: Text(context.l10n.statistics),
+                  onPressed: () => ref.read(getHomeNavigatorProvider).goGlobalStatistics(context),
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton.icon(
-                  onPressed: () => context.pushNamed('settings'),
                   icon: const Icon(Icons.settings),
                   label: Text(context.l10n.parameters),
+                  onPressed: () => ref.read(getHomeNavigatorProvider).goSettings(context),
                 ),
                 const SizedBox(height: 20),
               ],

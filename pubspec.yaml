@@ -22,6 +22,7 @@ flutter:
 workspace:
   - apps/triple_t
   - packages/triple_t_i18n
+  - packages/home/home_presentation
 
 melos:
   runPubGetInParallel: false
@@ -33,6 +34,20 @@ melos:
         post: |
           flutter pub get
           melos list --cycles
+
+  dependencies:
+    hooks_riverpod: ^3.0.0
+    flutter_hooks: ^0.21.3+1
+    riverpod_annotation: ^4.0.0
+
+  dev_dependencies:
+    flutter_lints: ^6.0.0
+
+    build_runner: ^2.11.0
+    riverpod_generator: ^4.0.0
+
+    freezed: ^3.2.3
+    json_serializable: ^6.0.0
 
   scripts:
     ############################################################################

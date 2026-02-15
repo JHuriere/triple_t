@@ -5,6 +5,8 @@ import 'package:triple_t/data/data.dart';
 import 'package:triple_t/domain/domain.dart';
 import 'package:triple_t/presentation/pages/app.dart';
 
+import 'presentation/router/overrides/navigation_overrides.dart';
+
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -17,6 +19,7 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       retry: (retryCount, error) => null,
+      overrides: [...NavigatorOverrides.get()],
       child: const TripleTApp(),
     ),
   );

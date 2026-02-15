@@ -45,6 +45,7 @@ app.*.map.json
 /android/app/release
 
 # Project related
+pubspec.lock
 **/*.freezed.dart
 **/*.g.dart
 **/*.gr.dart

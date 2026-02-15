@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:home_presentation/home_presentation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:triple_t/presentation/pages/error/error_page.dart';
 import 'package:triple_t/presentation/pages/game/game_page.dart';
-import 'package:triple_t/presentation/pages/home/home_page.dart';
 import 'package:triple_t/presentation/pages/settings/settings_page.dart';
 import 'package:triple_t/presentation/pages/statistics/global_statistics_page.dart';
 import 'package:triple_t/presentation/pages/user_list/create/create_user_page.dart';
@@ -11,13 +11,17 @@ import 'package:triple_t/presentation/pages/user_list/statistics/user_statistics
 import 'package:triple_t/presentation/pages/user_list/update/update_user_page.dart';
 import 'package:triple_t/presentation/pages/user_list/user_list_page.dart';
 
-final routerProvider = Provider<GoRouter>((ref) {
-  return GoRouter(
+part 'router.g.dart';
+
+@riverpod
+GoRouter router(Ref ref) {
+  final router = GoRouter(
+    debugLogDiagnostics: true,
     navigatorKey: GlobalKey<NavigatorState>(),
     initialLocation: '/',
     errorBuilder: (context, state) => ErrorPage(error: state.error?.toString()),
     routes: [
-      GoRoute(path: '/', name: 'home', builder: (context, state) => const HomePage()),
+      ref.watch(homePageProvider),
       GoRoute(path: '/game', name: 'game', builder: (context, state) => const GamePage()),
       GoRoute(
         path: '/user-list',
@@ -59,6 +63,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       // }
       return null;
     },
-    debugLogDiagnostics: true,
   );
-});
+  ref.onDispose(router.dispose);
+
+  return router;
+}
