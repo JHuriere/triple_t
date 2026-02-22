@@ -42,7 +42,3 @@ class TripleTDatabase {
 
   Database get db => _db;
 }
-
-Future<void> initDatabase() async {
-  await TripleTDatabase.instance.openDatabase();
-}

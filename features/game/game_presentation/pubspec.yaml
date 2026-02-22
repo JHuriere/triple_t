@@ -1,0 +1,41 @@
+name: game_presentation
+description: "A Flutter package for the presentation layer of the game feature."
+version: 0.0.1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.8
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local packages
+  tt_i18n:
+  game_domain:
+  user_domain:
+
+  hooks_riverpod:
+  flutter_hooks:
+  riverpod_annotation:
+
+  go_router:
+
+  confetti: ^0.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Local packages
+  tt_linter:
+
+  build_runner:
+  riverpod_generator:
+
+  mockito:
+
+flutter:
+  generate: true

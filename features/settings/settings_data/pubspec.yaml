@@ -6,11 +6,13 @@ resolution: workspace
 
 environment:
   sdk: ^3.10.8
+  flutter: ">=1.17.0"
 
 # Add regular dependencies here.
 dependencies:
   flutter:
     sdk: flutter
+
   # Local packages
   tt_database:
 
@@ -22,12 +24,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints:
+
+  # Local packages
+  tt_linter:
 
   build_runner:
-
   freezed:
   json_serializable:
+
+  mockito:
 
 flutter:
   generate: true

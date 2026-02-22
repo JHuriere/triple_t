@@ -1,78 +1,144 @@
-import 'dart:io';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:settings_data/src/entity/settings/settings_entity.dart';
 import 'package:settings_data/src/repository/settings_repository.dart';
-import 'package:tt_database/src/triple_t_database.dart';
+import 'package:tt_database/tt_database.dart';
 
 void main() {
-  late ProviderContainer container;
-
   setUpAll(() async {
-    // Initialize bindings so path_provider works in tests
-    TestWidgetsFlutterBinding.ensureInitialized();
+    // Initialize test database in memory
+    final db = await databaseFactoryMemory.openDatabase('test.db');
+    TripleTDatabase.setTestDatabase(db);
+  });
 
-    // Mock path_provider to return a temp directory for getApplicationDocumentsDirectory
-    const channel = MethodChannel('plugins.flutter.io/path_provider');
-    channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      if (methodCall.method == 'getApplicationDocumentsDirectory') {
-        return Directory.systemTemp.path;
-      }
-      return null;
+  group('_SettingsRepository', () {
+    late ProviderContainer container;
+
+    setUp(() {
+      container = ProviderContainer();
     });
 
-    // Open the real Sembast database (will be created in a temp dir during tests).
-    await TripleTDatabase.instance.openDatabase();
-  });
+    tearDown(() {
+      container.dispose();
+    });
 
-  setUp(() {
-    container = ProviderContainer();
-  });
+    group('get', () {
+      test('returns default SettingsEntity when nothing saved', () {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
 
-  tearDown(() async {
-    container.dispose();
-  });
+        // Act
+        final settings = repo.get();
 
-  test('get returns default SettingsEntity when nothing saved', () {
-    final repo = container.read(settingsRepositoryProvider);
+        // Assert
+        expect(settings, isA<SettingsEntity>());
+        expect(settings.id, equals('settings'));
+        expect(settings.themeMode, equals('system'));
+        expect(settings.locale, equals('fr'));
+      });
 
-    final settings = repo.get();
+      test('returns SettingsEntity with expected structure', () {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
 
-    expect(settings.id, equals('settings'));
-    expect(settings.themeMode, equals('system'));
-    expect(settings.locale, equals('fr'));
-  });
+        // Act
+        final settings = repo.get();
 
-  test('saveSettings persists and get returns stored entity', () async {
-    final repo = container.read(settingsRepositoryProvider);
+        // Assert
+        expect(settings.id, isNotNull);
+        expect(settings.themeMode, isNotNull);
+        expect(settings.locale, isNotNull);
+      });
+    });
 
-    final toSave = SettingsEntity(id: 'settings', themeMode: 'dark', locale: 'en');
-    await repo.saveSettings(toSave);
+    group('saveSettings', () {
+      test('saves SettingsEntity without error', () async {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
+        final entity = SettingsEntity(
+          id: 'settings',
+          themeMode: 'dark',
+          locale: 'en',
+        );
 
-    final loaded = repo.get();
+        // Act & Assert - should not throw
+        await expectLater(
+          repo.saveSettings(entity),
+          completes,
+        );
+      });
 
-    expect(loaded.id, equals('settings'));
-    expect(loaded.themeMode, equals('dark'));
-    expect(loaded.locale, equals('en'));
-  });
+      test('persists and get returns stored entity', () async {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
+        final toSave = SettingsEntity(
+          id: 'settings',
+          themeMode: 'dark',
+          locale: 'en',
+        );
 
-  test('clearAll removes stored settings and get returns default', () async {
-    final repo = container.read(settingsRepositoryProvider);
+        // Act
+        await repo.saveSettings(toSave);
+        final loaded = repo.get();
 
-    final toSave = SettingsEntity(id: 'settings', themeMode: 'dark', locale: 'en');
-    await repo.saveSettings(toSave);
+        // Assert
+        expect(loaded.id, equals('settings'));
+        expect(loaded.themeMode, equals('dark'));
+        expect(loaded.locale, equals('en'));
+      });
 
-    // ensure saved
-    var loaded = repo.get();
-    expect(loaded.themeMode, equals('dark'));
+      test('saves entity with all fields', () async {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
+        final entity = SettingsEntity(
+          id: 'settings',
+          themeMode: 'light',
+          locale: 'es',
+        );
 
-    await repo.clearAll();
+        // Act & Assert - should not throw
+        await expectLater(
+          repo.saveSettings(entity),
+          completes,
+        );
+      });
+    });
 
-    loaded = repo.get();
-    expect(loaded.id, equals('settings'));
-    expect(loaded.themeMode, equals('system'));
-    expect(loaded.locale, equals('fr'));
+    group('clearAll', () {
+      test('clears all data from store without error', () async {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
+
+        // Act & Assert - should not throw
+        await expectLater(
+          repo.clearAll(),
+          completes,
+        );
+      });
+
+      test('removes stored settings and get returns default', () async {
+        // Arrange
+        final repo = container.read(settingsRepositoryProvider);
+        final toSave = SettingsEntity(
+          id: 'settings',
+          themeMode: 'dark',
+          locale: 'en',
+        );
+
+        // Act - Save first
+        await repo.saveSettings(toSave);
+        var loaded = repo.get();
+        expect(loaded.themeMode, equals('dark'));
+
+        // Act - Then clear
+        await repo.clearAll();
+        loaded = repo.get();
+
+        // Assert
+        expect(loaded.id, equals('settings'));
+        expect(loaded.themeMode, equals('system'));
+        expect(loaded.locale, equals('fr'));
+      });
+    });
   });
 }

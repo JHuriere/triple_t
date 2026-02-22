@@ -1,0 +1,41 @@
+name: user_domain
+description: "A Flutter package for the domain layer of the user feature."
+version: 0.0.1
+
+resolution: workspace
+
+environment:
+  sdk: ^3.10.8
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Local packages
+  tt_database:
+  tt_i18n:
+  game_data:
+  user_data:
+
+  hooks_riverpod:
+  flutter_hooks:
+  riverpod_annotation:
+
+  freezed_annotation:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Local packages
+  tt_linter:
+
+  build_runner:
+  riverpod_generator:
+  freezed:
+
+  mockito:
+
+flutter:
+  generate: true

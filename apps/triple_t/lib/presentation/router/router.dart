@@ -1,15 +1,12 @@
+import 'package:error_presentation/error_presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:game_presentation/game_presentation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:home_presentation/home_presentation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:settings_presentation/settings_presentation.dart';
-import 'package:triple_t/presentation/pages/error/error_page.dart';
-import 'package:triple_t/presentation/pages/game/game_page.dart';
-import 'package:triple_t/presentation/pages/statistics/global_statistics_page.dart';
-import 'package:triple_t/presentation/pages/user_list/create/create_user_page.dart';
-import 'package:triple_t/presentation/pages/user_list/statistics/user_statistics_page.dart';
-import 'package:triple_t/presentation/pages/user_list/update/update_user_page.dart';
-import 'package:triple_t/presentation/pages/user_list/user_list_page.dart';
+import 'package:statistics_presentation/statistics_presentation.dart';
+import 'package:user_presentation/user_presentation.dart';
 
 part 'router.g.dart';
 
@@ -18,42 +15,13 @@ GoRouter router(Ref ref) {
   final router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: GlobalKey<NavigatorState>(),
-    initialLocation: '/',
+    initialLocation: HomeRoutes.kHomePath,
     errorBuilder: (context, state) => ErrorPage(error: state.error?.toString()),
     routes: [
       ref.watch(homePageProvider),
-      GoRoute(path: '/game', name: 'game', builder: (context, state) => const GamePage()),
-      GoRoute(
-        path: '/user-list',
-        name: 'user-list',
-        builder: (context, state) => const UserListPage(),
-        routes: [
-          GoRoute(path: 'add-user', name: 'add-user', builder: (context, state) => const CreateUserPage()),
-          GoRoute(
-            path: ':id',
-            name: 'edit-user',
-            builder: (context, state) {
-              final userId = int.parse(state.pathParameters['id'] ?? '0');
-              if (userId == 0) {
-                return const ErrorPage(error: 'User ID is missing');
-              }
-              return UpdateUserPage(userId: userId);
-            },
-          ),
-          GoRoute(
-            path: ':id/statistics',
-            name: 'user-statistics',
-            builder: (context, state) {
-              final userId = int.parse(state.pathParameters['id'] ?? '0');
-              if (userId == 0) {
-                return const ErrorPage(error: 'User ID is missing');
-              }
-              return UserStatisticsPage(userId: userId);
-            },
-          ),
-        ],
-      ),
-      GoRoute(path: '/statistics', name: 'global-statistics', builder: (context, state) => const GlobalStatisticsPage()),
+      ref.watch(gamePageProvider),
+      ref.watch(userPageProvider),
+      ref.watch(statisticsPageProvider),
       ref.watch(settingsPageProvider),
     ],
     redirect: (context, state) {

@@ -6,6 +6,7 @@ resolution: workspace
 
 environment:
   sdk: ^3.10.8
+  flutter: ">=1.17.0"
 
 # Add regular dependencies here.
 dependencies:
@@ -22,17 +23,19 @@ dependencies:
   riverpod_annotation:
 
   freezed_annotation:
-  json_annotation:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints:
+
+  # Local packages
+  tt_linter:
 
   build_runner:
   riverpod_generator:
-
   freezed:
+
+  mockito:
 
 flutter:
   generate: true
