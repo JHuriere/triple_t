@@ -1,4 +1,5 @@
 import 'package:game_data/game_data.dart';
+import 'package:game_domain/game_domain.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'reset_current_game_use_case.g.dart';

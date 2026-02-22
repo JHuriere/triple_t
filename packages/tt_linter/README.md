@@ -1,39 +1,35 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# tt_linter
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Workspace lint rules and analyzer configuration for the Triple T monorepo. This package centralizes analysis options so all apps and packages share the same defaults.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Quick start
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Add the package as a dev dependency (via the workspace path setup):
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dev_dependencies:
+  tt_linter:
+    path: ../../packages/tt_linter
 ```
 
-## Additional information
+Include the shared rules in your `analysis_options.yaml`:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```yaml
+include: package:tt_linter/analysis_options.yaml
+```
+
+## Notes
+
+- Uses the `custom_lint` analyzer plugin.
+- The base configuration lives in `lib/app.yaml`.
+
+## Contributing
+
+- Update rule sets in `lib/app.yaml`.
+- Keep changes compatible with the workspace tooling.
+
+## License
+
+MIT License
+
+Maintainers: Maintainers

@@ -1,13 +1,16 @@
 # Triple T Workspace
 
-A multi-package Flutter workspace managed with Melos. This repository contains the Triple T application and multiple feature and package libraries following a modular Clean
-Architecture approach.
+A multi-package Flutter workspace managed with Melos. This repository hosts the Triple T application and modular feature and package libraries following Clean Architecture.
 
-Quick links
+## Quick links
 
 - Application: `apps/triple_t`
 - Features: `features/`
 - Shared packages: `packages/`
+
+## Overview
+
+![Triple T App Gif](./doc/ezgif-6cfba490659f4404.gif)
 
 ## Quick start
 
@@ -43,10 +46,10 @@ melos exec --scope="triple_t" -- flutter run
 
 ## Common Melos scripts
 
-- melos run generate:all — Run code generation across packages
-- melos run generate:l10n — Generate localization files
-- melos run clean:deep — Clean generated files and caches
-- melos list — List workspace packages
+- `melos run generate:all` — Run code generation across packages
+- `melos run generate:l10n` — Generate localization files
+- `melos run clean:deep` — Clean generated files and caches
+- `melos list` — List workspace packages
 
 ## Architecture
 
