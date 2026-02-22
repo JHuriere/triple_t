@@ -1,0 +1,76 @@
+version: 2
+updates:
+  # Application
+  - package-ecosystem: "pub"
+    directory: "/apps/triple_t"
+    schedule:
+      interval: "weekly"
+
+  # Features
+  - package-ecosystem: "pub"
+    directory: "/features/error/error_presentation"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pub"
+    directory: "/features/game/game_data"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/game/game_domain"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/game/game_presentation"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pub"
+    directory: "/features/home/home_data"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pub"
+    directory: "/features/settings/settings_data"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/settings/settings_domain"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/settings/settings_presentation"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pub"
+    directory: "/features/statistics/statistics_presentation"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pub"
+    directory: "/features/user/user_data"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/user/user_domain"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/features/user/user_presentation"
+    schedule:
+      interval: "weekly"
+
+  # Packages
+  - package-ecosystem: "pub"
+    directory: "/packages/tt_database"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/packages/tt_i18n"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/packages/tt_linter"
+    schedule:
+      interval: "weekly"

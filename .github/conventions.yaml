@@ -1,0 +1,87 @@
+commit:
+  summary: (?P<type>^\w+)((?:\()(?P<scope>.*)(?:\)))?(?P<br>!)?:\s(?P<description>.*)$
+  message: (?:.*\n+)([\s\S]*)$
+  trailers:
+
+increments:
+  weight:
+    major: 10
+    minor: 20
+    patch: 30
+    other: 50
+
+  mapping:
+    break_change:
+      type: major
+      when:
+        - pattern: "!"
+          target: commit['summary']['br']
+
+    break_change_msg:
+      type: major
+      when:
+        - pattern: "BREAKING CHANGE"
+          target: commit['message']
+
+    feat:
+      type: minor
+      when:
+        - pattern: "[Ff]eat.*"
+          target: commit['summary']['type']
+
+    fix:
+      type: patch
+      when:
+        - pattern: "[Ff]ix.*"
+          target: commit['summary']['type']
+
+    ci:
+      type: other
+      when:
+        - pattern: "[Cc][Ii].*"
+          target: commit['summary']['type']
+
+    docs:
+      type: other
+      when:
+        - pattern: "[Dd]ocs.*"
+          target: commit['summary']['type']
+
+    refactor:
+      type: patch
+      when:
+        - pattern: "[Bb]uild"
+          target: commit['summary']['type']
+
+    test:
+      type: other
+      when:
+        - pattern: "[Tt]ests.*"
+          target: commit['summary']['type']
+
+stages:
+  - name: alpha
+    prerelease: yes
+    prefix: alpha.
+
+  - name: beta
+    prerelease: yes
+    prefix: beta.
+
+  - name: stable
+    prerelease: no
+
+changelog:
+  categories:
+    - title: "# 💥Breaking changes"
+      increment:
+        - major
+    - title: "# ✨New Features"
+      increment:
+        - minor
+    - title: "# 🐛Fixes"
+      increment:
+        - patch
+    - title: "## ♻️ Other ♻️"
+      increment:
+        - other

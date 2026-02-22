@@ -1,0 +1,50 @@
+name: Build flutter project
+description: Build flutter project
+
+inputs:
+  WORKING_DIR:
+    description: "Working directory"
+    default: './'
+    required: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: 🌎 Set Timezone
+      uses: szenius/set-timezone@v2.0
+      with:
+        timezoneLinux: "Europe/Paris"
+
+    ## Flutter installation
+    - name: Cache Flutter dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.pub-cache
+          ~/.flutter
+        key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-flutter-
+
+    - uses: kuhnroyal/flutter-fvm-config-action/config@v3
+      id: fvm-config-action
+
+    - uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ steps.fvm-config-action.outputs.FLUTTER_VERSION }}
+        channel: ${{ steps.fvm-config-action.outputs.FLUTTER_CHANNEL }}
+        cache: true
+
+    - name: Print Flutter SDK version
+      shell: bash
+      run: flutter --version
+
+    - name: Export pub path
+      shell: bash
+      run: echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+
+    - name: 🔧️Install required dart tools
+      shell: bash
+      run: |
+        dart pub global activate melos

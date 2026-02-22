@@ -1,0 +1,46 @@
+name: 'Test workflows'
+
+##⚠️⚠️ important block for Vault JWT ⚠️⚠️##
+permissions:
+  contents: read
+  id-token: write
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - 'develop'
+      - 'main'
+
+jobs:
+  unit-test:
+    runs-on: [ self-hosted, Linux, xl ]
+    name: Unit test validation
+    timeout-minutes: 90
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: '0'
+
+      - name: 📱 Setup Flutter
+        uses: ./.github/workflows/setup
+
+      - name: 📱 Bootstrap Flutter project
+        uses: ./.github/workflows/bootstrap-project
+
+      - name: 💊 Run Analyze
+        continue-on-error: true
+        run: |
+          melos run analyze
+
+      - name: ✔ Format check
+        continue-on-error: true
+        run: |
+          melos format-check
+
+      - name: Run unit tests
+        continue-on-error: true
+        run: |
+          melos run analyze
+          melos run test:all

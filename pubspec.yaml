@@ -88,6 +88,9 @@ melos:
       run: |
         melos exec --scope="tt_i18n" -- "flutter gen-l10n"
 
+    ############################################################################
+    # Global cleaning commands
+    ############################################################################
     clean:deep:
       description: Clean all project
       run: |

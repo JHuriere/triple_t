@@ -1,0 +1,24 @@
+name: Bootstrap flutter project
+description: Bootstrap flutter project
+
+inputs:
+  WORKING_DIR:
+    description: "Working directory"
+    default: './'
+    required: false
+
+runs:
+  using: "composite"
+
+  steps:
+    - name: Bootstrap Flutter project
+      working-directory: ${{ inputs.WORKING_DIR }}
+      shell: bash
+      run: |
+        export PATH="$PATH":"$HOME/.pub-cache/bin"
+        echo "Disable analytics ..."
+        dart --disable-analytics
+        flutter config --no-analytics
+        flutter doctor -v
+        melos bootstrap
+        melos generate:l10n
