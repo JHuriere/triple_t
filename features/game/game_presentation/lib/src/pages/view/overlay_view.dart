@@ -21,7 +21,7 @@ class OverlayView extends HookConsumerWidget {
 
     if (showOverlay.value) {
       if (resultState case WinnerResultState()) {
-        return WinnerOverlay(winner: resultState.winner ?? '', onDismiss: onDismiss);
+        return WinnerOverlay(winner: resultState.winner, onDismiss: onDismiss);
       } else if (resultState case DrawResultState()) {
         return DrawOverlay(onDismiss: onDismiss);
       }

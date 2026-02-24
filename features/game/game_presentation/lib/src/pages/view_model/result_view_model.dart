@@ -1,4 +1,4 @@
-import 'package:flutter/src/foundation/change_notifier.dart';
+import 'package:flutter/foundation.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view_model/current_game_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/state/result_state.dart';

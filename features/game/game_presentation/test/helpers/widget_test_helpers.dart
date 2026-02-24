@@ -10,7 +10,7 @@ Widget createTestableWidget({
   return ProviderScope(
     overrides: overrides,
     child: MaterialApp(
-      home: child,
+      home: Material(child: child),
       localizationsDelegates: const [],
       supportedLocales: const [Locale('en')],
     ),

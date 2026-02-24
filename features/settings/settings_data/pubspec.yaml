@@ -17,6 +17,8 @@ dependencies:
   hooks_riverpod:
 
 dev_dependencies:
+  flutter:
+    sdk: flutter
   flutter_test:
     sdk: flutter
   mockito:

@@ -23,11 +23,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -45,11 +45,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -67,11 +67,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -94,11 +94,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -116,11 +116,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: ValueNotifier(false),
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
 
@@ -138,11 +138,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -166,11 +166,11 @@ void main() {
       // Act
       await tester.pumpWidget(
         createTestableWidget(
+          overrides: overrides,
           child: OverlayView(
             showOverlay: showOverlay,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();

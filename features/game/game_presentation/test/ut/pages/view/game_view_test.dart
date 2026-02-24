@@ -67,7 +67,6 @@ void main() {
 
     testWidgets('GameView calls onTap when grid cell is tapped', (WidgetTester tester) async {
       // Arrange
-      int tappedIndex = -1;
       final overrides = [
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
@@ -78,9 +77,7 @@ void main() {
       await tester.pumpWidget(
         createTestableWidget(
           child: GameView(
-            onTap: (index) {
-              tappedIndex = index;
-            },
+            onTap: (index) {},
             showOverlay: showOverlay,
           ),
           overrides: overrides,

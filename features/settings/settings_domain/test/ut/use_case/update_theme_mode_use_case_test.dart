@@ -105,7 +105,9 @@ void main() {
       );
 
       final captured = <SettingsEntity>[];
-      verify(mockRepository.saveSettings(captureAny)).captured.forEach((v) => captured.add(v as SettingsEntity));
+      for (var v in verify(mockRepository.saveSettings(captureAny)).captured) {
+        captured.add(v as SettingsEntity);
+      }
       final savedSettings = captured.single;
 
       expect(savedSettings.id, originalId);
@@ -176,7 +178,9 @@ void main() {
       );
 
       final capturedList1 = <SettingsEntity>[];
-      verify(mockRepository.saveSettings(captureAny)).captured.forEach((v) => capturedList1.add(v as SettingsEntity));
+      for (var v in verify(mockRepository.saveSettings(captureAny)).captured) {
+        capturedList1.add(v as SettingsEntity);
+      }
       var savedSettings = capturedList1.last;
       expect(savedSettings.themeMode, ThemeMode.dark);
 
@@ -187,7 +191,9 @@ void main() {
       );
 
       final capturedList2 = <SettingsEntity>[];
-      verify(mockRepository.saveSettings(captureAny)).captured.forEach((v) => capturedList2.add(v as SettingsEntity));
+      for (var v in verify(mockRepository.saveSettings(captureAny)).captured) {
+        capturedList2.add(v as SettingsEntity);
+      }
       savedSettings = capturedList2.last;
       expect(savedSettings.themeMode, ThemeMode.system);
     });
