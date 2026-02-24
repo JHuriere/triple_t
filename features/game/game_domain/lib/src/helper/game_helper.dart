@@ -1,5 +1,3 @@
-enum ResultType { winner, draw }
-
 class GameHelper {
   static List<int>? getWinningCombination(List<String> elements) {
     const List<List<int>> winningCombinations = [

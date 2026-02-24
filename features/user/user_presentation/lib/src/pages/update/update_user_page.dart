@@ -66,7 +66,7 @@ class UpdateUserPage extends HookConsumerWidget {
     );
   }
 
-  void _updateUser(BuildContext context, WidgetRef ref, UserModel user, String newName, String? emoticon) async {
+  void _updateUser(BuildContext context, WidgetRef ref, UserEntity user, String newName, String? emoticon) async {
     final updatedUser = user.copyWith(name: newName, emoticon: emoticon ?? user.emoticon);
     final success = await ref.read(updateUserUseCaseProvider(user: updatedUser).future);
     ref.invalidate(getAllUsersUseCaseProvider);

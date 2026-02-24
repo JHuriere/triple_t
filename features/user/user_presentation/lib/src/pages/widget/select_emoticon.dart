@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_domain/user_domain.dart';
 
 class SelectEmoticon extends HookConsumerWidget {
-  final UserModel user;
+  final UserEntity user;
   final ValueNotifier<String?> emoticonSelected;
 
   const SelectEmoticon({
@@ -46,7 +46,7 @@ class SelectEmoticon extends HookConsumerWidget {
     );
   }
 
-  bool _canSelectEmoticon(WidgetRef ref, UserModel currentUser, String? emoticon) {
+  bool _canSelectEmoticon(WidgetRef ref, UserEntity currentUser, String? emoticon) {
     final users = ref.read(getAllUsersUseCaseProvider);
     final isEmoticonTaken = users.any((user) => user.emoticon == emoticon && user.id != currentUser.id);
 

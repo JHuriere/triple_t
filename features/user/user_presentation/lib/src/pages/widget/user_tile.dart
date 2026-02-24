@@ -9,7 +9,7 @@ class UserTile extends StatelessWidget {
     required this.user,
   });
 
-  final UserModel user;
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {

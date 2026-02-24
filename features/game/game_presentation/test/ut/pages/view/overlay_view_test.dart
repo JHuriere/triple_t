@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:game_presentation/src/pages/view/overlay_view.dart';
+import 'package:game_presentation/src/pages/view_model/result_view_model.dart';
+import 'package:game_presentation/src/pages/view_model/state/result_state.dart';
+
+import '../../../helpers/widget_test_helpers.dart';
+
+void main() {
+  group('OverlayView Widget Tests', () {
+    late ValueNotifier<bool> showOverlay;
+
+    setUp(() {
+      showOverlay = ValueNotifier<bool>(false);
+    });
+
+    testWidgets('OverlayView renders SizedBox.shrink when showOverlay is false', (WidgetTester tester) async {
+      // Arrange
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert
+      expect(find.byType(SizedBox), findsWidgets);
+    });
+
+    testWidgets('OverlayView renders nothing when state is InitialResultState', (WidgetTester tester) async {
+      // Arrange
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert
+      expect(find.byType(OverlayView), findsOneWidget);
+    });
+
+    testWidgets('OverlayView renders nothing when state is NoResultState', (WidgetTester tester) async {
+      // Arrange
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(NoResultState()),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert
+      expect(find.byType(OverlayView), findsOneWidget);
+    });
+
+    testWidgets('OverlayView renders nothing when showOverlay is false even with WinnerResultState', (WidgetTester tester) async {
+      // Arrange
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(
+          WinnerResultState(
+            winningLine: [0, 1, 2],
+            winner: 'Alice',
+          ),
+        ),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert - Should show SizedBox.shrink since showOverlay is false
+      expect(find.byType(SizedBox), findsWidgets);
+    });
+
+    testWidgets('OverlayView calls onDismiss callback', (WidgetTester tester) async {
+      // Arrange
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: ValueNotifier(false),
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+
+      // Assert
+      expect(find.byType(OverlayView), findsOneWidget);
+    });
+
+    testWidgets('OverlayView renders DrawOverlay when showOverlay is true and state is DrawResultState', (WidgetTester tester) async {
+      // Arrange
+      showOverlay.value = true;
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(DrawResultState()),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert
+      expect(find.byType(OverlayView), findsOneWidget);
+    });
+
+    testWidgets('OverlayView renders WinnerOverlay when showOverlay is true and state is WinnerResultState', (WidgetTester tester) async {
+      // Arrange
+      showOverlay.value = true;
+      final overrides = [
+        resultViewModelProvider.overrideWithValue(
+          WinnerResultState(
+            winningLine: [0, 1, 2],
+            winner: 'Alice',
+          ),
+        ),
+      ];
+
+      // Act
+      await tester.pumpWidget(
+        createTestableWidget(
+          child: OverlayView(
+            showOverlay: showOverlay,
+            onDismiss: () {},
+          ),
+          overrides: overrides,
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      // Assert
+      expect(find.byType(OverlayView), findsOneWidget);
+    });
+  });
+}

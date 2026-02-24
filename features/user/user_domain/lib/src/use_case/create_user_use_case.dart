@@ -1,17 +1,18 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:user_data/user_data.dart';
-import 'package:user_domain/src/model/user_model.dart';
+import 'package:user_domain/src/entity/user_entity.dart';
+import 'package:user_domain/src/repository/get_user_repository.dart';
 
 part 'create_user_use_case.g.dart';
 
 @riverpod
-Future<bool> createUserUseCase(Ref ref, UserModel user) async {
-  final existingUser = ref.watch(userRepositoryProvider).getByName(user.name);
+Future<bool> createUserUseCase(Ref ref, UserEntity user) async {
+  final userRepository = ref.watch(getUserRepositoryProvider);
+
+  final existingUser = userRepository.getByName(user.name);
   if (existingUser != null) {
     return false; // Name already exists, return false to indicate failure
   }
 
-  final userRepository = ref.watch(userRepositoryProvider);
-  await userRepository.upsert(user.toEntity());
+  await userRepository.upsert(user);
   return true; // User created successfully
 }

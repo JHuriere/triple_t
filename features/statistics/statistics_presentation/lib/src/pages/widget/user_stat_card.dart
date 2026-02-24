@@ -5,7 +5,7 @@ import 'package:user_domain/user_domain.dart';
 
 class UserStatCard extends StatelessWidget {
   final int rank;
-  final UserModel user;
+  final UserEntity user;
   final int totalWins;
   final int totalLosses;
   final int totalDraws;
@@ -159,7 +159,7 @@ class _UserInfo extends StatelessWidget {
     required this.winRate,
   });
 
-  final UserModel user;
+  final UserEntity user;
   final int totalGames;
   final double winRate;
 

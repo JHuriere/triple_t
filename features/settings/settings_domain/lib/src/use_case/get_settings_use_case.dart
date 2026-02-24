@@ -1,11 +1,11 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:settings_data/settings_data.dart';
-import 'package:settings_domain/src/model/settings/settings_model.dart';
+import 'package:settings_domain/src/entity/settings/settings_entity.dart';
+import 'package:settings_domain/src/repository/get_settings_repository.dart';
 
 part 'get_settings_use_case.g.dart';
 
 @riverpod
-SettingsModel getSettingsUseCase(Ref ref) {
-  final settingsEntity = ref.watch(settingsRepositoryProvider).get();
-  return SettingsModel.fromEntity(entity: settingsEntity);
+SettingsEntity getSettingsUseCase(Ref ref) {
+  final repository = ref.watch(getSettingsRepositoryProvider);
+  return repository.get();
 }

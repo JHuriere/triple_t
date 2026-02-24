@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:statistics_presentation/src/pages/widget/leaderboard_header.dart';
+import 'package:statistics_presentation/src/pages/model/user_stats_model.dart';
+import 'package:statistics_presentation/src/pages/view/global_statistics_view.dart';
 import 'package:statistics_presentation/src/pages/widget/no_statistics.dart';
-import 'package:statistics_presentation/src/pages/widget/user_stat_card.dart';
 import 'package:tt_i18n/i18n.dart';
 import 'package:user_domain/user_domain.dart';
 
@@ -24,32 +24,13 @@ class GlobalStatisticsPage extends HookConsumerWidget {
       ),
       body: userStats.isEmpty || userStats.every((stat) => stat.totalGames == 0)
           ? NoStatistics()
-          : ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                LeaderboardHeader(),
-                const SizedBox(height: 16),
-
-                ...userStats.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final stat = entry.value;
-
-                  return UserStatCard(
-                    user: stat.user,
-                    rank: index + 1,
-                    totalWins: stat.totalWins,
-                    totalLosses: stat.totalLosses,
-                    totalDraws: stat.totalDraws,
-                    totalGames: stat.totalGames,
-                    winRate: stat.winRate,
-                  );
-                }),
-              ],
+          : GlobalStatisticsView(
+              userStats: userStats,
             ),
     );
   }
 
-  List<({int totalDraws, int totalGames, int totalLosses, int totalWins, UserModel user, double winRate})> _getUserStats(List<UserModel> users) {
+  List<UserStatsModel> _getUserStats(List<UserEntity> users) {
     final userStats = users
         .map((user) {
           int totalWins = 0;
@@ -67,7 +48,7 @@ class GlobalStatisticsPage extends HookConsumerWidget {
           final totalGames = totalWins + totalLosses + totalDraws;
           final winRate = totalGames > 0 ? (totalWins / totalGames * 100) : 0.0;
 
-          return (
+          return UserStatsModel(
             user: user,
             totalWins: totalWins,
             totalLosses: totalLosses,

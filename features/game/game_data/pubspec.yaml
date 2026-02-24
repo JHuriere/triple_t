@@ -9,29 +9,16 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
   # Local packages
   tt_database:
+  game_domain:
 
   hooks_riverpod:
-
-  freezed_annotation:
-  json_annotation:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito:
 
   # Local packages
   tt_linter:
-
-  build_runner:
-  freezed:
-  json_serializable:
-
-  mockito:
-
-flutter:
-  generate: true

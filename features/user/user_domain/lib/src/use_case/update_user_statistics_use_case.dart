@@ -1,48 +1,38 @@
-import 'package:game_data/game_data.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tt_database/tt_database.dart';
-import 'package:user_data/user_data.dart';
+import 'package:user_domain/src/entity/game_result.dart';
+import 'package:user_domain/src/entity/statistics/statistics_entity.dart';
+import 'package:user_domain/src/repository/get_user_repository.dart';
 
 part 'update_user_statistics_use_case.g.dart';
 
 @riverpod
-Future<void> updateUserStatisticsUseCase(Ref ref, {required int id}) async {
-  final repository = ref.watch(userRepositoryProvider);
-  final currentGame = ref.watch(currentGameRepositoryProvider).get();
-  final userEntity = repository.get(id);
+Future<void> updateUserStatisticsUseCase(Ref ref, {required int currentPlayerId, required int opponentPlayerId, required GameResult result}) async {
+  final userRepository = ref.watch(getUserRepositoryProvider);
+
+  final userEntity = userRepository.get(currentPlayerId);
 
   if (userEntity == null) return;
 
-  final user = userEntity.data;
-  final opponentId = id == currentGame.playerOneId ? currentGame.playerTwoId : currentGame.playerOneId;
+  final win = result == GameResult.win ? 1 : 0;
+  final loss = result == GameResult.lose ? 1 : 0;
+  final draws = result == GameResult.draw ? 1 : 0;
 
-  final isPlayerOne = id == currentGame.playerOneId;
-  final isPlayerTwo = id == currentGame.playerTwoId;
-  final win = (isPlayerOne && currentGame.state == CurrentGameState.playerOneWon) || (isPlayerTwo && currentGame.state == CurrentGameState.playerTwoWon) ? 1 : 0;
-  final loss = (isPlayerOne && currentGame.state == CurrentGameState.playerTwoWon) || (isPlayerTwo && currentGame.state == CurrentGameState.playerOneWon) ? 1 : 0;
-  final draws = currentGame.state == CurrentGameState.draw ? 1 : 0;
+  final updatedStatistics = Map<int, StatisticsEntity>.from(userEntity.statistics ?? {});
 
-  final updatedStatistics = Map<int, StatisticsEntity>.from(user.statistics ?? {});
-
-  final existingStats = updatedStatistics[opponentId];
+  final existingStats = updatedStatistics[opponentPlayerId];
   if (existingStats != null) {
-    updatedStatistics[opponentId] = StatisticsEntity(
+    updatedStatistics[opponentPlayerId] = StatisticsEntity(
       wins: existingStats.wins + win,
       losses: existingStats.losses + loss,
       draws: existingStats.draws + draws,
     );
   } else {
-    updatedStatistics[opponentId] = StatisticsEntity(
+    updatedStatistics[opponentPlayerId] = StatisticsEntity(
       wins: win,
       losses: loss,
       draws: draws,
     );
   }
 
-  await repository.upsert(
-    Entity(
-      id: userEntity.id,
-      data: user.copyWith(statistics: updatedStatistics),
-    ),
-  );
+  await userRepository.upsert(userEntity.copyWith(statistics: updatedStatistics));
 }
