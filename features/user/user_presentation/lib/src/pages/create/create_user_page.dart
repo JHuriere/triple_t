@@ -44,7 +44,7 @@ class CreateUserPage extends HookConsumerWidget {
               const SizedBox(height: 16),
 
               SelectEmoticon(
-                user: UserModel(),
+                user: UserEntity(),
                 emoticonSelected: emoticonSelected,
               ),
               const SizedBox(height: 20),
@@ -61,7 +61,7 @@ class CreateUserPage extends HookConsumerWidget {
   }
 
   Future<void> _onAddUser(TextEditingController nameController, WidgetRef ref, BuildContext context) async {
-    final newUser = UserModel(name: nameController.text);
+    final newUser = UserEntity(name: nameController.text);
     final isCreated = await ref.read(createUserUseCaseProvider(newUser).future);
 
     if (!isCreated) {

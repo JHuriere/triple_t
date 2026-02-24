@@ -3,7 +3,7 @@ import 'package:user_domain/user_domain.dart';
 
 class DropdownPlayer extends StatelessWidget {
   final String label;
-  final List<UserModel> users;
+  final List<UserEntity> users;
   final int? value;
   final List<int> excludedUserIds;
   final Future<void> Function(int playerId) onChanged;

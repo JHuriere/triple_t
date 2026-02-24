@@ -21,8 +21,8 @@ class SelectPlayers extends HookConsumerWidget {
               child: DropdownPlayer(
                 label: context.l10n.player1,
                 users: users,
-                value: currentGame.playerOne.id == 0 ? null : currentGame.playerOne.id,
-                excludedUserIds: [1, currentGame.playerTwo.id],
+                value: currentGame.playerOneId == 0 ? null : currentGame.playerOneId,
+                excludedUserIds: [1, currentGame.playerTwoId],
                 enabled: currentGame.state == CurrentGameState.initial,
                 onChanged: (playerId) async => await _changePlayerOne(ref, users, currentGame, playerId),
               ),
@@ -32,8 +32,8 @@ class SelectPlayers extends HookConsumerWidget {
               child: DropdownPlayer(
                 label: context.l10n.player2,
                 users: users,
-                value: currentGame.playerTwo.id == 0 ? null : currentGame.playerTwo.id,
-                excludedUserIds: [currentGame.playerOne.id],
+                value: currentGame.playerTwoId == 0 ? null : currentGame.playerTwoId,
+                excludedUserIds: [currentGame.playerOneId],
                 enabled: currentGame.state == CurrentGameState.initial,
                 onChanged: (playerId) async => await _changePlayerTwo(ref, users, currentGame, playerId),
               ),
@@ -44,17 +44,17 @@ class SelectPlayers extends HookConsumerWidget {
     );
   }
 
-  Future<void> _changePlayerOne(WidgetRef ref, List<UserModel> users, CurrentGameModel currentGame, int playerId) async {
-    if (currentGame.playerOne.id == playerId) return;
+  Future<void> _changePlayerOne(WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
+    if (currentGame.playerOneId == playerId) return;
 
-    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerOne: users.firstWhere((user) => user.id == playerId)).future);
+    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerOneId: playerId).future);
     ref.invalidate(getCurrentGameUseCaseProvider);
   }
 
-  Future<void> _changePlayerTwo(WidgetRef ref, List<UserModel> users, CurrentGameModel currentGame, int playerId) async {
-    if (currentGame.playerTwo.id == playerId) return;
+  Future<void> _changePlayerTwo(WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
+    if (currentGame.playerTwoId == playerId) return;
 
-    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerTwo: users.firstWhere((user) => user.id == playerId)).future);
+    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerTwoId: playerId).future);
     ref.invalidate(getCurrentGameUseCaseProvider);
   }
 }

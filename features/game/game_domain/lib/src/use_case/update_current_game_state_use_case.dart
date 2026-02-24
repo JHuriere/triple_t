@@ -1,11 +1,13 @@
-import 'package:game_data/game_data.dart' show CurrentGameState, currentGameRepositoryProvider;
+import 'package:game_domain/src/entity/current_game_entity.dart';
+import 'package:game_domain/src/repository/get_current_game_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'update_current_game_state_use_case.g.dart';
 
 @riverpod
 Future<void> updateCurrentGameStateUseCase(Ref ref, {required CurrentGameState state}) async {
-  final repository = ref.watch(currentGameRepositoryProvider);
+  final repository = ref.watch(getCurrentGameRepositoryProvider);
+
   final entity = repository.get();
   await repository.save(
     entity.copyWith(

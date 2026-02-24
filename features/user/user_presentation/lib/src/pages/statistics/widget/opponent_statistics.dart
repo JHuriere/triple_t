@@ -5,7 +5,7 @@ import 'package:user_domain/user_domain.dart';
 class OpponentStatistics extends StatelessWidget {
   final String opponentName;
   final String opponentEmoticon;
-  final StatisticsModel stats;
+  final StatisticsEntity stats;
 
   const OpponentStatistics({
     super.key,

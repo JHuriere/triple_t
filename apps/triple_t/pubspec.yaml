@@ -20,12 +20,16 @@ dependencies:
   tt_database:
 
   error_presentation:
+  game_data:
+  game_domain:
   game_presentation:
   home_presentation:
+  settings_data:
   settings_domain:
   settings_presentation:
   statistics_presentation:
   user_data:
+  user_domain:
   user_presentation:
 
   cupertino_icons: ^1.0.8

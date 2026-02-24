@@ -12,22 +12,16 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # Local packages
-  tt_i18n:
-  tt_database:
-  game_data:
-  user_data:
-  user_domain:
-
   hooks_riverpod:
-  flutter_hooks:
   riverpod_annotation:
 
   freezed_annotation:
+  json_annotation:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito:
 
   # Local packages
   tt_linter:
@@ -35,8 +29,7 @@ dev_dependencies:
   build_runner:
   riverpod_generator:
   freezed:
-
-  mockito:
+  json_serializable:
 
 flutter:
   generate: true

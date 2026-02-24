@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tt_database/tt_database.dart';
 import 'package:user_data/user_data.dart';
 
@@ -11,29 +10,51 @@ void main() {
   });
 
   group('User Initialization Tests', () {
-    test('Database should initialize with John and Jane when empty', () async {
-      // Initialize database
+    test('initializes default users (AI, John, Jane) when database is empty', () async {
+      // Act
       await initializeDefaultUsers();
 
-      // Create container to get repository
-      final container = ProviderContainer();
-      final userRepo = container.read(userRepositoryProvider);
+      // Assert - Get all users from store directly
+      final store = intMapStoreFactory.store('users');
+      final db = TripleTDatabase.instance.db;
+      final records = store.findSync(db);
 
-      // Get all users
-      final users = userRepo.getAll();
+      // Verify we have exactly 3 users
+      expect(records.length, equals(3));
 
-      // Verify we have at least 2 users
-      expect(users.length, greaterThanOrEqualTo(2));
+      // Verify by specific IDs
+      final aiRecord = store.record(1).getSnapshotSync(db);
+      expect(aiRecord, isNotNull);
+      final ai = aiRecord!.value;
+      expect(ai['name'], 'AI');
+      expect(ai['emoticon'], '🤖');
 
-      // Verify John exists
-      final john = users.firstWhere((u) => u.data.name == 'John', orElse: () => throw Exception('John not found'));
-      expect(john.data.name, 'John');
+      final johnRecord = store.record(2).getSnapshotSync(db);
+      expect(johnRecord, isNotNull);
+      final john = johnRecord!.value;
+      expect(john['name'], 'John');
+      expect(john['emoticon'], '🎮');
 
-      // Verify Jane exists
-      final jane = users.firstWhere((u) => u.data.name == 'Jane', orElse: () => throw Exception('Jane not found'));
-      expect(jane.data.name, 'Jane');
+      final janeRecord = store.record(3).getSnapshotSync(db);
+      expect(janeRecord, isNotNull);
+      final jane = janeRecord!.value;
+      expect(jane['name'], 'Jane');
+      expect(jane['emoticon'], '🎲');
+    });
 
-      container.dispose();
+    test('does not reinitialize users when database is not empty', () async {
+      // Arrange
+      await initializeDefaultUsers();
+
+      // Act - call initialization again
+      await initializeDefaultUsers();
+
+      // Assert - should still have only 3 users
+      final store = intMapStoreFactory.store('users');
+      final db = TripleTDatabase.instance.db;
+      final records = store.findSync(db);
+
+      expect(records.length, equals(3));
     });
   });
 }

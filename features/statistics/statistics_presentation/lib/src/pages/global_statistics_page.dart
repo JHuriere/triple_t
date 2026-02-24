@@ -49,7 +49,7 @@ class GlobalStatisticsPage extends HookConsumerWidget {
     );
   }
 
-  List<({int totalDraws, int totalGames, int totalLosses, int totalWins, UserModel user, double winRate})> _getUserStats(List<UserModel> users) {
+  List<({int totalDraws, int totalGames, int totalLosses, int totalWins, UserEntity user, double winRate})> _getUserStats(List<UserEntity> users) {
     final userStats = users
         .map((user) {
           int totalWins = 0;

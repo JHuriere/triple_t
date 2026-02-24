@@ -1,11 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:user_data/user_data.dart';
-import 'package:user_domain/src/model/user_model.dart';
+import 'package:user_domain/src/entity/user_entity.dart';
+import 'package:user_domain/src/repository/get_user_repository.dart';
 
 part 'get_all_users_use_case.g.dart';
 
 @riverpod
-List<UserModel> getAllUsersUseCase(Ref ref) {
-  final entities = ref.watch(userRepositoryProvider).getAll();
-  return entities.map((entity) => UserModel.fromEntity(entity: entity)).toList();
+List<UserEntity> getAllUsersUseCase(Ref ref) {
+  return ref.watch(getUserRepositoryProvider).getAll();
 }

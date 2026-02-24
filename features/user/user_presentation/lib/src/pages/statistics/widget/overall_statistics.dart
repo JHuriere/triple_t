@@ -3,7 +3,7 @@ import 'package:tt_i18n/i18n.dart';
 import 'package:user_domain/user_domain.dart';
 
 class OverallStatistics extends StatelessWidget {
-  final Map<int, StatisticsModel> statistics;
+  final Map<int, StatisticsEntity> statistics;
 
   const OverallStatistics({
     super.key,

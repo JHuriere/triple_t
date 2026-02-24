@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:game_domain/game_domain.dart';
+import 'package:game_presentation/src/pages/view_model/current_game_view_model.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tt_i18n/i18n.dart';
 
-class GameStatistics extends StatelessWidget {
-  final CurrentGameModel currentGame;
-
+class GameStatistics extends ConsumerWidget {
   const GameStatistics({
     super.key,
-    required this.currentGame,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final (:currentGame, :playerOne, :playerTwo) = ref.watch(currentGameViewModelProvider);
+
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -20,10 +20,10 @@ class GameStatistics extends StatelessWidget {
       children: [
         Expanded(
           child: _StatCard(
-            label: currentGame.playerOne.name,
+            label: playerOne.name,
             value: currentGame.playerOneWins,
             color: colorScheme.primary,
-            emoticon: currentGame.playerOne.emoticon,
+            emoticon: playerOne.emoticon,
           ),
         ),
         const SizedBox(width: 6),
@@ -38,10 +38,10 @@ class GameStatistics extends StatelessWidget {
         const SizedBox(width: 6),
         Expanded(
           child: _StatCard(
-            label: currentGame.playerTwo.name,
+            label: playerTwo.name,
             value: currentGame.playerTwoWins,
             color: colorScheme.secondary,
-            emoticon: currentGame.playerTwo.emoticon,
+            emoticon: playerTwo.emoticon,
           ),
         ),
       ],

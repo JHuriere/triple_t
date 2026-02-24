@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:settings_data/src/entity/settings/settings_entity.dart';
-import 'package:settings_data/src/repository/settings_repository.dart';
+import 'package:settings_data/src/repository/settings_repository_impl.dart';
+import 'package:settings_domain/settings_domain.dart';
 import 'package:tt_database/tt_database.dart';
 
 void main() {
