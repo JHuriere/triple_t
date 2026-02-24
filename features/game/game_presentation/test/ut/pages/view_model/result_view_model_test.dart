@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_domain/game_domain.dart';
-import 'package:game_presentation/src/pages/view_model/current_game_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/result_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/state/result_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_domain/user_domain.dart';
 
-import '../../fixtures/test_data.dart';
+import '../../../fixtures/test_data.dart';
 
 void main() {
   group('ResultViewModel', () {
@@ -18,12 +18,8 @@ void main() {
           getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWithValue(testCurrentGameEntity),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.win,
-          ).overrideWithValue(null),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => testCurrentGameEntity),
+          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.win).overrideWith((ref) => null),
         ],
       );
     });
@@ -54,17 +50,9 @@ void main() {
           getCurrentGameUseCaseProvider.overrideWithValue(gameWithWinner),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWithValue(gameWithWinner),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.win,
-          ).overrideWithValue(null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerTwo.id,
-            opponentPlayerId: testPlayerOne.id,
-            result: GameResult.lose,
-          ).overrideWithValue(null),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => gameWithWinner),
+          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.win).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerTwo.id, opponentPlayerId: testPlayerOne.id, result: GameResult.lose).overrideWith((ref) => null),
         ],
       );
 
@@ -88,17 +76,9 @@ void main() {
           getCurrentGameUseCaseProvider.overrideWithValue(drawGame),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).overrideWithValue(drawGame),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.draw,
-          ).overrideWithValue(null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerTwo.id,
-            opponentPlayerId: testPlayerOne.id,
-            result: GameResult.draw,
-          ).overrideWithValue(null),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).overrideWith((ref) => drawGame),
+          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.draw).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerTwo.id, opponentPlayerId: testPlayerOne.id, result: GameResult.draw).overrideWith((ref) => null),
         ],
       );
 

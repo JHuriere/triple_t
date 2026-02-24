@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_presentation/src/pages/widget/overlay/draw_overlay.dart';
 
-import '../../../helpers/widget_test_helpers.dart';
+import '../../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('DrawOverlay Widget Tests', () {
     testWidgets('DrawOverlay displays draw message', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -26,16 +22,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay has dismiss button', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -45,16 +37,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay calls onDismiss when button is tapped', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -70,16 +58,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay renders fullscreen overlay', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -89,16 +73,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay displays neutral emoji', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -108,16 +88,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay displays centered content', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -127,16 +103,12 @@ void main() {
     });
 
     testWidgets('DrawOverlay background is semi-transparent', (WidgetTester tester) async {
-      // Arrange
-      final overrides = <dynamic>[];
-
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: DrawOverlay(
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();

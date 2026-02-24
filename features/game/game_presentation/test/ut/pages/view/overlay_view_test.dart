@@ -4,7 +4,7 @@ import 'package:game_presentation/src/pages/view/overlay_view.dart';
 import 'package:game_presentation/src/pages/view_model/result_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/state/result_state.dart';
 
-import '../../helpers/widget_test_helpers.dart';
+import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('OverlayView Widget Tests', () {

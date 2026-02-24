@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/game_page.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_domain/user_domain.dart';
 
 import '../../fixtures/test_data.dart';
 import '../../helpers/widget_test_helpers.dart';
@@ -81,7 +81,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-        resetCurrentGameUseCaseProvider.overrideWithValue(null),
+        resetCurrentGameUseCaseProvider.overrideWith((ref) => null),
       ];
 
       // Act

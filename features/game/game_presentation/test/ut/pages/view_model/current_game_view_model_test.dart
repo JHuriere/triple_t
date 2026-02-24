@@ -2,8 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view_model/current_game_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:user_domain/user_domain.dart';
 
-import '../../fixtures/test_data.dart';
+import '../../../fixtures/test_data.dart';
 
 void main() {
   group('CurrentGameViewModel', () {
@@ -45,7 +46,7 @@ void main() {
           getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameElementsUseCaseProvider(elements: updatedElements).overrideWithValue(updatedGame),
+          updateCurrentGameElementsUseCaseProvider(elements: updatedElements).overrideWith((ref) => updatedGame),
         ],
       );
 
@@ -71,7 +72,7 @@ void main() {
           getCurrentGameUseCaseProvider.overrideWithValue(gameNotOTurn),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameElementsUseCaseProvider(elements: updatedElements).overrideWithValue(updatedGame),
+          updateCurrentGameElementsUseCaseProvider(elements: updatedElements).overrideWith((ref) => updatedGame),
         ],
       );
 

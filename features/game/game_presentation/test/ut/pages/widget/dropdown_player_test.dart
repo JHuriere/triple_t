@@ -3,15 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:game_presentation/src/pages/widget/dropdown_player.dart';
 import 'package:user_domain/user_domain.dart';
 
-import '../../fixtures/test_data.dart';
-import '../../helpers/widget_test_helpers.dart';
+import '../../../fixtures/test_data.dart';
+import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('DropdownPlayer Widget Tests', () {
     testWidgets('DropdownPlayer renders dropdown button', (WidgetTester tester) async {
       // Arrange
       final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -21,9 +20,9 @@ void main() {
             users: users,
             value: null,
             enabled: true,
-            onChanged: (id) {},
+            onChanged: (id) async {},
+            excludedUserIds: [],
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -36,7 +35,6 @@ void main() {
       // Arrange
       final users = [testPlayerOne, testPlayerTwo];
       const label = 'Player 1';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -46,9 +44,9 @@ void main() {
             users: users,
             value: null,
             enabled: true,
-            onChanged: (id) {},
+            onChanged: (id) async {},
+            excludedUserIds: [],
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -60,7 +58,6 @@ void main() {
     testWidgets('DropdownPlayer is disabled when enabled is false', (WidgetTester tester) async {
       // Arrange
       final users = [testPlayerOne, testPlayerTwo];
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -70,9 +67,9 @@ void main() {
             users: users,
             value: null,
             enabled: false,
-            onChanged: (id) {},
+            onChanged: (id) async {},
+            excludedUserIds: [],
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -85,7 +82,6 @@ void main() {
       // Arrange
       final users = [testPlayerOne, testPlayerTwo];
       const selectedValue = 2;
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -95,9 +91,9 @@ void main() {
             users: users,
             value: selectedValue,
             enabled: true,
-            onChanged: (id) {},
+            onChanged: (id) async {},
+            excludedUserIds: [],
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -110,7 +106,6 @@ void main() {
       // Arrange
       final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
       final excludedIds = [1];
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -121,9 +116,8 @@ void main() {
             value: null,
             excludedUserIds: excludedIds,
             enabled: true,
-            onChanged: (id) {},
+            onChanged: (id) async {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -135,7 +129,6 @@ void main() {
     testWidgets('DropdownPlayer renders with empty user list', (WidgetTester tester) async {
       // Arrange
       final users = <UserEntity>[];
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -145,9 +138,9 @@ void main() {
             users: users,
             value: null,
             enabled: true,
-            onChanged: (id) {},
+            onChanged: (id) async {},
+            excludedUserIds: [],
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();

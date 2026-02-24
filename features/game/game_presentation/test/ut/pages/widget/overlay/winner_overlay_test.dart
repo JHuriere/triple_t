@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_presentation/src/pages/widget/overlay/winner_overlay.dart';
 
-import '../../../helpers/widget_test_helpers.dart';
+import '../../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('WinnerOverlay Widget Tests', () {
     testWidgets('WinnerOverlay displays winner name', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -18,7 +17,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -30,7 +28,6 @@ void main() {
     testWidgets('WinnerOverlay displays confetti animation', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -39,7 +36,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -51,7 +47,6 @@ void main() {
     testWidgets('WinnerOverlay has dismiss button', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -60,7 +55,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -72,19 +66,14 @@ void main() {
     testWidgets('WinnerOverlay calls onDismiss when button is tapped', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      bool dismissed = false;
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
         createTestableWidget(
           child: WinnerOverlay(
             winner: winnerName,
-            onDismiss: () {
-              dismissed = true;
-            },
+            onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -102,7 +91,6 @@ void main() {
     testWidgets('WinnerOverlay displays with different winner names', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Bob';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -111,7 +99,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -123,7 +110,6 @@ void main() {
     testWidgets('WinnerOverlay renders fullscreen overlay', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -132,7 +118,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();
@@ -144,7 +129,6 @@ void main() {
     testWidgets('WinnerOverlay displays celebration text', (WidgetTester tester) async {
       // Arrange
       const winnerName = 'Alice';
-      final overrides = <Override>[];
 
       // Act
       await tester.pumpWidget(
@@ -153,7 +137,6 @@ void main() {
             winner: winnerName,
             onDismiss: () {},
           ),
-          overrides: overrides,
         ),
       );
       await tester.pumpAndSettle();

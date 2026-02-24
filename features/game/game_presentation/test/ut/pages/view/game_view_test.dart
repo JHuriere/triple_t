@@ -4,8 +4,8 @@ import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view/game_view.dart';
 import 'package:user_domain/user_domain.dart';
 
-import '../../fixtures/test_data.dart';
-import '../../helpers/widget_test_helpers.dart';
+import '../../../fixtures/test_data.dart';
+import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameView Widget Tests', () {

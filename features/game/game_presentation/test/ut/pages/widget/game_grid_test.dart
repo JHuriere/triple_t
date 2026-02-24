@@ -4,8 +4,8 @@ import 'package:game_presentation/src/pages/view_model/result_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/state/result_state.dart';
 import 'package:game_presentation/src/pages/widget/game_grid.dart';
 
-import '../../fixtures/test_data.dart';
-import '../../helpers/widget_test_helpers.dart';
+import '../../../fixtures/test_data.dart';
+import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameGrid Widget Tests', () {
@@ -28,9 +28,7 @@ void main() {
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
             showOverlay: showOverlay,
-            onTap: (index) {
-              tapCount++;
-            },
+            onTap: (index) {},
           ),
           overrides: overrides,
         ),
@@ -81,9 +79,7 @@ void main() {
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
             showOverlay: showOverlay,
-            onTap: (index) {
-              tapCount++;
-            },
+            onTap: (index) {},
           ),
           overrides: overrides,
         ),
@@ -91,7 +87,7 @@ void main() {
       await tester.pumpAndSettle();
 
       final cells = find.byType(GestureDetector);
-      if (cells.evaluate().length > 0) {
+      if (cells.evaluate().isNotEmpty) {
         await tester.tap(cells.first);
         await tester.pumpAndSettle();
       }
