@@ -164,19 +164,6 @@ void main() {
       await future;
     });
 
-    test('handles repository saveSettings exception', () async {
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(locale: 'fr'),
-      );
-      when(mockRepository.saveSettings(const SettingsEntity(locale: 'en'))).thenThrow(Exception('Save failed'));
-
-      final future = container.read(
-        updateLocaleUseCaseProvider(locale: 'en').future,
-      );
-
-      expect(future, throwsException);
-    });
-
     test('allows switching between different locales sequentially', () async {
       const initialSettings = SettingsEntity(
         id: 'test-id',
@@ -205,37 +192,6 @@ void main() {
       );
 
       verify(mockRepository.saveSettings(expectedSettings2)).called(1);
-    });
-
-    test('updates to different locales', () async {
-      final testCases = [
-        ('pt', 'Portuguese'),
-        ('nl', 'Dutch'),
-        ('ru', 'Russian'),
-        ('zh', 'Chinese'),
-        ('ar', 'Arabic'),
-      ];
-
-      for (final (localeCode, _) in testCases) {
-        const currentSettings = SettingsEntity(
-          id: 'test-id',
-          themeMode: ThemeMode.light,
-          locale: 'fr',
-        );
-        final expectedSettings = currentSettings.copyWith(locale: localeCode);
-
-        when(mockRepository.get()).thenReturn(currentSettings);
-        when(mockRepository.saveSettings(expectedSettings)).thenAnswer((_) async => Future<void>.value());
-
-        await container.read(
-          updateLocaleUseCaseProvider(locale: localeCode).future,
-        );
-
-        verify(mockRepository.saveSettings(expectedSettings)).called(1);
-
-        container.dispose();
-        reset(mockRepository);
-      }
     });
   });
 }

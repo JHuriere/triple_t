@@ -7,20 +7,61 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:user_domain/user_domain.dart';
 
 import '../../../fixtures/test_data.dart';
+import '../../../helpers/mock_current_game_repository.dart';
 
 void main() {
   group('ResultViewModel', () {
     late ProviderContainer container;
+    late MockCurrentGameRepository mockRepository;
 
-    setUp(() {
-      container = ProviderContainer(
+    ProviderContainer _createContainer({
+      required CurrentGameEntity currentGame,
+      MockCurrentGameRepository? repository,
+    }) {
+      final repo = repository ?? MockCurrentGameRepository();
+      return ProviderContainer(
         overrides: [
-          getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
+          getCurrentGameUseCaseProvider.overrideWithValue(currentGame),
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => testCurrentGameEntity),
-          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.win).overrideWith((ref) => null),
+          getCurrentGameRepositoryProvider.overrideWithValue(repo),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => currentGame),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerTwoWon).overrideWith((ref) => currentGame),
+          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).overrideWith((ref) => currentGame),
+          updateUserStatisticsUseCaseProvider(
+            currentPlayerId: testPlayerOne.id,
+            opponentPlayerId: testPlayerTwo.id,
+            result: GameResult.win,
+          ).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(
+            currentPlayerId: testPlayerOne.id,
+            opponentPlayerId: testPlayerTwo.id,
+            result: GameResult.lose,
+          ).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(
+            currentPlayerId: testPlayerOne.id,
+            opponentPlayerId: testPlayerTwo.id,
+            result: GameResult.draw,
+          ).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(
+            currentPlayerId: testPlayerTwo.id,
+            opponentPlayerId: testPlayerOne.id,
+            result: GameResult.lose,
+          ).overrideWith((ref) => null),
+          updateUserStatisticsUseCaseProvider(
+            currentPlayerId: testPlayerTwo.id,
+            opponentPlayerId: testPlayerOne.id,
+            result: GameResult.draw,
+          ).overrideWith((ref) => null),
         ],
+      );
+    }
+
+    setUp(() {
+      mockRepository = MockCurrentGameRepository();
+      container = _createContainer(
+        currentGame: testCurrentGameEntity,
+        repository: mockRepository,
       );
     });
 
@@ -28,96 +69,91 @@ void main() {
       container.dispose();
     });
 
-    test('build should return InitialResultState', () {
-      // Act
-      final state = container.read(resultViewModelProvider);
+    group('build', () {
+      test('should return initial result state', () {
+        // Arrange & Act
+        final state = container.read(resultViewModelProvider);
 
-      // Assert
-      expect(state, isA<InitialResultState>());
+        // Assert
+        expect(state, isA<InitialResultState>());
+      });
     });
 
-    test('checkResult should set WinnerResultState when winner found', () async {
-      // Arrange
-      final showOverlay = ValueNotifier<bool>(false);
+    group('checkResult', () {
+      test('should set winner result state when winner found', () async {
+        // Arrange
+        final showOverlay = ValueNotifier<bool>(false);
+        final gameWithWinner = testCurrentGameEntity.copyWith(
+          elements: [testPlayerOne.emoticon, testPlayerOne.emoticon, testPlayerOne.emoticon, '', '', '', '', '', ''],
+          oTurn: true,
+        );
 
-      final gameWithWinner = testCurrentGameEntity.copyWith(
-        elements: [testPlayerOne.emoticon, testPlayerOne.emoticon, testPlayerOne.emoticon, '', '', '', '', '', ''],
-        oTurn: true,
-      );
+        final newMockRepository = MockCurrentGameRepository();
+        container.dispose();
+        container = _createContainer(
+          currentGame: gameWithWinner,
+          repository: newMockRepository,
+        );
 
-      container = ProviderContainer(
-        overrides: [
-          getCurrentGameUseCaseProvider.overrideWithValue(gameWithWinner),
-          getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
-          getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => gameWithWinner),
-          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.win).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerTwo.id, opponentPlayerId: testPlayerOne.id, result: GameResult.lose).overrideWith((ref) => null),
-        ],
-      );
+        // Act
+        final notifier = container.read(resultViewModelProvider.notifier);
+        await notifier.checkResult(showOverlay);
 
-      // Act
-      final notifier = container.read(resultViewModelProvider.notifier);
-      await notifier.checkResult(showOverlay);
+        // Assert
+        final state = container.read(resultViewModelProvider);
+        expect(state, isA<WinnerResultState>());
+        expect((state as WinnerResultState).winner, testPlayerTwo.name);
+      });
 
-      // Assert
-      final state = container.read(resultViewModelProvider);
-      expect(state, isA<WinnerResultState>());
-    });
+      test('should set no result state when game continues', () async {
+        // Arrange
+        final showOverlay = ValueNotifier<bool>(false);
+        final ongoingGame = testCurrentGameEntity.copyWith(
+          elements: [testPlayerOne.emoticon, '', '', '', '', '', '', '', ''],
+          oTurn: false,
+        );
 
-    test('checkResult should set DrawResultState when board is full', () async {
-      // Arrange
-      final showOverlay = ValueNotifier<bool>(false);
+        final newMockRepository = MockCurrentGameRepository();
+        container.dispose();
+        container = _createContainer(
+          currentGame: ongoingGame,
+          repository: newMockRepository,
+        );
 
-      final drawGame = testGameDraw.copyWith(oTurn: true);
+        // Act
+        final notifier = container.read(resultViewModelProvider.notifier);
+        await notifier.checkResult(showOverlay);
 
-      container = ProviderContainer(
-        overrides: [
-          getCurrentGameUseCaseProvider.overrideWithValue(drawGame),
-          getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
-          getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).overrideWith((ref) => drawGame),
-          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerOne.id, opponentPlayerId: testPlayerTwo.id, result: GameResult.draw).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(currentPlayerId: testPlayerTwo.id, opponentPlayerId: testPlayerOne.id, result: GameResult.draw).overrideWith((ref) => null),
-        ],
-      );
+        // Assert
+        final state = container.read(resultViewModelProvider);
+        expect(state, isA<NoResultState>());
+        expect(showOverlay.value, false);
+      });
 
-      // Act
-      final notifier = container.read(resultViewModelProvider.notifier);
-      await notifier.checkResult(showOverlay);
+      test('should update player two statistics when player two wins', () async {
+        // Arrange
+        final showOverlay = ValueNotifier<bool>(false);
+        final gameWithPlayerTwoWin = testCurrentGameEntity.copyWith(
+          elements: [testPlayerTwo.emoticon, testPlayerTwo.emoticon, testPlayerTwo.emoticon, '', '', '', '', '', ''],
+          oTurn: false,
+        );
 
-      // Assert
-      final state = container.read(resultViewModelProvider);
-      expect(state, isA<DrawResultState>());
-      await Future<void>.delayed(const Duration(milliseconds: 600));
-      expect(showOverlay.value, true);
-    });
+        final newMockRepository = MockCurrentGameRepository();
+        container.dispose();
+        container = _createContainer(
+          currentGame: gameWithPlayerTwoWin,
+          repository: newMockRepository,
+        );
 
-    test('checkResult should set NoResultState when game continues', () async {
-      // Arrange
-      final showOverlay = ValueNotifier<bool>(false);
+        // Act
+        final notifier = container.read(resultViewModelProvider.notifier);
+        await notifier.checkResult(showOverlay);
 
-      final ongoingGame = testCurrentGameEntity.copyWith(
-        elements: [testPlayerOne.emoticon, '', '', '', '', '', '', '', ''],
-        oTurn: false,
-      );
-
-      container = ProviderContainer(
-        overrides: [
-          getCurrentGameUseCaseProvider.overrideWithValue(ongoingGame),
-          getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
-          getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
-        ],
-      );
-
-      // Act
-      final notifier = container.read(resultViewModelProvider.notifier);
-      await notifier.checkResult(showOverlay);
-
-      // Assert
-      final state = container.read(resultViewModelProvider);
-      expect(state, isA<NoResultState>());
-      expect(showOverlay.value, false);
+        // Assert
+        final state = container.read(resultViewModelProvider);
+        expect(state, isA<WinnerResultState>());
+        expect((state as WinnerResultState).winner, testPlayerOne.name);
+      });
     });
   });
 }

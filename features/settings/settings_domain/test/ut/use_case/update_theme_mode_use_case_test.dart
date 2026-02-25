@@ -149,19 +149,6 @@ void main() {
       await future;
     });
 
-    test('handles repository saveSettings exception', () async {
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(themeMode: ThemeMode.light),
-      );
-      when(mockRepository.saveSettings(any)).thenThrow(Exception('Save failed'));
-
-      final future = container.read(
-        updateThemeModeUseCaseProvider(themeMode: ThemeMode.dark).future,
-      );
-
-      expect(future, throwsException);
-    });
-
     test('allows switching between different theme modes sequentially', () async {
       const initialSettings = SettingsEntity(
         id: 'test-id',

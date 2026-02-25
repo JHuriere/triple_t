@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tt_i18n/i18n.dart';
 
 Widget createTestableWidget({
   required Widget child,
@@ -11,8 +13,13 @@ Widget createTestableWidget({
     overrides: overrides,
     child: MaterialApp(
       home: Material(child: child),
-      localizationsDelegates: const [],
-      supportedLocales: const [Locale('en')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
     ),
   );
 }

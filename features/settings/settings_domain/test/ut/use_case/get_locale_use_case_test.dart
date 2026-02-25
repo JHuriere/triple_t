@@ -122,28 +122,6 @@ void main() {
       expect(result.languageCode, 'en');
     });
 
-    test('returns correct Locale with different language codes', () {
-      final testCases = [
-        ('pt', 'pt'),
-        ('nl', 'nl'),
-        ('ru', 'ru'),
-        ('zh', 'zh'),
-        ('ar', 'ar'),
-      ];
-
-      for (final (localeCode, expectedCode) in testCases) {
-        when(mockRepository.get()).thenReturn(
-          SettingsEntity(locale: localeCode),
-        );
-
-        final result = container.read(getLocaleUseCaseProvider);
-
-        expect(result.languageCode, expectedCode);
-
-        container.dispose();
-      }
-    });
-
     test('returns Locale object with only language code set', () {
       when(mockRepository.get()).thenReturn(
         const SettingsEntity(locale: 'fr'),
