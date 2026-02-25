@@ -13,7 +13,7 @@ void main() {
     late ProviderContainer container;
     late MockCurrentGameRepository mockRepository;
 
-    ProviderContainer _createContainer({
+    ProviderContainer createContainer({
       required CurrentGameEntity currentGame,
       MockCurrentGameRepository? repository,
     }) {
@@ -30,7 +30,7 @@ void main() {
 
     setUp(() {
       mockRepository = MockCurrentGameRepository();
-      container = _createContainer(
+      container = createContainer(
         currentGame: testCurrentGameEntity,
         repository: mockRepository,
       );
@@ -56,9 +56,9 @@ void main() {
     group('playTurn', () {
       test('should update elements with playerOne emoticon when oTurn is true', () async {
         // Arrange
-        const MOVE_INDEX = 0;
+        const moveIndex = 0;
         final updatedElements = [...testCurrentGameEntity.elements];
-        updatedElements[MOVE_INDEX] = testPlayerOne.emoticon;
+        updatedElements[moveIndex] = testPlayerOne.emoticon;
         final updatedGame = testCurrentGameEntity.copyWith(elements: updatedElements);
 
         when(mockRepository.get()).thenReturn(testCurrentGameEntity);
@@ -66,11 +66,11 @@ void main() {
 
         // Act
         final notifier = container.read(currentGameViewModelProvider.notifier);
-        await notifier.playTurn(MOVE_INDEX);
+        await notifier.playTurn(moveIndex);
 
         // Assert
         final result = container.read(currentGameViewModelProvider);
-        expect(result.currentGame.elements[MOVE_INDEX], testPlayerOne.emoticon);
+        expect(result.currentGame.elements[moveIndex], testPlayerOne.emoticon);
         verify(mockRepository.get()).called(1);
         verify(mockRepository.save(argThat(isA<CurrentGameEntity>()))).called(1);
       });
@@ -78,14 +78,14 @@ void main() {
       test('should update elements with playerTwo emoticon when oTurn is false', () async {
         // Arrange
         final gameNotOTurn = testCurrentGameEntity.copyWith(oTurn: false, playerTwoId: 2); // Not AI
-        const MOVE_INDEX = 1;
+        const moveIndex = 1;
         final updatedElements = [...gameNotOTurn.elements];
-        updatedElements[MOVE_INDEX] = testPlayerTwo.emoticon;
+        updatedElements[moveIndex] = testPlayerTwo.emoticon;
         final updatedGame = gameNotOTurn.copyWith(elements: updatedElements);
 
         final newMockRepository = MockCurrentGameRepository();
         container.dispose();
-        container = _createContainer(
+        container = createContainer(
           currentGame: gameNotOTurn,
           repository: newMockRepository,
         );
@@ -95,22 +95,22 @@ void main() {
 
         // Act
         final notifier = container.read(currentGameViewModelProvider.notifier);
-        await notifier.playTurn(MOVE_INDEX);
+        await notifier.playTurn(moveIndex);
 
         // Assert
         final result = container.read(currentGameViewModelProvider);
-        expect(result.currentGame.elements[MOVE_INDEX], testPlayerTwo.emoticon);
+        expect(result.currentGame.elements[moveIndex], testPlayerTwo.emoticon);
         verify(newMockRepository.get()).called(1);
         verify(newMockRepository.save(argThat(isA<CurrentGameEntity>()))).called(1);
       });
 
       test('should trigger AI turn if opponent is AI and it is their turn', () async {
         // Arrange
-        const MOVE_INDEX = 0;
+        const moveIndex = 0;
         final updatedElements = [...testCurrentGameEntity.elements];
-        updatedElements[MOVE_INDEX] = testPlayerOne.emoticon;
+        updatedElements[moveIndex] = testPlayerOne.emoticon;
         final updatedGame = testCurrentGameEntity.copyWith(elements: updatedElements, oTurn: false, playerTwoId: 1); // AI is player 2
-        
+
         final aiMoveElements = [...updatedElements];
         aiMoveElements[1] = testPlayerTwo.emoticon;
         final aiUpdatedGame = updatedGame.copyWith(elements: aiMoveElements, oTurn: true);
@@ -126,7 +126,7 @@ void main() {
 
         // Act
         final notifier = container.read(currentGameViewModelProvider.notifier);
-        await notifier.playTurn(MOVE_INDEX);
+        await notifier.playTurn(moveIndex);
 
         // Assert
         final result = container.read(currentGameViewModelProvider);
@@ -137,4 +137,3 @@ void main() {
     });
   });
 }
-

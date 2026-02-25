@@ -41,7 +41,9 @@ class CurrentGameViewModel extends _$CurrentGameViewModel {
           if (!ref.mounted) return;
 
           final elements = List<String>.from(gameUpdated.elements);
-          final aiMove = ref.read(gameServiceProvider).calculateBestMove(
+          final aiMove = ref
+              .read(gameServiceProvider)
+              .calculateBestMove(
                 elements,
                 state.playerOne.emoticon,
                 state.playerTwo.emoticon,
@@ -61,4 +63,3 @@ class CurrentGameViewModel extends _$CurrentGameViewModel {
     }
   }
 }
-

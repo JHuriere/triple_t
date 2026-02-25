@@ -9,9 +9,7 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameGrid Widget Tests', () {
-
-    setUp(() {
-    });
+    setUp(() {});
 
     testWidgets('GameGrid renders 9 cells for empty board', (WidgetTester tester) async {
       // Arrange

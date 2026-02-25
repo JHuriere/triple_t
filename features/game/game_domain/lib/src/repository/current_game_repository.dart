@@ -1,7 +1,6 @@
 import 'package:game_domain/src/entity/current_game_entity.dart';
 
 abstract class CurrentGameRepository {
-
   /// Returns the current game settings. If no settings are found, returns default settings.
   CurrentGameEntity get();
 

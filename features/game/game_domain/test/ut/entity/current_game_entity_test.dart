@@ -61,7 +61,6 @@ void main() {
       expect(updated.playerTwoId, 1);
     });
 
-
     test('should be equal when values are the same', () {
       // Arrange
       const entity1 = CurrentGameEntity(

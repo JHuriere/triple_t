@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:user_domain/src/entity/statistics/global_user_statistics_entity.dart';
 import 'package:user_domain/src/entity/statistics/statistics_entity.dart';
 import 'package:user_domain/src/entity/user_entity.dart';
 import 'package:user_domain/src/use_case/get_all_users_use_case.dart';
@@ -47,7 +46,7 @@ void main() {
 
       // Assert
       expect(result.length, equals(3));
-      
+
       // User 2 has 10 wins, should be first
       expect(result[0].user, equals(user2));
       expect(result[0].totalWins, equals(10));

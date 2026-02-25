@@ -68,16 +68,27 @@ class UpdateUserPage extends HookConsumerWidget {
 
   void _updateUser(BuildContext context, WidgetRef ref, UserEntity user, String newName, String? emoticon) async {
     final updatedUser = user.copyWith(name: newName, emoticon: emoticon ?? user.emoticon);
-    final success = await ref.read(updateUserUseCaseProvider(user: updatedUser).future);
-    ref.invalidate(getAllUsersUseCaseProvider);
+    try {
+      final success = await ref.read(updateUserUseCaseProvider(user: updatedUser).future);
+      ref.invalidate(getAllUsersUseCaseProvider);
 
-    if (!context.mounted) return;
+      if (!context.mounted) return;
 
-    if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userUpdatedSuccessfully)));
-      Navigator.pop(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.nameAlreadyExists)));
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userUpdatedSuccessfully)));
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.nameAlreadyExists)));
+      }
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 
@@ -96,12 +107,23 @@ class UpdateUserPage extends HookConsumerWidget {
 
     if (confirm != true) return;
 
-    await ref.read(deleteUserUseCaseProvider(id).future);
-    ref.invalidate(getAllUsersUseCaseProvider);
+    try {
+      await ref.read(deleteUserUseCaseProvider(id).future);
+      ref.invalidate(getAllUsersUseCaseProvider);
 
-    if (!context.mounted) return;
+      if (!context.mounted) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userDeletedSuccessfully)));
-    context.pop();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.userDeletedSuccessfully)));
+      context.pop();
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 }

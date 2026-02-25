@@ -57,10 +57,21 @@ class SettingsPage extends HookConsumerWidget {
         content: RadioGroup<ThemeMode>(
           onChanged: (value) async {
             if (value != null) {
-              await ref.read(updateThemeModeUseCaseProvider(themeMode: value).future);
-              ref.invalidate(getSettingsUseCaseProvider);
-              if (context.mounted) {
-                Navigator.pop(context);
+              try {
+                await ref.read(updateThemeModeUseCaseProvider(themeMode: value).future);
+                ref.invalidate(getSettingsUseCaseProvider);
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
+              } catch (e) {
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('${context.l10n.error} : $e'),
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
               }
             }
           },
@@ -125,10 +136,21 @@ class SettingsPage extends HookConsumerWidget {
 
   Future<void> _onChangeLanguage(String? value, WidgetRef ref, BuildContext context) async {
     if (value != null) {
-      await ref.read(updateLocaleUseCaseProvider(locale: value).future);
-      ref.invalidate(getSettingsUseCaseProvider);
-      if (context.mounted) {
-        Navigator.pop(context);
+      try {
+        await ref.read(updateLocaleUseCaseProvider(locale: value).future);
+        ref.invalidate(getSettingsUseCaseProvider);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
+      } catch (e) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${context.l10n.error} : $e'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
     }
   }

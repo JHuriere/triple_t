@@ -45,4 +45,3 @@ class GameView extends HookConsumerWidget {
     );
   }
 }
-

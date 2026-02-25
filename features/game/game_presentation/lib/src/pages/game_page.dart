@@ -17,9 +17,20 @@ class GamePage extends HookConsumerWidget {
     final resultState = ref.watch(resultViewModelProvider);
 
     void resetGame() async {
-      await ref.read(resetCurrentGameUseCaseProvider.future);
-      ref.invalidate(resultViewModelProvider);
-      ref.invalidate(getCurrentGameUseCaseProvider);
+      try {
+        await ref.read(resetCurrentGameUseCaseProvider.future);
+        ref.invalidate(resultViewModelProvider);
+        ref.invalidate(getCurrentGameUseCaseProvider);
+      } catch (e) {
+        if (!context.mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${context.l10n.error} : $e'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
     }
 
     return Scaffold(
@@ -36,7 +47,7 @@ class GamePage extends HookConsumerWidget {
         fit: StackFit.expand,
         children: [
           GameView(
-            onTap: (index) => _onTap(ref, index),
+            onTap: (index) => _onTap(context, ref, index),
           ),
           OverlayView(
             showOverlay: resultState.showOverlay,
@@ -47,7 +58,18 @@ class GamePage extends HookConsumerWidget {
     );
   }
 
-  Future<void> _onTap(WidgetRef ref, int index) async {
-    await ref.read(currentGameViewModelProvider.notifier).playTurn(index);
+  Future<void> _onTap(BuildContext context, WidgetRef ref, int index) async {
+    try {
+      await ref.read(currentGameViewModelProvider.notifier).playTurn(index);
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 }

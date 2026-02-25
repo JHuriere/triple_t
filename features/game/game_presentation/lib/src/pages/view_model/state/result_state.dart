@@ -16,7 +16,7 @@ class WinnerResultState extends ResultState {
 
   final List<int> winningLine;
   final String winner;
-  
+
   WinnerResultState copyWith({bool? showOverlay}) {
     return WinnerResultState(
       winningLine: winningLine,

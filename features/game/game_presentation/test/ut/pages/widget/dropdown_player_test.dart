@@ -12,13 +12,13 @@ void main() {
       testWidgets('should display DropdownButtonFormField', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -36,13 +36,13 @@ void main() {
       testWidgets('should display with rounded borders', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -60,13 +60,13 @@ void main() {
       testWidgets('should display keyboard arrow down icon', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -86,13 +86,13 @@ void main() {
       testWidgets('should display provided label text', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Player 1';
+        const label = 'Player 1';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -104,19 +104,19 @@ void main() {
         await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
         // Assert
-        expect(find.text(LABEL), findsOneWidget);
+        expect(find.text(label), findsOneWidget);
       });
 
       testWidgets('should display different label texts', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Player 2';
+        const label = 'Player 2';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -128,7 +128,7 @@ void main() {
         await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
         // Assert
-        expect(find.text(LABEL), findsOneWidget);
+        expect(find.text(label), findsOneWidget);
       });
     });
 
@@ -136,13 +136,13 @@ void main() {
       testWidgets('should render dropdown with multiple users', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -160,13 +160,13 @@ void main() {
       testWidgets('should handle empty user list', (WidgetTester tester) async {
         // Arrange
         final users = <UserEntity>[];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -186,17 +186,17 @@ void main() {
       testWidgets('should exclude specified user IDs from dropdown', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-        final EXCLUDED_IDS = [testPlayerTwo.id];
-        const LABEL = 'Select Player';
+        final excludedIds = [testPlayerTwo.id];
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
-              excludedUserIds: EXCLUDED_IDS,
+              excludedUserIds: excludedIds,
               enabled: true,
               onChanged: (id) async {},
             ),
@@ -211,17 +211,17 @@ void main() {
       testWidgets('should exclude multiple user IDs', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-        final EXCLUDED_IDS = [testPlayerOne.id, testPlayerThree.id];
-        const LABEL = 'Select Player';
+        final excludedIds = [testPlayerOne.id, testPlayerThree.id];
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
-              excludedUserIds: EXCLUDED_IDS,
+              excludedUserIds: excludedIds,
               enabled: true,
               onChanged: (id) async {},
             ),
@@ -238,16 +238,16 @@ void main() {
       testWidgets('should display selected user', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        final SELECTED_VALUE = testPlayerOne.id;
-        const LABEL = 'Select Player';
+        final selectedValue = testPlayerOne.id;
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
-              value: SELECTED_VALUE,
+              value: selectedValue,
               enabled: true,
               onChanged: (id) async {},
               excludedUserIds: const [],
@@ -263,13 +263,13 @@ void main() {
       testWidgets('should have onChanged callback when enabled', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo, testPlayerThree];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -290,13 +290,13 @@ void main() {
       testWidgets('should not have onChanged callback when disabled', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: false,
@@ -319,13 +319,13 @@ void main() {
       testWidgets('should be enabled when enabled is true', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -346,13 +346,13 @@ void main() {
       testWidgets('should be disabled when enabled is false', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: false,
@@ -375,13 +375,13 @@ void main() {
       testWidgets('should render with decoration', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,
@@ -402,13 +402,13 @@ void main() {
       testWidgets('should display with proper padding', (WidgetTester tester) async {
         // Arrange
         final users = [testPlayerOne, testPlayerTwo];
-        const LABEL = 'Select Player';
+        const label = 'Select Player';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: DropdownPlayer(
-              label: LABEL,
+              label: label,
               users: users,
               value: null,
               enabled: true,

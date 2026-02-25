@@ -13,8 +13,8 @@ abstract class GameResultHandler {
 
 class MockGameResultHandler extends Mock implements GameResultHandler {
   @override
-  Future<void> notify({required int? playerOneId, required int? playerTwoId, required CurrentGameState? state}) => 
-    super.noSuchMethod(Invocation.method(#notify, [], {#playerOneId: playerOneId, #playerTwoId: playerTwoId, #state: state}), returnValue: Future<void>.value());
+  Future<void> notify({required int? playerOneId, required int? playerTwoId, required CurrentGameState? state}) =>
+      super.noSuchMethod(Invocation.method(#notify, [], {#playerOneId: playerOneId, #playerTwoId: playerTwoId, #state: state}), returnValue: Future<void>.value());
 }
 
 void main() {
@@ -28,17 +28,17 @@ void main() {
       mockRepository = MockCurrentGameRepository();
       mockNotifyHandler = MockGameResultHandler();
       gameService = GameService();
-      
+
       container = ProviderContainer(
         overrides: [
           getCurrentGameRepositoryProvider.overrideWithValue(mockRepository),
           gameServiceProvider.overrideWithValue(gameService),
           notifyGameResultUseCaseProvider.overrideWith((ref, argument) {
-             return mockNotifyHandler.notify(
-               playerOneId: argument.playerOneId,
-               playerTwoId: argument.playerTwoId,
-               state: argument.state,
-             );
+            return mockNotifyHandler.notify(
+              playerOneId: argument.playerOneId,
+              playerTwoId: argument.playerTwoId,
+              state: argument.state,
+            );
           }),
         ],
       );
@@ -53,7 +53,7 @@ void main() {
       const initialGame = CurrentGameEntity(
         elements: ['', '', '', '', '', '', '', '', ''],
         state: CurrentGameState.initial,
-        oTurn: true, 
+        oTurn: true,
       );
 
       when(mockRepository.get()).thenReturn(initialGame);
@@ -67,11 +67,13 @@ void main() {
       expect(result.oTurn, false);
       expect(result.state, CurrentGameState.inProgress);
       verify(mockRepository.save(any)).called(1);
-      verifyNever(mockNotifyHandler.notify(
-        playerOneId: anyNamed('playerOneId'),
-        playerTwoId: anyNamed('playerTwoId'),
-        state: anyNamed('state'),
-      ));
+      verifyNever(
+        mockNotifyHandler.notify(
+          playerOneId: anyNamed('playerOneId'),
+          playerTwoId: anyNamed('playerTwoId'),
+          state: anyNamed('state'),
+        ),
+      );
     });
 
     test('should win for Player One on the last move and notify', () async {
@@ -86,11 +88,13 @@ void main() {
 
       when(mockRepository.get()).thenReturn(initialGame);
       when(mockRepository.save(any)).thenAnswer((inv) async => inv.positionalArguments[0] as CurrentGameEntity);
-      when(mockNotifyHandler.notify(
-        playerOneId: anyNamed('playerOneId'),
-        playerTwoId: anyNamed('playerTwoId'),
-        state: anyNamed('state'),
-      )).thenAnswer((_) async {});
+      when(
+        mockNotifyHandler.notify(
+          playerOneId: anyNamed('playerOneId'),
+          playerTwoId: anyNamed('playerTwoId'),
+          state: anyNamed('state'),
+        ),
+      ).thenAnswer((_) async {});
 
       // Act
       final result = await container.read(playMoveUseCaseProvider(index: 2, emoticon: 'X').future);
@@ -99,15 +103,17 @@ void main() {
       expect(result.elements[2], 'X');
       expect(result.state, CurrentGameState.playerOneWon);
       expect(result.playerOneWins, 1);
-      
+
       verify(mockRepository.save(any)).called(1);
-      
+
       // Verify notify call
-      verify(mockNotifyHandler.notify(
-        playerOneId: 1,
-        playerTwoId: 2,
-        state: CurrentGameState.playerOneWon,
-      )).called(1);
+      verify(
+        mockNotifyHandler.notify(
+          playerOneId: 1,
+          playerTwoId: 2,
+          state: CurrentGameState.playerOneWon,
+        ),
+      ).called(1);
     });
 
     test('should result in a draw and notify when board becomes full', () async {
@@ -122,11 +128,13 @@ void main() {
 
       when(mockRepository.get()).thenReturn(initialGame);
       when(mockRepository.save(any)).thenAnswer((inv) async => inv.positionalArguments[0] as CurrentGameEntity);
-      when(mockNotifyHandler.notify(
-        playerOneId: anyNamed('playerOneId'),
-        playerTwoId: anyNamed('playerTwoId'),
-        state: anyNamed('state'),
-      )).thenAnswer((_) async {});
+      when(
+        mockNotifyHandler.notify(
+          playerOneId: anyNamed('playerOneId'),
+          playerTwoId: anyNamed('playerTwoId'),
+          state: anyNamed('state'),
+        ),
+      ).thenAnswer((_) async {});
 
       // Act
       final result = await container.read(playMoveUseCaseProvider(index: 8, emoticon: 'X').future);
@@ -134,12 +142,14 @@ void main() {
       // Assert
       expect(result.state, CurrentGameState.draw);
       expect(result.draws, 1);
-      
-      verify(mockNotifyHandler.notify(
-        playerOneId: 10,
-        playerTwoId: 20,
-        state: CurrentGameState.draw,
-      )).called(1);
+
+      verify(
+        mockNotifyHandler.notify(
+          playerOneId: 10,
+          playerTwoId: 20,
+          state: CurrentGameState.draw,
+        ),
+      ).called(1);
     });
 
     test('should do nothing if square is already occupied', () async {

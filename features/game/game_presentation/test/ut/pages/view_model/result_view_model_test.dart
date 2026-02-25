@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view_model/result_view_model.dart';
@@ -14,7 +13,7 @@ void main() {
     late ProviderContainer container;
     late MockCurrentGameRepository mockRepository;
 
-    ProviderContainer _createContainer({
+    ProviderContainer createContainer({
       required CurrentGameEntity currentGame,
       MockCurrentGameRepository? repository,
     }) {
@@ -31,7 +30,7 @@ void main() {
 
     setUp(() {
       mockRepository = MockCurrentGameRepository();
-      container = _createContainer(
+      container = createContainer(
         currentGame: testCurrentGameEntity,
         repository: mockRepository,
       );
@@ -61,7 +60,7 @@ void main() {
 
         final newMockRepository = MockCurrentGameRepository();
         container.dispose();
-        container = _createContainer(
+        container = createContainer(
           currentGame: gameWithWinner,
           repository: newMockRepository,
         );
@@ -85,7 +84,7 @@ void main() {
 
         final newMockRepository = MockCurrentGameRepository();
         container.dispose();
-        container = _createContainer(
+        container = createContainer(
           currentGame: ongoingGame,
           repository: newMockRepository,
         );
@@ -109,7 +108,7 @@ void main() {
 
         final newMockRepository = MockCurrentGameRepository();
         container.dispose();
-        container = _createContainer(
+        container = createContainer(
           currentGame: gameWithPlayerTwoWin,
           repository: newMockRepository,
         );

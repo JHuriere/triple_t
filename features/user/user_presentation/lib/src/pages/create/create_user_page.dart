@@ -62,23 +62,34 @@ class CreateUserPage extends HookConsumerWidget {
 
   Future<void> _onAddUser(TextEditingController nameController, WidgetRef ref, BuildContext context) async {
     final newUser = UserEntity(name: nameController.text);
-    final isCreated = await ref.read(createUserUseCaseProvider(newUser).future);
+    try {
+      final isCreated = await ref.read(createUserUseCaseProvider(newUser).future);
 
-    if (!isCreated) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.nameAlreadyExists)),
-        );
-      }
-    } else {
-      ref.invalidate(getAllUsersUseCaseProvider);
+      if (!isCreated) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(context.l10n.nameAlreadyExists)),
+          );
+        }
+      } else {
+        ref.invalidate(getAllUsersUseCaseProvider);
 
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(context.l10n.userCreatedSuccessfully)),
-        );
-        context.pop();
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(context.l10n.userCreatedSuccessfully)),
+          );
+          context.pop();
+        }
       }
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
     }
   }
 }

@@ -10,13 +10,13 @@ void main() {
     group('render', () {
       testWidgets('should display Stack for confetti positioning', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -29,13 +29,13 @@ void main() {
 
       testWidgets('should display Center widget with victory card', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -48,13 +48,13 @@ void main() {
 
       testWidgets('should display Container with white background', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -69,13 +69,13 @@ void main() {
     group('title', () {
       testWidgets('should display victory title', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -89,13 +89,13 @@ void main() {
 
       testWidgets('should display title with green color and bold font', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -114,13 +114,13 @@ void main() {
     group('winner message', () {
       testWidgets('should display player won message with winner name', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -134,13 +134,13 @@ void main() {
 
       testWidgets('should display message with proper styling', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Bob';
+        const winnerName = 'Bob';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -161,13 +161,13 @@ void main() {
     group('dismiss button', () {
       testWidgets('should display play again button', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -180,13 +180,13 @@ void main() {
 
       testWidgets('should display button with green background', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -201,14 +201,14 @@ void main() {
 
       testWidgets('should call onDismiss when button is tapped', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
         final callbackNotifier = ValueNotifier<bool>(false);
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {
                 callbackNotifier.value = true;
               },
@@ -225,13 +225,13 @@ void main() {
 
       testWidgets('should display button with white text', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -251,13 +251,13 @@ void main() {
     group('confetti', () {
       testWidgets('should display confetti widgets', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -270,13 +270,13 @@ void main() {
 
       testWidgets('should display three confetti widgets for different positions', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -289,13 +289,13 @@ void main() {
 
       testWidgets('should display confetti in multiple positions', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -311,13 +311,13 @@ void main() {
     group('layout', () {
       testWidgets('should arrange content in column layout', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -330,13 +330,13 @@ void main() {
 
       testWidgets('should have spacing between elements', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),
@@ -349,13 +349,13 @@ void main() {
 
       testWidgets('should fill minimum size in column', (WidgetTester tester) async {
         // Arrange
-        const WINNER_NAME = 'Alice';
+        const winnerName = 'Alice';
 
         // Act
         await tester.pumpWidget(
           createTestableWidget(
             child: WinnerOverlay(
-              winner: WINNER_NAME,
+              winner: winnerName,
               onDismiss: () {},
             ),
           ),

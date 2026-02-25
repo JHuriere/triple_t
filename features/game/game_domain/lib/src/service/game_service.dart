@@ -11,7 +11,7 @@ class GameService {
   static const List<List<int>> _winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
     [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6],            // Diagonals
+    [0, 4, 8], [2, 4, 6], // Diagonals
   ];
 
   /// Analyzes the board and returns the winning combination if it exists.
@@ -58,9 +58,12 @@ class GameService {
     }
 
     // 3. Pick random available spot
-    final available = [for (var i = 0; i < elements.length; i++) if (elements[i].isEmpty) i];
+    final available = [
+      for (var i = 0; i < elements.length; i++)
+        if (elements[i].isEmpty) i,
+    ];
     if (available.isEmpty) return null;
-    
+
     final shuffled = List<int>.from(available)..shuffle();
     return shuffled.first;
   }

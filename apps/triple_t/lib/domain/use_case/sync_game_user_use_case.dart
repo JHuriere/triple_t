@@ -29,4 +29,3 @@ Future<void> syncGameUserUseCase(
 
   await Future.wait([req1, req2]);
 }
-

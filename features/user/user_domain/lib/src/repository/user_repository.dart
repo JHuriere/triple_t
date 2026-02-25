@@ -1,7 +1,6 @@
 import 'package:user_domain/src/entity/user_entity.dart';
 
 abstract class UserRepository {
-
   Future<bool> exists(int id);
 
   UserEntity? get(int id);

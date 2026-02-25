@@ -4,7 +4,6 @@ import 'package:user_data/src/data_source/user_data_source_impl.dart';
 import 'package:user_data/src/model/user_model.dart';
 import 'package:user_data/src/repository/user_repository_impl.dart';
 import 'package:user_domain/src/entity/user_entity.dart';
-import 'package:user_domain/src/repository/user_repository.dart';
 
 void main() {
   setUpAll(() async {

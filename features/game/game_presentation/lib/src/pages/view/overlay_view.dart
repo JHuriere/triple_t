@@ -28,4 +28,3 @@ class OverlayView extends HookConsumerWidget {
     return const SizedBox.shrink();
   }
 }
-

@@ -37,7 +37,7 @@ class GameGrid extends HookConsumerWidget {
       void listener(AnimationStatus status) {
         if (status == AnimationStatus.completed) {
           if (resultState case WinnerResultState()) {
-             Future.delayed(const Duration(milliseconds: 500), () => ref.read(resultViewModelProvider.notifier).setShowOverlay(true));
+            Future.delayed(const Duration(milliseconds: 500), () => ref.read(resultViewModelProvider.notifier).setShowOverlay(true));
           }
         }
       }

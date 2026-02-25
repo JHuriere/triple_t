@@ -24,7 +24,7 @@ class SelectPlayers extends HookConsumerWidget {
                 value: currentGame.playerOneId == 0 ? null : currentGame.playerOneId,
                 excludedUserIds: [1, currentGame.playerTwoId],
                 enabled: currentGame.state == CurrentGameState.initial,
-                onChanged: (playerId) async => await _changePlayerOne(ref, users, currentGame, playerId),
+                onChanged: (playerId) async => await _changePlayerOne(context, ref, users, currentGame, playerId),
               ),
             ),
             const SizedBox(width: 20),
@@ -35,7 +35,7 @@ class SelectPlayers extends HookConsumerWidget {
                 value: currentGame.playerTwoId == 0 ? null : currentGame.playerTwoId,
                 excludedUserIds: [currentGame.playerOneId],
                 enabled: currentGame.state == CurrentGameState.initial,
-                onChanged: (playerId) async => await _changePlayerTwo(ref, users, currentGame, playerId),
+                onChanged: (playerId) async => await _changePlayerTwo(context, ref, users, currentGame, playerId),
               ),
             ),
           ],
@@ -44,17 +44,39 @@ class SelectPlayers extends HookConsumerWidget {
     );
   }
 
-  Future<void> _changePlayerOne(WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
+  Future<void> _changePlayerOne(BuildContext context, WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
     if (currentGame.playerOneId == playerId) return;
 
-    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerOneId: playerId).future);
-    ref.invalidate(getCurrentGameUseCaseProvider);
+    try {
+      await ref.read(updateCurrentGamePlayerUseCaseProvider(playerOneId: playerId).future);
+      ref.invalidate(getCurrentGameUseCaseProvider);
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 
-  Future<void> _changePlayerTwo(WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
+  Future<void> _changePlayerTwo(BuildContext context, WidgetRef ref, List<UserEntity> users, CurrentGameEntity currentGame, int playerId) async {
     if (currentGame.playerTwoId == playerId) return;
 
-    await ref.read(updateCurrentGamePlayerUseCaseProvider(playerTwoId: playerId).future);
-    ref.invalidate(getCurrentGameUseCaseProvider);
+    try {
+      await ref.read(updateCurrentGamePlayerUseCaseProvider(playerTwoId: playerId).future);
+      ref.invalidate(getCurrentGameUseCaseProvider);
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.error} : $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
   }
 }

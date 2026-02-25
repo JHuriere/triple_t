@@ -9,8 +9,7 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameView Widget Tests', () {
-    setUp(() {
-    });
+    setUp(() {});
 
     testWidgets('GameView renders all main widgets', (WidgetTester tester) async {
       // Arrange

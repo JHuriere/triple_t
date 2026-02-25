@@ -14,12 +14,12 @@ class ResultViewModel extends _$ResultViewModel {
 
   Future<void> checkResult() async {
     final (:currentGame, :playerOne, :playerTwo, :actionInProgress) = ref.read(currentGameViewModelProvider);
-    
+
     if (currentGame.state == CurrentGameState.playerOneWon || currentGame.state == CurrentGameState.playerTwoWon) {
       final gameService = ref.read(gameServiceProvider);
       final combination = gameService.getWinningCombination(currentGame.elements);
       final winner = currentGame.state == CurrentGameState.playerOneWon ? playerOne.name : playerTwo.name;
-      
+
       state = WinnerResultState(winningLine: combination ?? [], winner: winner);
     } else if (currentGame.state == CurrentGameState.draw) {
       state = const DrawResultState();

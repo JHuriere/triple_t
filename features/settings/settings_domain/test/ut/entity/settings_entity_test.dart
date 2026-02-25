@@ -93,7 +93,6 @@ void main() {
       });
     });
 
-
     group('equality', () {
       test('entities with same values are equal', () {
         const entity1 = SettingsEntity(
