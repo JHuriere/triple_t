@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view_model/current_game_view_model.dart';
 import 'package:game_presentation/src/pages/view_model/state/result_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:user_domain/user_domain.dart';
 
 part 'result_view_model.g.dart';
 
@@ -11,11 +9,11 @@ part 'result_view_model.g.dart';
 class ResultViewModel extends _$ResultViewModel {
   @override
   ResultState build() {
-    return InitialResultState();
+    return const InitialResultState();
   }
 
-  Future<void> checkResult(ValueNotifier<bool> showOverlay) async {
-    final (:currentGame, :playerOne, :playerTwo) = ref.read(currentGameViewModelProvider);
+  Future<void> checkResult() async {
+    final (:currentGame, :playerOne, :playerTwo, :actionInProgress) = ref.read(currentGameViewModelProvider);
     
     if (currentGame.state == CurrentGameState.playerOneWon || currentGame.state == CurrentGameState.playerTwoWon) {
       final gameService = ref.read(gameServiceProvider);
@@ -24,10 +22,20 @@ class ResultViewModel extends _$ResultViewModel {
       
       state = WinnerResultState(winningLine: combination ?? [], winner: winner);
     } else if (currentGame.state == CurrentGameState.draw) {
-      await Future<void>.delayed(const Duration(milliseconds: 500), () => showOverlay.value = true);
-      state = DrawResultState();
+      state = const DrawResultState();
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+      if (!ref.mounted) return;
+      state = const DrawResultState(showOverlay: true);
     } else {
-      state = NoResultState();
+      state = const NoResultState();
+    }
+  }
+
+  void setShowOverlay(bool show) {
+    if (state is WinnerResultState) {
+      state = (state as WinnerResultState).copyWith(showOverlay: show);
+    } else if (state is DrawResultState) {
+      state = DrawResultState(showOverlay: show);
     }
   }
 }

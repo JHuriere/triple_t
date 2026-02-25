@@ -8,12 +8,10 @@ import 'package:tt_i18n/i18n.dart';
 
 class GameView extends HookConsumerWidget {
   final ValueChanged<int> onTap;
-  final ValueNotifier<bool> showOverlay;
 
   const GameView({
     super.key,
     required this.onTap,
-    required this.showOverlay,
   });
 
   @override
@@ -21,26 +19,25 @@ class GameView extends HookConsumerWidget {
     final viewModel = ref.watch(currentGameViewModelProvider);
 
     return SingleChildScrollView(
-      padding: .symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           const SizedBox(height: 10),
-          SelectPlayers(),
+          const SelectPlayers(),
 
           const SizedBox(height: 10),
-          GameStatistics(),
+          const GameStatistics(),
 
           const SizedBox(height: 20),
           Text(
             context.l10n.turn(viewModel.currentGame.oTurn ? viewModel.playerOne.name : viewModel.playerTwo.name),
-            textAlign: .center,
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
 
           GameGrid(
             currentGame: viewModel.currentGame,
             playerOneEmoticon: viewModel.playerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: onTap,
           ),
         ],
@@ -48,3 +45,4 @@ class GameView extends HookConsumerWidget {
     );
   }
 }
+

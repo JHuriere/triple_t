@@ -9,10 +9,8 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameGrid Widget Tests', () {
-    late ValueNotifier<bool> showOverlay;
 
     setUp(() {
-      showOverlay = ValueNotifier<bool>(false);
     });
 
     testWidgets('GameGrid renders 9 cells for empty board', (WidgetTester tester) async {
@@ -27,7 +25,6 @@ void main() {
           child: GameGrid(
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -54,7 +51,6 @@ void main() {
           child: GameGrid(
             currentGame: gameWithMoves,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -78,7 +74,6 @@ void main() {
           child: GameGrid(
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -111,7 +106,6 @@ void main() {
           child: GameGrid(
             currentGame: gameWithMoves,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -135,7 +129,6 @@ void main() {
           child: GameGrid(
             currentGame: testGameDraw,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -159,7 +152,6 @@ void main() {
           child: GameGrid(
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,
@@ -184,7 +176,6 @@ void main() {
           child: GameGrid(
             currentGame: testGameInitial,
             playerOneEmoticon: testPlayerOne.emoticon,
-            showOverlay: showOverlay,
             onTap: (index) {},
           ),
           overrides: overrides,

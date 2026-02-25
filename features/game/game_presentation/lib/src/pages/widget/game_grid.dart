@@ -12,14 +12,12 @@ class GameGrid extends HookConsumerWidget {
   // final AnimationController lineAnimation;
   final CurrentGameEntity currentGame;
   final String playerOneEmoticon;
-  final ValueNotifier<bool> showOverlay;
   final ValueChanged<int> onTap;
 
   const GameGrid({
     super.key,
     required this.currentGame,
     required this.playerOneEmoticon,
-    required this.showOverlay,
     required this.onTap,
   });
 
@@ -38,7 +36,9 @@ class GameGrid extends HookConsumerWidget {
     useEffect(() {
       void listener(AnimationStatus status) {
         if (status == AnimationStatus.completed) {
-          if (resultState case WinnerResultState()) Future.delayed(const Duration(milliseconds: 500), () => showOverlay.value = true);
+          if (resultState case WinnerResultState()) {
+             Future.delayed(const Duration(milliseconds: 500), () => ref.read(resultViewModelProvider.notifier).setShowOverlay(true));
+          }
         }
       }
 

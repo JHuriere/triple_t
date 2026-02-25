@@ -8,11 +8,7 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('OverlayView Widget Tests', () {
-    late ValueNotifier<bool> showOverlay;
-
-    setUp(() {
-      showOverlay = ValueNotifier<bool>(false);
-    });
+    setUp(() {});
 
     testWidgets('OverlayView renders SizedBox.shrink when showOverlay is false', (WidgetTester tester) async {
       // Arrange
@@ -25,7 +21,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: false,
             onDismiss: () {},
           ),
         ),
@@ -47,7 +43,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: false,
             onDismiss: () {},
           ),
         ),
@@ -69,7 +65,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: false,
             onDismiss: () {},
           ),
         ),
@@ -96,7 +92,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: false,
             onDismiss: () {},
           ),
         ),
@@ -118,7 +114,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: ValueNotifier(false),
+            showOverlay: false,
             onDismiss: () {},
           ),
         ),
@@ -130,7 +126,6 @@ void main() {
 
     testWidgets('OverlayView renders DrawOverlay when showOverlay is true and state is DrawResultState', (WidgetTester tester) async {
       // Arrange
-      showOverlay.value = true;
       final overrides = [
         resultViewModelProvider.overrideWithValue(DrawResultState()),
       ];
@@ -140,7 +135,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: true,
             onDismiss: () {},
           ),
         ),
@@ -153,7 +148,6 @@ void main() {
 
     testWidgets('OverlayView renders WinnerOverlay when showOverlay is true and state is WinnerResultState', (WidgetTester tester) async {
       // Arrange
-      showOverlay.value = true;
       final overrides = [
         resultViewModelProvider.overrideWithValue(
           WinnerResultState(
@@ -168,7 +162,7 @@ void main() {
         createTestableWidget(
           overrides: overrides,
           child: OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: true,
             onDismiss: () {},
           ),
         ),

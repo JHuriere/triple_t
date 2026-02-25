@@ -6,7 +6,7 @@ import 'package:game_presentation/src/pages/widget/overlay/winner_overlay.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class OverlayView extends HookConsumerWidget {
-  final ValueNotifier<bool> showOverlay;
+  final bool showOverlay;
   final VoidCallback onDismiss;
 
   const OverlayView({
@@ -17,9 +17,8 @@ class OverlayView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final resultState = ref.watch(resultViewModelProvider);
-
-    if (showOverlay.value) {
+    if (showOverlay) {
+      final resultState = ref.watch(resultViewModelProvider);
       if (resultState case WinnerResultState()) {
         return WinnerOverlay(winner: resultState.winner, onDismiss: onDismiss);
       } else if (resultState case DrawResultState()) {
@@ -29,3 +28,4 @@ class OverlayView extends HookConsumerWidget {
     return const SizedBox.shrink();
   }
 }
+

@@ -9,10 +9,7 @@ import '../../../helpers/widget_test_helpers.dart';
 
 void main() {
   group('GameView Widget Tests', () {
-    late ValueNotifier<bool> showOverlay;
-
     setUp(() {
-      showOverlay = ValueNotifier<bool>(false);
     });
 
     testWidgets('GameView renders all main widgets', (WidgetTester tester) async {
@@ -29,7 +26,6 @@ void main() {
         createTestableWidget(
           child: GameView(
             onTap: (index) {},
-            showOverlay: showOverlay,
           ),
           overrides: overrides,
         ),
@@ -56,7 +52,6 @@ void main() {
         createTestableWidget(
           child: GameView(
             onTap: (index) {},
-            showOverlay: showOverlay,
           ),
           overrides: overrides,
         ),
@@ -81,7 +76,6 @@ void main() {
         createTestableWidget(
           child: GameView(
             onTap: (index) {},
-            showOverlay: showOverlay,
           ),
           overrides: overrides,
         ),
@@ -113,7 +107,6 @@ void main() {
         createTestableWidget(
           child: GameView(
             onTap: (index) {},
-            showOverlay: showOverlay,
           ),
           overrides: overrides,
         ),
@@ -138,7 +131,6 @@ void main() {
         createTestableWidget(
           child: GameView(
             onTap: (index) {},
-            showOverlay: showOverlay,
           ),
           overrides: overrides,
         ),

@@ -10,7 +10,10 @@ class GameStatistics extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final (:currentGame, :playerOne, :playerTwo) = ref.watch(currentGameViewModelProvider);
+    final viewModel = ref.watch(currentGameViewModelProvider);
+    final currentGame = viewModel.currentGame;
+    final playerOne = viewModel.playerOne;
+    final playerTwo = viewModel.playerTwo;
 
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;

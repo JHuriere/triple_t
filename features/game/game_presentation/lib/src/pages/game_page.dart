@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:game_presentation/src/pages/view/game_view.dart';
 import 'package:game_presentation/src/pages/view/overlay_view.dart';
@@ -15,12 +14,9 @@ class GamePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final canPlay = useState<bool>(true);
-    final showOverlay = useState<bool>(false);
+    final resultState = ref.watch(resultViewModelProvider);
 
     void resetGame() async {
-      canPlay.value = true;
-      showOverlay.value = false;
       await ref.read(resetCurrentGameUseCaseProvider.future);
       ref.invalidate(resultViewModelProvider);
       ref.invalidate(getCurrentGameUseCaseProvider);
@@ -37,14 +33,13 @@ class GamePage extends HookConsumerWidget {
         ],
       ),
       body: Stack(
-        fit: .expand,
+        fit: StackFit.expand,
         children: [
           GameView(
-            showOverlay: showOverlay,
-            onTap: (index) => canPlay.value ? _onTap(ref, index, canPlay, showOverlay) : null,
+            onTap: (index) => _onTap(ref, index),
           ),
           OverlayView(
-            showOverlay: showOverlay,
+            showOverlay: resultState.showOverlay,
             onDismiss: resetGame,
           ),
         ],
@@ -52,22 +47,7 @@ class GamePage extends HookConsumerWidget {
     );
   }
 
-  Future<void> _onTap(
-    WidgetRef ref,
-    int index,
-    ValueNotifier<bool> canPlay,
-    ValueNotifier<bool> showOverlay,
-  ) async {
-    canPlay.value = false;
-
-    try {
-      await ref.read(currentGameViewModelProvider.notifier).playNextMove(index);
-      await ref.read(resultViewModelProvider.notifier).checkResult(showOverlay);
-
-      final played = await ref.read(currentGameViewModelProvider.notifier).playNextAIMove();
-      if (played) await ref.read(resultViewModelProvider.notifier).checkResult(showOverlay);
-    } finally {
-      canPlay.value = true;
-    }
+  Future<void> _onTap(WidgetRef ref, int index) async {
+    await ref.read(currentGameViewModelProvider.notifier).playTurn(index);
   }
 }

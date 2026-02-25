@@ -54,7 +54,6 @@ void main() {
     group('checkResult', () {
       test('should set winner result state when winner found', () async {
         // Arrange
-        final showOverlay = ValueNotifier<bool>(false);
         final gameWithWinner = testCurrentGameEntity.copyWith(
           elements: [testPlayerOne.emoticon, testPlayerOne.emoticon, testPlayerOne.emoticon, '', '', '', '', '', ''],
           state: CurrentGameState.playerOneWon,
@@ -69,7 +68,7 @@ void main() {
 
         // Act
         final notifier = container.read(resultViewModelProvider.notifier);
-        await notifier.checkResult(showOverlay);
+        await notifier.checkResult();
 
         // Assert
         final state = container.read(resultViewModelProvider);
@@ -79,7 +78,6 @@ void main() {
 
       test('should set no result state when game continues', () async {
         // Arrange
-        final showOverlay = ValueNotifier<bool>(false);
         final ongoingGame = testCurrentGameEntity.copyWith(
           elements: [testPlayerOne.emoticon, '', '', '', '', '', '', '', ''],
           state: CurrentGameState.inProgress,
@@ -94,17 +92,16 @@ void main() {
 
         // Act
         final notifier = container.read(resultViewModelProvider.notifier);
-        await notifier.checkResult(showOverlay);
+        await notifier.checkResult();
 
         // Assert
         final state = container.read(resultViewModelProvider);
         expect(state, isA<NoResultState>());
-        expect(showOverlay.value, false);
+        expect(state.showOverlay, false);
       });
 
       test('should update player two statistics when player two wins', () async {
         // Arrange
-        final showOverlay = ValueNotifier<bool>(false);
         final gameWithPlayerTwoWin = testCurrentGameEntity.copyWith(
           elements: [testPlayerTwo.emoticon, testPlayerTwo.emoticon, testPlayerTwo.emoticon, '', '', '', '', '', ''],
           state: CurrentGameState.playerTwoWon,
@@ -119,7 +116,7 @@ void main() {
 
         // Act
         final notifier = container.read(resultViewModelProvider.notifier);
-        await notifier.checkResult(showOverlay);
+        await notifier.checkResult();
 
         // Assert
         final state = container.read(resultViewModelProvider);

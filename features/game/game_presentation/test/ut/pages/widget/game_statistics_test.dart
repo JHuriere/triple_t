@@ -13,7 +13,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -35,7 +35,7 @@ void main() {
         final gameWithStats = testGameWithStatistics;
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -58,7 +58,7 @@ void main() {
         final gameWithStats = testGameWithStatistics;
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -81,7 +81,7 @@ void main() {
         final gameWithStats = testGameWithStatistics;
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: gameWithStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -102,7 +102,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -125,7 +125,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -147,7 +147,7 @@ void main() {
         final gameWithHighStats = testGameWithHighStatistics;
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: gameWithHighStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: gameWithHighStats, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -172,7 +172,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -194,7 +194,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -215,7 +215,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -238,7 +238,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -263,7 +263,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -287,7 +287,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -311,7 +311,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -332,7 +332,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -353,7 +353,7 @@ void main() {
         // Arrange
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: testPlayerOne, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
@@ -377,7 +377,7 @@ void main() {
         final longNamePlayer = testPlayerOne.copyWith(name: 'Very Long Player Name That Should Be Truncated');
         final overrides = [
           currentGameViewModelProvider.overrideWithValue(
-            (currentGame: testCurrentGameEntity, playerOne: longNamePlayer, playerTwo: testPlayerTwo),
+            (currentGame: testCurrentGameEntity, playerOne: longNamePlayer, playerTwo: testPlayerTwo, actionInProgress: false),
           ),
         ];
 
