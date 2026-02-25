@@ -56,3 +56,16 @@ final testGameInitial = testCurrentGameEntity.copyWith(
   elements: List.filled(9, ''),
   state: CurrentGameState.initial,
 );
+
+// Game with statistics
+final testGameWithStatistics = testCurrentGameEntity.copyWith(
+  playerOneWins: 5,
+  playerTwoWins: 3,
+  draws: 2,
+);
+
+final testGameWithHighStatistics = testCurrentGameEntity.copyWith(
+  playerOneWins: 99,
+  playerTwoWins: 50,
+  draws: 25,
+);
