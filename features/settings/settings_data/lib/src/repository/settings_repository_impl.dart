@@ -1,28 +1,25 @@
+import 'package:settings_data/src/data_source/settings_data_source.dart';
+import 'package:settings_data/src/model/settings_model.dart';
 import 'package:settings_domain/settings_domain.dart';
-import 'package:tt_database/tt_database.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
-  late final StoreRef<String, Map<String, Object?>> _store = stringMapStoreFactory.store(SettingsRepository.storeName);
+  final SettingsDataSource dataSource;
+
+  SettingsRepositoryImpl({required this.dataSource});
 
   @override
   SettingsEntity get() {
-    final record = _store.record(SettingsRepository.settingsKey);
-    final data = record.getSync(TripleTDatabase.instance.db);
-
-    if (data != null) {
-      return SettingsEntity.fromJson(data.cast<String, dynamic>());
-    }
-    return SettingsEntity(id: SettingsRepository.settingsKey);
+    return dataSource.get().toEntity();
   }
 
   @override
   Future<void> saveSettings(SettingsEntity settings) async {
-    final record = _store.record(SettingsRepository.settingsKey);
-    await record.put(TripleTDatabase.instance.db, settings.toJson());
+    final model = SettingsModel.fromEntity(settings);
+    await dataSource.saveSettings(model);
   }
 
   @override
   Future<void> clearAll() async {
-    await _store.drop(TripleTDatabase.instance.db);
+    await dataSource.clearAll();
   }
 }

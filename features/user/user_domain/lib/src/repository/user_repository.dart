@@ -1,7 +1,6 @@
 import 'package:user_domain/src/entity/user_entity.dart';
 
 abstract class UserRepository {
-  static const String storeName = 'users';
 
   Future<bool> exists(int id);
 

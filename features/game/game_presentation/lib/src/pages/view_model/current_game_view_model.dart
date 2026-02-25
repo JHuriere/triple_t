@@ -20,9 +20,8 @@ class CurrentGameViewModel extends _$CurrentGameViewModel {
   Future<void> playNextMove(int index) async {
     final (:currentGame, :playerOne, :playerTwo) = state;
 
-    final elements = List<String>.from(currentGame.elements);
-    elements[index] = currentGame.oTurn ? playerOne.emoticon : playerTwo.emoticon;
-    final currentGameUpdated = await ref.read(updateCurrentGameElementsUseCaseProvider(elements: elements).future);
+    final emoticon = currentGame.oTurn ? playerOne.emoticon : playerTwo.emoticon;
+    final currentGameUpdated = await ref.read(playMoveUseCaseProvider(index: index, emoticon: emoticon).future);
 
     state = (currentGame: currentGameUpdated, playerOne: playerOne, playerTwo: playerTwo);
   }
@@ -32,6 +31,7 @@ class CurrentGameViewModel extends _$CurrentGameViewModel {
 
     if (!currentGame.oTurn && currentGame.playerTwoId == 1) {
       await Future<void>.delayed(const Duration(milliseconds: 500));
+      if (!ref.mounted) return false;
       final elements = List<String>.from(currentGame.elements);
       final aiMove = ref.read(gameServiceProvider).calculateBestMove(
             elements,

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:game_data/src/repository/current_game_repository_impl.dart';
+import 'package:game_data/game_data.dart';
+import 'package:game_data/src/model/current_game_model.dart';
 import 'package:game_domain/game_domain.dart';
 import 'package:tt_database/tt_database.dart';
 
@@ -9,13 +10,15 @@ void main() {
     TripleTDatabase.setTestDatabase(db);
   });
 
-  group('CurrentGameRepositoryImpl', () {
+  group('CurrentGameRepositoryImpl & CurrentGameDataSourceImpl', () {
+    late CurrentGameDataSourceImpl dataSource;
     late CurrentGameRepositoryImpl currentGameRepository;
     late Database testDatabase;
 
     setUp(() async {
       testDatabase = TripleTDatabase.instance.db;
-      currentGameRepository = CurrentGameRepositoryImpl();
+      dataSource = CurrentGameDataSourceImpl(db: testDatabase);
+      currentGameRepository = CurrentGameRepositoryImpl(dataSource: dataSource);
     });
 
     tearDown(() async {
@@ -45,8 +48,8 @@ void main() {
           draws: 3,
         );
 
-        final store = stringMapStoreFactory.store(CurrentGameRepository.storeName);
-        await store.record(CurrentGameRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(CurrentGameDataSourceImpl.storeName);
+        await store.record(CurrentGameDataSourceImpl.settingsKey).put(testDatabase, CurrentGameModel.fromEntity(settings).toJson());
 
         // Act
         final result = currentGameRepository.get();
@@ -76,10 +79,10 @@ void main() {
         // Assert
         expect(result, equals(settings));
 
-        final store = stringMapStoreFactory.store(CurrentGameRepository.storeName);
-        final stored = await store.record(CurrentGameRepository.settingsKey).get(testDatabase);
+        final store = stringMapStoreFactory.store(CurrentGameDataSourceImpl.storeName);
+        final stored = await store.record(CurrentGameDataSourceImpl.settingsKey).get(testDatabase);
         expect(stored, isNotNull);
-        expect(CurrentGameEntity.fromJson(stored!.cast<String, dynamic>()), equals(settings));
+        expect(CurrentGameModel.fromJson(stored!.cast<String, dynamic>()).toEntity(), equals(settings));
       });
     });
 
@@ -91,8 +94,8 @@ void main() {
           state: CurrentGameState.inProgress,
         );
 
-        final store = stringMapStoreFactory.store(CurrentGameRepository.storeName);
-        await store.record(CurrentGameRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(CurrentGameDataSourceImpl.storeName);
+        await store.record(CurrentGameDataSourceImpl.settingsKey).put(testDatabase, CurrentGameModel.fromEntity(settings).toJson());
 
         // Verify data exists
         expect(currentGameRepository.get(), equals(settings));

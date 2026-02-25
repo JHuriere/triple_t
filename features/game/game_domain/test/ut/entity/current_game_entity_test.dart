@@ -61,59 +61,6 @@ void main() {
       expect(updated.playerTwoId, 1);
     });
 
-    test('should serialize to JSON', () {
-      // Arrange
-      const entity = CurrentGameEntity(
-        elements: ['X', 'O', '', '', '', '', '', '', ''],
-        state: CurrentGameState.inProgress,
-        oTurn: false,
-        playerOneId: 5,
-        playerTwoId: 3,
-        playerOneWins: 1,
-        playerTwoWins: 2,
-        draws: 3,
-      );
-
-      // Act
-      final json = entity.toJson();
-
-      // Assert
-      expect(json['elements'], ['X', 'O', '', '', '', '', '', '', '']);
-      expect(json['state'], 'inProgress');
-      expect(json['oTurn'], false);
-      expect(json['playerOneId'], 5);
-      expect(json['playerTwoId'], 3);
-      expect(json['playerOneWins'], 1);
-      expect(json['playerTwoWins'], 2);
-      expect(json['draws'], 3);
-    });
-
-    test('should deserialize from JSON', () {
-      // Arrange
-      final json = {
-        'elements': ['X', 'O', '', '', '', '', '', '', ''],
-        'state': 'inProgress',
-        'oTurn': false,
-        'playerOneId': 5,
-        'playerTwoId': 3,
-        'playerOneWins': 1,
-        'playerTwoWins': 2,
-        'draws': 3,
-      };
-
-      // Act
-      final entity = CurrentGameEntity.fromJson(json);
-
-      // Assert
-      expect(entity.elements, ['X', 'O', '', '', '', '', '', '', '']);
-      expect(entity.state, CurrentGameState.inProgress);
-      expect(entity.oTurn, false);
-      expect(entity.playerOneId, 5);
-      expect(entity.playerTwoId, 3);
-      expect(entity.playerOneWins, 1);
-      expect(entity.playerTwoWins, 2);
-      expect(entity.draws, 3);
-    });
 
     test('should be equal when values are the same', () {
       // Arrange

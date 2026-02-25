@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:triple_t/data/data.dart';
 import 'package:triple_t/domain/domain.dart';
 import 'package:triple_t/domain/overrides/repository_overrides.dart';
+import 'package:triple_t/domain/overrides/use_case_overrides.dart';
 import 'package:triple_t/presentation/app.dart';
 
 import 'presentation/router/overrides/navigation_overrides.dart';
@@ -20,7 +21,11 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       retry: (retryCount, error) => null,
-      overrides: [...NavigatorOverrides.get(), ...RepositoryOverrides.get()],
+      overrides: [
+        ...NavigatorOverrides.get(),
+        ...RepositoryOverrides.get(),
+        ...UseCaseOverrides.get(),
+      ],
       child: const TripleTApp(),
     ),
   );

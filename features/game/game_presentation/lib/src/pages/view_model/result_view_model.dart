@@ -16,34 +16,14 @@ class ResultViewModel extends _$ResultViewModel {
 
   Future<void> checkResult(ValueNotifier<bool> showOverlay) async {
     final (:currentGame, :playerOne, :playerTwo) = ref.read(currentGameViewModelProvider);
-    final gameService = ref.read(gameServiceProvider);
-    final combination = gameService.getWinningCombination(currentGame.elements);
-
-    if (combination != null) {
-      final winner = currentGame.oTurn ? playerTwo.name : playerOne.name;
-
-      await ref.read(updateCurrentGameStateUseCaseProvider(state: currentGame.oTurn ? CurrentGameState.playerTwoWon : CurrentGameState.playerOneWon).future);
-      await ref.read(
-        updateUserStatisticsUseCaseProvider(
-          currentPlayerId: currentGame.playerOneId,
-          opponentPlayerId: currentGame.playerTwoId,
-          result: currentGame.oTurn ? GameResult.lose : GameResult.win,
-        ).future,
-      );
-      await ref.read(
-        updateUserStatisticsUseCaseProvider(
-          currentPlayerId: currentGame.playerTwoId,
-          opponentPlayerId: currentGame.playerOneId,
-          result: currentGame.oTurn ? GameResult.lose : GameResult.lose,
-        ).future,
-      );
-
-      state = WinnerResultState(winningLine: combination, winner: winner);
-    } else if (currentGame.elements.every((element) => element.isNotEmpty)) {
-      await ref.read(updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).future);
-      await ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: currentGame.playerOneId, opponentPlayerId: currentGame.playerTwoId, result: GameResult.draw).future);
-      await ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: currentGame.playerTwoId, opponentPlayerId: currentGame.playerOneId, result: GameResult.draw).future);
-
+    
+    if (currentGame.state == CurrentGameState.playerOneWon || currentGame.state == CurrentGameState.playerTwoWon) {
+      final gameService = ref.read(gameServiceProvider);
+      final combination = gameService.getWinningCombination(currentGame.elements);
+      final winner = currentGame.state == CurrentGameState.playerOneWon ? playerOne.name : playerTwo.name;
+      
+      state = WinnerResultState(winningLine: combination ?? [], winner: winner);
+    } else if (currentGame.state == CurrentGameState.draw) {
       await Future<void>.delayed(const Duration(milliseconds: 500), () => showOverlay.value = true);
       state = DrawResultState();
     } else {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:settings_data/src/repository/settings_repository_impl.dart';
+import 'package:settings_data/settings_data.dart';
+import 'package:settings_data/src/model/settings_model.dart';
 import 'package:settings_domain/settings_domain.dart';
 import 'package:tt_database/tt_database.dart';
 
@@ -10,13 +11,15 @@ void main() {
     TripleTDatabase.setTestDatabase(db);
   });
 
-  group('SettingsRepositoryImpl', () {
+  group('SettingsRepositoryImpl & SettingsDataSourceImpl', () {
+    late SettingsDataSourceImpl dataSource;
     late SettingsRepositoryImpl settingsRepository;
     late Database testDatabase;
 
     setUp(() async {
       testDatabase = TripleTDatabase.instance.db;
-      settingsRepository = SettingsRepositoryImpl();
+      dataSource = SettingsDataSourceImpl(db: testDatabase);
+      settingsRepository = SettingsRepositoryImpl(dataSource: dataSource);
     });
 
     tearDown(() async {
@@ -30,21 +33,21 @@ void main() {
 
         // Assert
         expect(result, isA<SettingsEntity>());
-        expect(result.id, equals(SettingsRepository.settingsKey));
+        expect(result.id, equals(SettingsDataSourceImpl.settingsKey));
         expect(result.themeMode, equals(ThemeMode.system));
         expect(result.locale, equals('fr'));
       });
 
       test('should return SettingsEntity when settings exist', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.dark,
           locale: 'en',
         );
 
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        await store.record(SettingsRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        await store.record(SettingsDataSourceImpl.settingsKey).put(testDatabase, SettingsModel.fromEntity(settings).toJson());
 
         // Act
         final result = settingsRepository.get();
@@ -57,14 +60,14 @@ void main() {
 
       test('should return settings with light theme mode', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.light,
           locale: 'fr',
         );
 
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        await store.record(SettingsRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        await store.record(SettingsDataSourceImpl.settingsKey).put(testDatabase, SettingsModel.fromEntity(settings).toJson());
 
         // Act
         final result = settingsRepository.get();
@@ -78,8 +81,8 @@ void main() {
     group('saveSettings', () {
       test('should persist and return updated settings', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.dark,
           locale: 'es',
         );
@@ -88,28 +91,28 @@ void main() {
         await settingsRepository.saveSettings(settings);
 
         // Assert
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        final stored = await store.record(SettingsRepository.settingsKey).get(testDatabase);
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        final stored = await store.record(SettingsDataSourceImpl.settingsKey).get(testDatabase);
         expect(stored, isNotNull);
-        expect(SettingsEntity.fromJson(stored!.cast<String, dynamic>()), equals(settings));
+        expect(SettingsModel.fromJson(stored!.cast<String, dynamic>()).toEntity(), equals(settings));
       });
 
       test('should update existing settings', () async {
         // Arrange
-        final initialSettings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const initialSettings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.light,
           locale: 'fr',
         );
 
-        final updatedSettings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const updatedSettings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.dark,
           locale: 'en',
         );
 
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        await store.record(SettingsRepository.settingsKey).put(testDatabase, initialSettings.toJson());
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        await store.record(SettingsDataSourceImpl.settingsKey).put(testDatabase, SettingsModel.fromEntity(initialSettings).toJson());
 
         // Act
         await settingsRepository.saveSettings(updatedSettings);
@@ -123,8 +126,8 @@ void main() {
 
       test('should save settings with system theme mode', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.system,
           locale: 'de',
         );
@@ -142,14 +145,14 @@ void main() {
     group('clearAll', () {
       test('should clear all settings', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.dark,
           locale: 'en',
         );
 
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        await store.record(SettingsRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        await store.record(SettingsDataSourceImpl.settingsKey).put(testDatabase, SettingsModel.fromEntity(settings).toJson());
 
         // Verify data exists
         expect(settingsRepository.get().locale, equals('en'));
@@ -159,27 +162,27 @@ void main() {
 
         // Assert
         final result = settingsRepository.get();
-        expect(result.id, equals(SettingsRepository.settingsKey));
+        expect(result.id, equals(SettingsDataSourceImpl.settingsKey));
         expect(result.themeMode, equals(ThemeMode.system));
         expect(result.locale, equals('fr'));
       });
 
       test('should clear multiple settings entries if they exist', () async {
         // Arrange
-        final settings = SettingsEntity(
-          id: SettingsRepository.settingsKey,
+        const settings = SettingsEntity(
+          id: SettingsDataSourceImpl.settingsKey,
           themeMode: ThemeMode.light,
           locale: 'it',
         );
 
-        final store = stringMapStoreFactory.store(SettingsRepository.storeName);
-        await store.record(SettingsRepository.settingsKey).put(testDatabase, settings.toJson());
+        final store = stringMapStoreFactory.store(SettingsDataSourceImpl.storeName);
+        await store.record(SettingsDataSourceImpl.settingsKey).put(testDatabase, SettingsModel.fromEntity(settings).toJson());
 
         // Act
         await settingsRepository.clearAll();
 
         // Assert
-        final stored = await store.record(SettingsRepository.settingsKey).get(testDatabase);
+        final stored = await store.record(SettingsDataSourceImpl.settingsKey).get(testDatabase);
         expect(stored, isNull);
       });
     });

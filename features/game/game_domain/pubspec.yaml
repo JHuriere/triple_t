@@ -16,7 +16,8 @@ dependencies:
   riverpod_annotation:
 
   freezed_annotation:
-  json_annotation:
+
+  # Local packages
 
 dev_dependencies:
   flutter_test:
@@ -29,7 +30,6 @@ dev_dependencies:
   build_runner:
   riverpod_generator:
   freezed:
-  json_serializable:
 
 flutter:
   generate: true

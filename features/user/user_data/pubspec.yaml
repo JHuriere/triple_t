@@ -14,6 +14,8 @@ dependencies:
   user_domain:
 
   hooks_riverpod:
+  freezed_annotation:
+  json_annotation:
 
 dev_dependencies:
   flutter_test:
@@ -23,3 +25,7 @@ dev_dependencies:
   tt_linter:
 
   mockito:
+
+  build_runner:
+  freezed:
+  json_serializable:

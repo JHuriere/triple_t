@@ -25,34 +25,6 @@ void main() {
           getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
           getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
           getCurrentGameRepositoryProvider.overrideWithValue(repo),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerOneWon).overrideWith((ref) => currentGame),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.playerTwoWon).overrideWith((ref) => currentGame),
-          updateCurrentGameStateUseCaseProvider(state: CurrentGameState.draw).overrideWith((ref) => currentGame),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.win,
-          ).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.lose,
-          ).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerOne.id,
-            opponentPlayerId: testPlayerTwo.id,
-            result: GameResult.draw,
-          ).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerTwo.id,
-            opponentPlayerId: testPlayerOne.id,
-            result: GameResult.lose,
-          ).overrideWith((ref) => null),
-          updateUserStatisticsUseCaseProvider(
-            currentPlayerId: testPlayerTwo.id,
-            opponentPlayerId: testPlayerOne.id,
-            result: GameResult.draw,
-          ).overrideWith((ref) => null),
         ],
       );
     }
@@ -85,7 +57,7 @@ void main() {
         final showOverlay = ValueNotifier<bool>(false);
         final gameWithWinner = testCurrentGameEntity.copyWith(
           elements: [testPlayerOne.emoticon, testPlayerOne.emoticon, testPlayerOne.emoticon, '', '', '', '', '', ''],
-          oTurn: true,
+          state: CurrentGameState.playerOneWon,
         );
 
         final newMockRepository = MockCurrentGameRepository();
@@ -102,7 +74,7 @@ void main() {
         // Assert
         final state = container.read(resultViewModelProvider);
         expect(state, isA<WinnerResultState>());
-        expect((state as WinnerResultState).winner, testPlayerTwo.name);
+        expect((state as WinnerResultState).winner, testPlayerOne.name);
       });
 
       test('should set no result state when game continues', () async {
@@ -110,7 +82,7 @@ void main() {
         final showOverlay = ValueNotifier<bool>(false);
         final ongoingGame = testCurrentGameEntity.copyWith(
           elements: [testPlayerOne.emoticon, '', '', '', '', '', '', '', ''],
-          oTurn: false,
+          state: CurrentGameState.inProgress,
         );
 
         final newMockRepository = MockCurrentGameRepository();
@@ -135,7 +107,7 @@ void main() {
         final showOverlay = ValueNotifier<bool>(false);
         final gameWithPlayerTwoWin = testCurrentGameEntity.copyWith(
           elements: [testPlayerTwo.emoticon, testPlayerTwo.emoticon, testPlayerTwo.emoticon, '', '', '', '', '', ''],
-          oTurn: false,
+          state: CurrentGameState.playerTwoWon,
         );
 
         final newMockRepository = MockCurrentGameRepository();
@@ -152,7 +124,7 @@ void main() {
         // Assert
         final state = container.read(resultViewModelProvider);
         expect(state, isA<WinnerResultState>());
-        expect((state as WinnerResultState).winner, testPlayerOne.name);
+        expect((state as WinnerResultState).winner, testPlayerTwo.name);
       });
     });
   });

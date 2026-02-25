@@ -93,60 +93,6 @@ void main() {
       });
     });
 
-    group('JSON serialization', () {
-      test('converts to JSON', () {
-        const entity = SettingsEntity(
-          id: 'test-id',
-          themeMode: ThemeMode.dark,
-          locale: 'en',
-        );
-
-        final json = entity.toJson();
-
-        expect(json['id'], 'test-id');
-        expect(json['themeMode'], 'dark');
-        expect(json['locale'], 'en');
-      });
-
-      test('creates entity from JSON', () {
-        final json = {
-          'id': 'test-id',
-          'themeMode': 'light',
-          'locale': 'es',
-        };
-
-        final entity = SettingsEntity.fromJson(json);
-
-        expect(entity.id, 'test-id');
-        expect(entity.themeMode, ThemeMode.light);
-        expect(entity.locale, 'es');
-      });
-
-      test('round-trips JSON serialization', () {
-        const originalEntity = SettingsEntity(
-          id: 'round-trip-id',
-          themeMode: ThemeMode.system,
-          locale: 'de',
-        );
-
-        final json = originalEntity.toJson();
-        final deserializedEntity = SettingsEntity.fromJson(json);
-
-        expect(deserializedEntity.id, originalEntity.id);
-        expect(deserializedEntity.themeMode, originalEntity.themeMode);
-        expect(deserializedEntity.locale, originalEntity.locale);
-      });
-
-      test('handles partial JSON with default values', () {
-        final json = {'id': 'partial-id'};
-
-        final entity = SettingsEntity.fromJson(json);
-
-        expect(entity.id, 'partial-id');
-        expect(entity.themeMode, ThemeMode.system);
-        expect(entity.locale, 'fr');
-      });
-    });
 
     group('equality', () {
       test('entities with same values are equal', () {
