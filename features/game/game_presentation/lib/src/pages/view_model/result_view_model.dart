@@ -16,7 +16,8 @@ class ResultViewModel extends _$ResultViewModel {
 
   Future<void> checkResult(ValueNotifier<bool> showOverlay) async {
     final (:currentGame, :playerOne, :playerTwo) = ref.read(currentGameViewModelProvider);
-    final combination = GameHelper.getWinningCombination(currentGame.elements);
+    final gameService = ref.read(gameServiceProvider);
+    final combination = gameService.getWinningCombination(currentGame.elements);
 
     if (combination != null) {
       final winner = currentGame.oTurn ? playerTwo.name : playerOne.name;

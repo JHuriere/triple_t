@@ -33,7 +33,11 @@ class CurrentGameViewModel extends _$CurrentGameViewModel {
     if (!currentGame.oTurn && currentGame.playerTwoId == 1) {
       await Future<void>.delayed(const Duration(milliseconds: 500));
       final elements = List<String>.from(currentGame.elements);
-      final aiMove = GameHelper.getBestAIMove(elements, playerOne.emoticon, playerTwo.emoticon);
+      final aiMove = ref.read(gameServiceProvider).calculateBestMove(
+            elements,
+            playerOne.emoticon,
+            playerTwo.emoticon,
+          );
       if (aiMove != null) {
         await playNextMove(aiMove);
         return true;
