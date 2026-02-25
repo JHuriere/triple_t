@@ -11,22 +11,22 @@ Future<void> syncGameUserUseCase(
   required int playerTwoId,
   required CurrentGameState state,
 }) async {
+  late Future<void> req1;
+  late Future<void> req2;
+
   if (state == CurrentGameState.playerOneWon) {
-    await _updateUserStats(ref, playerOneId, playerTwoId, GameResult.win);
-    await _updateUserStats(ref, playerTwoId, playerOneId, GameResult.lose);
+    req1 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerOneId, opponentPlayerId: playerTwoId, result: GameResult.win).future);
+    req2 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerTwoId, opponentPlayerId: playerOneId, result: GameResult.lose).future);
   } else if (state == CurrentGameState.playerTwoWon) {
-    await _updateUserStats(ref, playerOneId, playerTwoId, GameResult.lose);
-    await _updateUserStats(ref, playerTwoId, playerOneId, GameResult.win);
+    req1 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerOneId, opponentPlayerId: playerTwoId, result: GameResult.lose).future);
+    req2 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerTwoId, opponentPlayerId: playerOneId, result: GameResult.win).future);
   } else if (state == CurrentGameState.draw) {
-    await _updateUserStats(ref, playerOneId, playerTwoId, GameResult.draw);
-    await _updateUserStats(ref, playerTwoId, playerOneId, GameResult.draw);
+    req1 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerOneId, opponentPlayerId: playerTwoId, result: GameResult.draw).future);
+    req2 = ref.read(updateUserStatisticsUseCaseProvider(currentPlayerId: playerTwoId, opponentPlayerId: playerOneId, result: GameResult.draw).future);
+  } else {
+    return;
   }
+
+  await Future.wait([req1, req2]);
 }
 
-Future<void> _updateUserStats(Ref ref, int currentPlayerId, int opponentPlayerId, GameResult result) async {
-  await ref.read(updateUserStatisticsUseCaseProvider(
-    currentPlayerId: currentPlayerId,
-    opponentPlayerId: opponentPlayerId,
-    result: result,
-  ).future);
-}

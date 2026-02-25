@@ -6,40 +6,41 @@ part 'current_game_model.g.dart';
 
 @freezed
 abstract class CurrentGameModel with _$CurrentGameModel {
+  const CurrentGameModel._();
+
+  @JsonSerializable(explicitToJson: true)
   const factory CurrentGameModel({
-    @Default(['', '', '', '', '', '', '', '', '']) List<String> elements,
-    @Default(CurrentGameState.initial) CurrentGameState state,
-    @Default(true) bool oTurn,
-    @Default(2) int playerOneId,
-    @Default(1) int playerTwoId,
-    @Default(0) int playerOneWins,
-    @Default(0) int playerTwoWins,
-    @Default(0) int draws,
+    @JsonKey(name: 'elements') @Default(['', '', '', '', '', '', '', '', '']) List<String> elements,
+    @JsonKey(name: 'state') @Default(CurrentGameState.initial) CurrentGameState state,
+    @JsonKey(name: 'oTurn') @Default(true) bool oTurn,
+    @JsonKey(name: 'playerOneId') @Default(2) int playerOneId,
+    @JsonKey(name: 'playerTwoId') @Default(1) int playerTwoId,
+    @JsonKey(name: 'playerOneWins') @Default(0) int playerOneWins,
+    @JsonKey(name: 'playerTwoWins') @Default(0) int playerTwoWins,
+    @JsonKey(name: 'draws') @Default(0) int draws,
   }) = _CurrentGameModel;
 
   factory CurrentGameModel.fromJson(Map<String, dynamic> json) => _$CurrentGameModelFromJson(json);
 
-  const CurrentGameModel._();
-
   CurrentGameEntity toEntity() => CurrentGameEntity(
-        elements: elements,
-        state: state,
-        oTurn: oTurn,
-        playerOneId: playerOneId,
-        playerTwoId: playerTwoId,
-        playerOneWins: playerOneWins,
-        playerTwoWins: playerTwoWins,
-        draws: draws,
-      );
+    elements: elements,
+    state: state,
+    oTurn: oTurn,
+    playerOneId: playerOneId,
+    playerTwoId: playerTwoId,
+    playerOneWins: playerOneWins,
+    playerTwoWins: playerTwoWins,
+    draws: draws,
+  );
 
   factory CurrentGameModel.fromEntity(CurrentGameEntity entity) => CurrentGameModel(
-        elements: entity.elements,
-        state: entity.state,
-        oTurn: entity.oTurn,
-        playerOneId: entity.playerOneId,
-        playerTwoId: entity.playerTwoId,
-        playerOneWins: entity.playerOneWins,
-        playerTwoWins: entity.playerTwoWins,
-        draws: entity.draws,
-      );
+    elements: entity.elements,
+    state: entity.state,
+    oTurn: entity.oTurn,
+    playerOneId: entity.playerOneId,
+    playerTwoId: entity.playerTwoId,
+    playerOneWins: entity.playerOneWins,
+    playerTwoWins: entity.playerTwoWins,
+    draws: entity.draws,
+  );
 }

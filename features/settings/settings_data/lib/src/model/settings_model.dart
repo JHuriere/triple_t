@@ -7,25 +7,26 @@ part 'settings_model.g.dart';
 
 @freezed
 abstract class SettingsModel with _$SettingsModel {
+  const SettingsModel._();
+
+  @JsonSerializable(explicitToJson: true)
   const factory SettingsModel({
-    @Default('') String id,
-    @Default(ThemeMode.system) ThemeMode themeMode,
-    @Default('fr') String locale,
+    @JsonKey(name: 'id') @Default('') String id,
+    @JsonKey(name: 'themeMode') @Default(ThemeMode.system) ThemeMode themeMode,
+    @JsonKey(name: 'locale') @Default('fr') String locale,
   }) = _SettingsModel;
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) => _$SettingsModelFromJson(json);
 
-  const SettingsModel._();
-
   SettingsEntity toEntity() => SettingsEntity(
-        id: id,
-        themeMode: themeMode,
-        locale: locale,
-      );
+    id: id,
+    themeMode: themeMode,
+    locale: locale,
+  );
 
   factory SettingsModel.fromEntity(SettingsEntity entity) => SettingsModel(
-        id: entity.id,
-        themeMode: entity.themeMode,
-        locale: entity.locale,
-      );
+    id: entity.id,
+    themeMode: entity.themeMode,
+    locale: entity.locale,
+  );
 }

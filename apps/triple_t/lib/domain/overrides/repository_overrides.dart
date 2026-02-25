@@ -3,7 +3,7 @@ import 'package:game_domain/game_domain.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:settings_data/settings_data.dart';
 import 'package:settings_domain/settings_domain.dart';
-import 'package:triple_t/data/database_provider.dart';
+import 'package:triple_t/data/provider/database_provider.dart';
 import 'package:user_data/user_data.dart';
 import 'package:user_domain/user_domain.dart';
 

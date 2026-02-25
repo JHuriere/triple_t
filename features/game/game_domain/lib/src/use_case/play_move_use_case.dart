@@ -7,9 +7,9 @@ part 'play_move_use_case.g.dart';
 Future<CurrentGameEntity> playMoveUseCase(Ref ref, {required int index, required String emoticon}) async {
   final repository = ref.watch(getCurrentGameRepositoryProvider);
   final gameService = ref.read(gameServiceProvider);
-  
+
   final entity = repository.get();
-  
+
   // 1. Validation: check if game is already finished or square is occupied
   if (entity.state != CurrentGameState.initial && entity.state != CurrentGameState.inProgress) {
     return entity;
@@ -42,17 +42,11 @@ Future<CurrentGameEntity> playMoveUseCase(Ref ref, {required int index, required
     updatedEntity = updatedEntity.copyWith(oTurn: !entity.oTurn, state: CurrentGameState.inProgress);
   }
 
-  // 5. Save updated game
-  final savedEntity = await repository.save(updatedEntity);
-
-  // 6. Update user statistics if game finished
+  // 5. Update user statistics if game finished
   if (newState != CurrentGameState.inProgress) {
-    await ref.read(notifyGameResultUseCaseProvider(
-      playerOneId: entity.playerOneId,
-      playerTwoId: entity.playerTwoId,
-      state: newState,
-    ).future);
+    await ref.read(notifyGameResultUseCaseProvider(playerOneId: entity.playerOneId, playerTwoId: entity.playerTwoId, state: newState).future);
   }
 
-  return savedEntity;
+  // 6. Save updated game
+  return await repository.save(updatedEntity);
 }

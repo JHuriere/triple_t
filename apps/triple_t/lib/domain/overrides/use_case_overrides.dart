@@ -4,12 +4,14 @@ import 'package:triple_t/domain/use_case/sync_game_user_use_case.dart';
 
 sealed class UseCaseOverrides {
   static List<Override> get() => [
-        notifyGameResultUseCaseProvider.overrideWith((ref, argument) {
-          return ref.read(syncGameUserUseCaseProvider(
-            playerOneId: argument.playerOneId,
-            playerTwoId: argument.playerTwoId,
-            state: argument.state,
-          ).future);
-        }),
-      ];
+    notifyGameResultUseCaseProvider.overrideWith(
+      (ref, argument) => ref.read(
+        syncGameUserUseCaseProvider(
+          playerOneId: argument.playerOneId,
+          playerTwoId: argument.playerTwoId,
+          state: argument.state,
+        ).future,
+      ),
+    ),
+  ];
 }

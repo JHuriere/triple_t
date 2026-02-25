@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:statistics_presentation/src/pages/model/user_stats_model.dart';
 import 'package:statistics_presentation/src/pages/widget/leaderboard_header.dart';
 import 'package:statistics_presentation/src/pages/widget/user_stat_card.dart';
+import 'package:user_domain/user_domain.dart';
 
 class GlobalStatisticsView extends HookConsumerWidget {
-  final List<UserStatsModel> userStats;
+  final List<GlobalUserStatisticsEntity> userStats;
 
   const GlobalStatisticsView({
     super.key,
