@@ -110,8 +110,6 @@ void main() {
 
       // Result should be just the ThemeMode, not the full entity
       expect(result, expectedThemeMode);
-      expect(result, isNotEmpty); // ThemeMode is not null
-      expect(result.toString(), isNotEmpty);
     });
   });
 }

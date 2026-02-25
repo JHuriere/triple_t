@@ -33,7 +33,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(GestureDetector), findsWidgets);
@@ -60,7 +60,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(Text), findsWidgets);
@@ -84,12 +84,12 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       final cells = find.byType(GestureDetector);
       if (cells.evaluate().isNotEmpty) {
         await tester.tap(cells.first);
-        await tester.pumpAndSettle();
+        await tester.pump();
       }
 
       // Assert
@@ -117,7 +117,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(Text), findsWidgets);
@@ -141,7 +141,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(GameGrid), findsOneWidget);
@@ -165,7 +165,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(Container), findsWidgets);
@@ -190,7 +190,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(GridView), findsOneWidget);

@@ -15,7 +15,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(Text), findsWidgets);
@@ -30,7 +30,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(ElevatedButton), findsWidgets);
@@ -45,12 +45,12 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       final button = find.byType(ElevatedButton);
       if (button.evaluate().isNotEmpty) {
         await tester.tap(button.first);
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(milliseconds: 100));
       }
 
       // Assert
@@ -66,7 +66,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(Stack), findsWidgets);
@@ -81,7 +81,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(Text), findsWidgets);
@@ -96,7 +96,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(Center), findsWidgets);
@@ -111,7 +111,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(Container), findsWidgets);

@@ -25,7 +25,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(DropdownButton), findsOneWidget);
@@ -49,7 +49,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.text(label), findsWidgets);
@@ -72,7 +72,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(DropdownButton), findsOneWidget);
@@ -96,7 +96,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(DropdownButton), findsOneWidget);
@@ -120,7 +120,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(DropdownButton), findsOneWidget);
@@ -143,7 +143,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 100));
 
       // Assert
       expect(find.byType(DropdownButton), findsOneWidget);

@@ -30,7 +30,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(SizedBox), findsWidgets);
@@ -52,7 +52,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(OverlayView), findsOneWidget);
@@ -74,7 +74,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(OverlayView), findsOneWidget);
@@ -101,7 +101,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert - Should show SizedBox.shrink since showOverlay is false
       expect(find.byType(SizedBox), findsWidgets);
@@ -145,7 +145,7 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(OverlayView), findsOneWidget);
@@ -173,7 +173,8 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
+      // WinnerOverlay has confetti animation of 3 seconds, so we pump for that duration
+      await tester.pump(const Duration(seconds: 4));
 
       // Assert
       expect(find.byType(OverlayView), findsOneWidget);

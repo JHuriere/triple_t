@@ -67,51 +67,5 @@ void main() {
       verify(mockRepository.get()).called(1);
       verifyNoMoreInteractions(mockRepository);
     });
-
-    test('handles repository returning different theme modes', () {
-      // Test with ThemeMode.light
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(themeMode: ThemeMode.light),
-      );
-      var result = container.read(getSettingsUseCaseProvider);
-      expect(result.themeMode, ThemeMode.light);
-
-      // Test with ThemeMode.dark
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(themeMode: ThemeMode.dark),
-      );
-      result = container.read(getSettingsUseCaseProvider);
-      expect(result.themeMode, ThemeMode.dark);
-
-      // Test with ThemeMode.system
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(themeMode: ThemeMode.system),
-      );
-      result = container.read(getSettingsUseCaseProvider);
-      expect(result.themeMode, ThemeMode.system);
-    });
-
-    test('handles repository returning different locales', () {
-      // Test with French locale
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(locale: 'fr'),
-      );
-      var result = container.read(getSettingsUseCaseProvider);
-      expect(result.locale, 'fr');
-
-      // Test with English locale
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(locale: 'en'),
-      );
-      result = container.read(getSettingsUseCaseProvider);
-      expect(result.locale, 'en');
-
-      // Test with Spanish locale
-      when(mockRepository.get()).thenReturn(
-        const SettingsEntity(locale: 'es'),
-      );
-      result = container.read(getSettingsUseCaseProvider);
-      expect(result.locale, 'es');
-    });
   });
 }

@@ -21,6 +21,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
       ];
 
       // Act
@@ -47,6 +48,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(gameWithTurn),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
       ];
 
       // Act
@@ -71,6 +73,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
       ];
 
       // Act
@@ -102,6 +105,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testGameInitial),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
       ];
 
       // Act
@@ -126,6 +130,7 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testGameDraw),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
       ];
 
       // Act

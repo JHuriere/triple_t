@@ -19,6 +19,8 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
       ];
 
       // Act
@@ -40,6 +42,8 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testCurrentGameEntity),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
       ];
 
       // Act
@@ -105,6 +109,8 @@ void main() {
         getCurrentGameUseCaseProvider.overrideWithValue(testGameInitial),
         getUserByIdUseCaseProvider(testPlayerOne.id).overrideWithValue(testPlayerOne),
         getUserByIdUseCaseProvider(testPlayerTwo.id).overrideWithValue(testPlayerTwo),
+        getAllUsersUseCaseProvider.overrideWithValue([testPlayerOne, testPlayerTwo]),
+        resultViewModelProvider.overrideWithValue(InitialResultState()),
       ];
 
       // Act
@@ -114,7 +120,7 @@ void main() {
           overrides: overrides,
         ),
       );
-      await tester.pumpAndSettle();
+      await tester.pump();
 
       // Assert
       expect(find.byType(GamePage), findsOneWidget);
